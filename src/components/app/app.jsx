@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Main} from '../main/main.jsx';
 
-export const App = (props) => {
-  const {offersAmount} = props;
-  const {offersNames} = props;
+export const App = ({offersAmount, offersNames}) => {
 
   return (
     <React.Fragment>
@@ -17,6 +15,6 @@ export const App = (props) => {
 };
 
 App.propTypes = {
-  offersAmount: PropTypes.string,
-  offersNames: PropTypes.arrayOf(PropTypes.string)
+  offersAmount: PropTypes.string.isRequired,
+  offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };

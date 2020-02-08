@@ -48,5 +48,5 @@ export const OfferCard = (props) => {
 };
 
 OfferCard.propTypes = {
-  offerName: PropTypes.string
+  offerName: PropTypes.string.isRequired
 };

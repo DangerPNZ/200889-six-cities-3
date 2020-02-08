@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {OffersList} from '../offers-list/offers-list.jsx';
 
-export const Main = (props) => {
-  const {offersAmount} = props;
-  const {offersNames} = props;
+export const Main = ({offersAmount, offersNames}) => {
 
   return (
     <div className="page page--gray page--main">
@@ -280,6 +278,6 @@ export const Main = (props) => {
 };
 
 Main.propTypes = {
-  offersAmount: PropTypes.string,
-  offersNames: PropTypes.arrayOf(PropTypes.string)
+  offersAmount: PropTypes.string.isRequired,
+  offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };

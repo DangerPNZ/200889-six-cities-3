@@ -21,5 +21,5 @@ export const OffersList = (props) => {
 };
 
 OffersList.propTypes = {
-  offersNames: PropTypes.arrayOf(PropTypes.string)
+  offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
