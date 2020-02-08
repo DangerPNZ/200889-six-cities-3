@@ -1,14 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {OffersList} from '../offers-list/offers-list.jsx';
 
-const setStyleWidth = (widthValue) => {
-  return {
-    width: widthValue
-  };
-};
-
-export const Main = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const {offersAmount} = props;
+export const Main = ({offersAmount, offersNames}) => {
 
   return (
     <div className="page page--gray page--main">
@@ -101,7 +95,11 @@ export const Main = (props) => {
                 </select> */}
 
               </form>
-              <div className="cities__places-list places__list tabs__content">
+
+              <OffersList offersNames = {offersNames}/>
+
+              {/* Сохранено с исходными значениями */}
+              {/* <div className="cities__places-list places__list tabs__content">
                 <article className="cities__place-card place-card">
                   <div className="place-card__mark">
                     <span>Premium</span>
@@ -267,7 +265,7 @@ export const Main = (props) => {
                     <p className="place-card__type">Private room</p>
                   </div>
                 </article>
-              </div>
+              </div> */}
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
@@ -277,4 +275,9 @@ export const Main = (props) => {
       </main>
     </div>
   );
+};
+
+Main.propTypes = {
+  offersAmount: PropTypes.string.isRequired,
+  offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
