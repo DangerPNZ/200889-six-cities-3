@@ -280,5 +280,5 @@ export const Main = ({offersAmount, offersNames, headingsHandler}) => {
 Main.propTypes = {
   offersAmount: PropTypes.string.isRequired,
   offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  headingsHandler: PropTypes.func.isRequired
+  headingsHandler: PropTypes.func
 };

@@ -18,5 +18,5 @@ export const App = ({offersAmount, offersNames, headingsHandler}) => {
 App.propTypes = {
   offersAmount: PropTypes.string.isRequired,
   offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  headingsHandler: PropTypes.func.isRequired
+  headingsHandler: PropTypes.func
 };
