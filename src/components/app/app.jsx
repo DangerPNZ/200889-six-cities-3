@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Main} from '../main/main.jsx';
 
-export const App = ({offersAmount, offersNames, headingsHandler}) => {
+export const App = ({offersAmount, offersNames}) => {
+  const HEADING_HANDLER = () => {};
 
   return (
     <React.Fragment>
       <Main
         offersAmount = {offersAmount}
         offersNames = {offersNames}
-        headingsHandler = {headingsHandler}
+        headingsHandler = {HEADING_HANDLER}
       />
     </React.Fragment>
   );
