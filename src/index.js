@@ -1,17 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import {App} from "./components/app/app.jsx";
-
-const DataValue = {
-  OFFERS_AMOUNT: `555`,
-  OFFERS_NAMES: [
-    `Beautiful & luxurious apartment at great location`,
-    `Wood and stone place`,
-    `Canal View Prinsengracht`,
-    `Nice, cozy, warm big bed apartment`,
-    `Wood and stone place`
-  ]
-};
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {App} from './components/app/app.jsx';
+import {DataValue} from './mocks/offers.js';
 
 ReactDOM.render(
     <App

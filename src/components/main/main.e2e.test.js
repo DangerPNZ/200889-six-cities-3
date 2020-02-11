@@ -28,9 +28,8 @@ it(`Main component e2e test`, () => {
   const headingLvlOne = main.find(`h1`);
   const headingLvlSecond = main.find(`h2`);
 
-  /* метод simulate будет рассмотрен в дальнейших лекциях. А пока был дан вот такой пример */
-  headingLvlOne.props().onClick();
-  headingLvlSecond.props().onClick();
+  headingLvlOne.simulate(`click`, headingsHandler);
+  headingLvlSecond.simulate(`click`, headingsHandler);
 
   expect(headingsHandler.mock.calls.length).toBe(2);
 });
