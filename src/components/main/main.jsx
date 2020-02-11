@@ -96,7 +96,9 @@ export const Main = ({offersAmount, offersNames, headingsHandler}) => {
 
               </form>
 
-              <OffersList offersNames = {offersNames}/>
+              <OffersList
+                offersNames = {offersNames}
+              />
 
               {/* Сохранено с исходными значениями */}
               {/* <div className="cities__places-list places__list tabs__content">
