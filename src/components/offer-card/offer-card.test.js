@@ -13,6 +13,7 @@ it(`OfferCard component structure test`, () => {
   .create(
       <OfferCard
         offerName = {TestDataValue.OFFER_NAME}
+        onUpdateState = {() => {}}
       />
   ).toJSON();
 
