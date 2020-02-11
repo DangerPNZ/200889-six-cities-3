@@ -11,15 +11,21 @@ export class OfferCard extends React.PureComponent {
   constructor(props) {
     super(props);
   }
-  handleMouseHover(value) {
-    return () => {
-      this.props.onUpdateState(value);
-      return value;
-    };
-  }
+
   render() {
     return (
-      <article className="cities__place-card place-card" onMouseEnter={this.handleMouseHover(this.props.offerName)} onMouseLeave={this.handleMouseHover()}>
+      <article className="cities__place-card place-card"
+        onMouseEnter={
+          () => {
+            this.props.onUpdateState(this.props.offerName);
+          }
+        }
+        onMouseLeave={
+          () => {
+            this.props.onUpdateState(null);
+          }
+        }
+      >
         <div className="place-card__mark">
           <span>Premium</span>
         </div>

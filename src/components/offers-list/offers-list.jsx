@@ -14,8 +14,10 @@ export class OffersList extends React.PureComponent {
     this.state = {
       activeItemData: null
     };
+    this.onUpdateState = this.onUpdateState.bind(this);
   }
-  onUpdateState(activeItemData = null) {
+  /* для обнуления состояния передать null */
+  onUpdateState(activeItemData) {
     this.setState({
       activeItemData
     });
@@ -26,7 +28,7 @@ export class OffersList extends React.PureComponent {
         {
           this.props.offersNames.map((name) => <OfferCard
             offerName = {name}
-            onUpdateState = {this.onUpdateState.bind(this)}
+            onUpdateState = {this.onUpdateState}
             key = {getId()}
           />)
         }
