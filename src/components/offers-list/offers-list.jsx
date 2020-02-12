@@ -14,13 +14,7 @@ export class OffersList extends React.PureComponent {
     this.state = {
       activeItemData: null
     };
-    this.onUpdateState = this.onUpdateState.bind(this);
-  }
-  /* для обнуления состояния передать null */
-  onUpdateState(activeItemData) {
-    this.setState({
-      activeItemData
-    });
+    this.onUpdateOffersListState = this.onUpdateOffersListState.bind(this);
   }
   render() {
     return (
@@ -28,15 +22,23 @@ export class OffersList extends React.PureComponent {
         {
           this.props.offersNames.map((name) => <OfferCard
             offerName = {name}
-            onUpdateState = {this.onUpdateState}
+            onUpdateOffersListState = {this.onUpdateOffersListState}
+            onUpdateAppState = {this.props.onUpdateAppState}
             key = {getId()}
           />)
         }
       </div>
     );
   }
+  /* для обнуления состояния передать null */
+  onUpdateOffersListState(activeItemData) {
+    this.setState({
+      activeItemData
+    });
+  }
 }
 
 OffersList.propTypes = {
-  offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  onUpdateAppState: PropTypes.func.isRequired
 };

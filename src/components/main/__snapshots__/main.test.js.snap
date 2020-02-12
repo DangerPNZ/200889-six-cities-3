@@ -61,6 +61,7 @@ exports[`Main component structure test 1`] = `
   >
     <h1
       className="visually-hidden"
+      onClick={[Function]}
     >
       Cities
     </h1>
@@ -158,6 +159,7 @@ exports[`Main component structure test 1`] = `
         >
           <h2
             className="visually-hidden"
+            onClick={[Function]}
           >
             Places
           </h2>
@@ -313,6 +315,7 @@ exports[`Main component structure test 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
+                  onClick={[Function]}
                 >
                   <a
                     href="#"
@@ -416,6 +419,7 @@ exports[`Main component structure test 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
+                  onClick={[Function]}
                 >
                   <a
                     href="#"
@@ -519,6 +523,7 @@ exports[`Main component structure test 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
+                  onClick={[Function]}
                 >
                   <a
                     href="#"

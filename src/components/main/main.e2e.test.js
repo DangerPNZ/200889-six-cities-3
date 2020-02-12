@@ -23,6 +23,7 @@ it(`Main component e2e test`, () => {
         offersAmount = {TestDataValue.OFFERS_AMOUNT}
         offersNames = {TestDataValue.OFFERS_NAMES}
         headingsHandler = {headingsHandler}
+        onUpdateAppState = {() => {}}
       />
   );
   const headingLvlOne = main.find(`h1`);

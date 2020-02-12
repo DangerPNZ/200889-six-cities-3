@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {OffersList} from '../offers-list/offers-list.jsx';
 
-export const Main = ({offersAmount, offersNames, headingsHandler}) => {
+export const Main = ({offersAmount, offersNames, headingsHandler, onUpdateAppState}) => {
 
   return (
     <div className="page page--gray page--main">
@@ -98,6 +98,7 @@ export const Main = ({offersAmount, offersNames, headingsHandler}) => {
 
               <OffersList
                 offersNames = {offersNames}
+                onUpdateAppState = {onUpdateAppState}
               />
 
               {/* Сохранено с исходными значениями */}
@@ -282,5 +283,6 @@ export const Main = ({offersAmount, offersNames, headingsHandler}) => {
 Main.propTypes = {
   offersAmount: PropTypes.string.isRequired,
   offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  headingsHandler: PropTypes.func
+  headingsHandler: PropTypes.func.isRequired,
+  onUpdateAppState: PropTypes.func.isRequired
 };

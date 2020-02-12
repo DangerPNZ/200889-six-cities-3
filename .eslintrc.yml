@@ -18,3 +18,13 @@ plugins: ['react']
 settings:
   react:
     version: '16'
+
+rules:
+  react/sort-comp: [1, {
+  order: [
+    'lifecycle',
+    'instance-methods',
+    'render',
+    'static-methods'
+  ]
+}]

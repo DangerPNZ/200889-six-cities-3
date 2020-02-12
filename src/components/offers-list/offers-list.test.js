@@ -2,8 +2,6 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {OffersList} from './offers-list.jsx';
 
-/* На вебинаре рекомендовалось использовать разные моки для теста компонентов.
-Иначе, было бы разумнее импортировать один и тот же из utils */
 const TestDataValue = {
   OFFERS_NAMES: [
     `Family apartments`,
@@ -17,6 +15,7 @@ it(`OffersList component structure test`, () => {
   .create(
       <OffersList
         offersNames = {TestDataValue.OFFERS_NAMES}
+        onUpdateAppState = {() => {}}
       />
   ).toJSON();
 
