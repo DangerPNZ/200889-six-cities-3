@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const URL_DETAILS_ENDPOINT = `/offer`;
 
 export class OfferCard extends React.PureComponent {
   constructor(props) {
@@ -50,7 +49,7 @@ export class OfferCard extends React.PureComponent {
             </div>
           </div>
           <h2 className="place-card__name"
-            onClick={() => this.props.onUpdateAppState(URL_DETAILS_ENDPOINT, this.props.offerName)}
+            onClick={() => this.props.onUpdateAppState(this.props.offerName, `/offer`)}
           >
             <a href="#">{this.props.offerName}</a>
           </h2>

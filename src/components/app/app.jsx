@@ -5,6 +5,7 @@ import {OfferDetails} from '../offer-details/offer-details.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 const HEADING_HANDLER = () => {};
+const URL_DETAILS_ENDPOINT = `/offer`;
 
 export class App extends React.PureComponent {
   constructor(props) {
@@ -20,16 +21,7 @@ export class App extends React.PureComponent {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {
-              <React.Fragment>
-                <Main
-                  offersAmount = {this.props.offersAmount}
-                  offersNames = {this.props.offersNames}
-                  headingsHandler = {HEADING_HANDLER}
-                  onUpdateAppState = {this.onUpdateAppState}
-                />
-              </React.Fragment>
-            }
+            {this.getScreen()}
           </Route>
           <Route exact path="/offer">
             <OfferDetails
@@ -40,12 +32,29 @@ export class App extends React.PureComponent {
       </BrowserRouter>
     );
   }
-  onUpdateAppState(path, selectedOfferName) {
+  getScreen() {
+    let component = null;
+    switch (this.state.path) {
+      case `/`:
+        component = <Main
+          offersAmount = {this.props.offersAmount}
+          offersNames = {this.props.offersNames}
+          headingsHandler = {HEADING_HANDLER}
+          onUpdateAppState = {this.onUpdateAppState}
+        />;
+        break;
+      case URL_DETAILS_ENDPOINT:
+        component = <OfferDetails
+          offerName = {this.state.selectedOfferName}
+        />;
+        break;
+    }
+    return component;
+  }
+  onUpdateAppState(selectedOfferName, path) {
     this.setState({
-      path,
-      selectedOfferName
-    }, () => {
-      window.location = `${window.location.origin}${path}`;
+      selectedOfferName,
+      path
     });
   }
 }
