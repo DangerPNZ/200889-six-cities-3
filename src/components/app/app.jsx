@@ -5,14 +5,12 @@ import {OfferDetails} from '../offer-details/offer-details.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 const HEADING_HANDLER = () => {};
-const URL_DETAILS_ENDPOINT = `/offer`;
 
 export class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      path: `/`,
-      selectedOfferName: ``
+      selectedOfferName: null
     };
     this.onUpdateAppState = this.onUpdateAppState.bind(this);
   }
@@ -34,27 +32,24 @@ export class App extends React.PureComponent {
   }
   getScreen() {
     let component = null;
-    switch (this.state.path) {
-      case `/`:
-        component = <Main
-          offersAmount = {this.props.offersAmount}
-          offersNames = {this.props.offersNames}
-          headingsHandler = {HEADING_HANDLER}
-          onUpdateAppState = {this.onUpdateAppState}
-        />;
-        break;
-      case URL_DETAILS_ENDPOINT:
-        component = <OfferDetails
-          offerName = {this.state.selectedOfferName}
-        />;
-        break;
+    if (this.state.selectedOfferName) {
+      component = <OfferDetails
+        offerName = {this.state.selectedOfferName}
+      />;
+    } else {
+      component = <Main
+        offersAmount = {this.props.offersAmount}
+        offersNames = {this.props.offersNames}
+        headingsHandler = {HEADING_HANDLER}
+        onUpdateAppState = {this.onUpdateAppState}
+      />;
     }
     return component;
   }
-  onUpdateAppState(selectedOfferName, path) {
+  onUpdateAppState(selectedOfferName) {
+    /* передать null для возврата к главному экрану */
     this.setState({
-      selectedOfferName,
-      path
+      selectedOfferName
     });
   }
 }

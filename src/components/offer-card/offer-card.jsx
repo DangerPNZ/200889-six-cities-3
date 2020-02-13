@@ -49,7 +49,7 @@ export class OfferCard extends React.PureComponent {
             </div>
           </div>
           <h2 className="place-card__name"
-            onClick={() => this.props.onUpdateAppState(this.props.offerName, `/offer`)}
+            onClick={() => this.props.onUpdateAppState(this.props.offerName)}
           >
             <a href="#">{this.props.offerName}</a>
           </h2>
