@@ -29,8 +29,8 @@ it(`Main component e2e test`, () => {
   const headingLvlOne = main.find(`h1`);
   const headingLvlSecond = main.find(`h2`);
 
-  headingLvlOne.simulate(`click`, headingsHandler);
-  headingLvlSecond.simulate(`click`, headingsHandler);
+  headingLvlOne.simulate(`click`);
+  headingLvlSecond.simulate(`click`);
 
   expect(headingsHandler.mock.calls.length).toBe(2);
 });
