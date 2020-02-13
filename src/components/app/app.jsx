@@ -4,15 +4,13 @@ import {Main} from '../main/main.jsx';
 import {OfferDetails} from '../offer-details/offer-details.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
-const HEADING_HANDLER = () => {};
-
 export class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOfferName: null
+      selectedOfferName: ``
     };
-    this.onUpdateAppState = this.onUpdateAppState.bind(this);
+    this.onOfferHeadingClick = this.onOfferHeadingClick.bind(this);
   }
   render() {
     return (
@@ -40,13 +38,12 @@ export class App extends React.PureComponent {
       component = <Main
         offersAmount = {this.props.offersAmount}
         offersNames = {this.props.offersNames}
-        headingsHandler = {HEADING_HANDLER}
-        onUpdateAppState = {this.onUpdateAppState}
+        onOfferHeadingClick = {this.onOfferHeadingClick}
       />;
     }
     return component;
   }
-  onUpdateAppState(selectedOfferName) {
+  onOfferHeadingClick(selectedOfferName) {
     /* передать null для возврата к главному экрану */
     this.setState({
       selectedOfferName

@@ -17,8 +17,8 @@ it(`OfferCard component e2e test`, () => {
   const card = shallow(
       <OfferCard
         offerName = {TestDataValue.OFFER_NAME}
-        onUpdateOffersListState = {handleMouseEnter}
-        onUpdateAppState = {handleHeadingHandler}
+        onOfferMouseInteract = {handleMouseEnter}
+        onOfferHeadingClick = {handleHeadingHandler}
       />
   );
   const cardHeading = card.find(`.place-card__name`);

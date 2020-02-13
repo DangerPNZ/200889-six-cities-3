@@ -12,12 +12,12 @@ export class OfferCard extends React.PureComponent {
       <article className="cities__place-card place-card"
         onMouseEnter={
           () => {
-            this.props.onUpdateOffersListState(this.props.offerName);
+            this.props.onOfferMouseInteract(this.props.offerName);
           }
         }
         onMouseLeave={
           () => {
-            this.props.onUpdateOffersListState(null);
+            this.props.onOfferMouseInteract(null);
           }
         }
       >
@@ -49,7 +49,7 @@ export class OfferCard extends React.PureComponent {
             </div>
           </div>
           <h2 className="place-card__name"
-            onClick={() => this.props.onUpdateAppState(this.props.offerName)}
+            onClick={() => this.props.onOfferHeadingClick(this.props.offerName)}
           >
             <a href="#">{this.props.offerName}</a>
           </h2>
@@ -62,6 +62,6 @@ export class OfferCard extends React.PureComponent {
 
 OfferCard.propTypes = {
   offerName: PropTypes.string.isRequired,
-  onUpdateOffersListState: PropTypes.func.isRequired,
-  onUpdateAppState: PropTypes.func.isRequired
+  onOfferMouseInteract: PropTypes.func.isRequired,
+  onOfferHeadingClick: PropTypes.func.isRequired
 };

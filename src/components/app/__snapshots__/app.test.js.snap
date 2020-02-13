@@ -61,7 +61,6 @@ exports[`App component structure test 1`] = `
   >
     <h1
       className="visually-hidden"
-      onClick={[Function]}
     >
       Cities
     </h1>
@@ -159,7 +158,6 @@ exports[`App component structure test 1`] = `
         >
           <h2
             className="visually-hidden"
-            onClick={[Function]}
           >
             Places
           </h2>

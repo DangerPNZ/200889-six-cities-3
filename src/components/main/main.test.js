@@ -17,8 +17,7 @@ it(`Main component structure test`, () => {
       <Main
         offersAmount = {TestDataValue.OFFERS_AMOUNT}
         offersNames = {TestDataValue.OFFERS_NAMES}
-        headingsHandler = {() => {}}
-        onUpdateAppState = {() => {}}
+        onOfferHeadingClick = {() => {}}
       />
   ).toJSON();
 

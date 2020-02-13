@@ -15,7 +15,7 @@ it(`OffersList component structure test`, () => {
   .create(
       <OffersList
         offersNames = {TestDataValue.OFFERS_NAMES}
-        onUpdateAppState = {() => {}}
+        onOfferHeadingClick = {() => {}}
       />
   ).toJSON();
 

@@ -11,8 +11,8 @@ it(`OfferCard component structure test`, () => {
   .create(
       <OfferCard
         offerName = {TestDataValue.OFFER_NAME}
-        onUpdateOffersListState = {() => {}}
-        onUpdateAppState = {() => {}}
+        onOfferMouseInteract = {() => {}}
+        onOfferHeadingClick = {() => {}}
       />
   ).toJSON();
 
