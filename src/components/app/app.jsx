@@ -8,7 +8,7 @@ export class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOfferName: ``
+      selectedOfferName: null
     };
     this.onOfferHeadingClick = this.onOfferHeadingClick.bind(this);
   }

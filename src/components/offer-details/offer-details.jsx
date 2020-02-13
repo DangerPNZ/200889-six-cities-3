@@ -328,5 +328,5 @@ export const OfferDetails = ({offerName}) => {
 };
 
 OfferDetails.propTypes = {
-  offerName: PropTypes.string.isRequired
+  offerName: PropTypes.string
 };
