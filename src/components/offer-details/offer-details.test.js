@@ -1,18 +1,16 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {OfferCard} from './offer-card.jsx';
+import {OfferDetails} from './offer-details.jsx';
 
 const TestDataValue = {
-  OFFER_NAME: `House with pool`
+  OFFER_NAME: `Party apartment`
 };
 
 it(`OfferCard component structure test`, () => {
   const tree = renderer
   .create(
-      <OfferCard
+      <OfferDetails
         offerName = {TestDataValue.OFFER_NAME}
-        onOfferMouseInteract = {() => {}}
-        onOfferHeadingClick = {() => {}}
       />
   ).toJSON();
 

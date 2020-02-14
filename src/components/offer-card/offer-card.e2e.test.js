@@ -13,14 +13,21 @@ Enzume.configure({
 
 it(`OfferCard component e2e test`, () => {
   const handleMouseEnter = jest.fn();
+  const handleHeadingHandler = jest.fn();
   const card = shallow(
       <OfferCard
         offerName = {TestDataValue.OFFER_NAME}
-        onUpdateState = {handleMouseEnter}
+        onOfferMouseInteract = {handleMouseEnter}
+        onOfferHeadingClick = {handleHeadingHandler}
       />
   );
-  card.simulate(`mouseenter`, handleMouseEnter);
+  const cardHeading = card.find(`.place-card__name`);
+  card.simulate(`mouseenter`);
+  card.simulate(`mouseleave`);
+  cardHeading.simulate(`click`);
   expect(handleMouseEnter.mock.calls[0][0]).toBe(TestDataValue.OFFER_NAME);
-  expect(handleMouseEnter.mock.calls.length).toBe(1);
+  expect(handleMouseEnter.mock.calls[1][0]).toBe(null);
+  expect(handleMouseEnter.mock.calls.length).toBe(2);
+  expect(handleHeadingHandler.mock.calls.length).toBe(1);
 });
 

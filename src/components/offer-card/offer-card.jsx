@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const setStyleWidth = (widthValue = `80%`) => {
-  return {
-    width: widthValue
-  };
-};
 
 export class OfferCard extends React.PureComponent {
   constructor(props) {
@@ -17,12 +12,12 @@ export class OfferCard extends React.PureComponent {
       <article className="cities__place-card place-card"
         onMouseEnter={
           () => {
-            this.props.onUpdateState(this.props.offerName);
+            this.props.onOfferMouseInteract(this.props.offerName);
           }
         }
         onMouseLeave={
           () => {
-            this.props.onUpdateState(null);
+            this.props.onOfferMouseInteract(null);
           }
         }
       >
@@ -49,11 +44,13 @@ export class OfferCard extends React.PureComponent {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={setStyleWidth()}></span>
+              <span style={{width: `80%`}}></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
-          <h2 className="place-card__name">
+          <h2 className="place-card__name"
+            onClick={() => this.props.onOfferHeadingClick(this.props.offerName)}
+          >
             <a href="#">{this.props.offerName}</a>
           </h2>
           <p className="place-card__type">Apartment</p>
@@ -65,5 +62,6 @@ export class OfferCard extends React.PureComponent {
 
 OfferCard.propTypes = {
   offerName: PropTypes.string.isRequired,
-  onUpdateState: PropTypes.func.isRequired
+  onOfferMouseInteract: PropTypes.func.isRequired,
+  onOfferHeadingClick: PropTypes.func.isRequired
 };

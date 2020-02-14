@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {OffersList} from '../offers-list/offers-list.jsx';
 
-export const Main = ({offersAmount, offersNames, headingsHandler}) => {
+export const Main = ({offersAmount, offersNames, onOfferHeadingClick}) => {
 
   return (
     <div className="page page--gray page--main">
@@ -30,7 +30,7 @@ export const Main = ({offersAmount, offersNames, headingsHandler}) => {
       </header>
 
       <main className="page__main page__main--index">
-        <h1 className="visually-hidden" onClick={headingsHandler}>Cities</h1>
+        <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
@@ -70,7 +70,7 @@ export const Main = ({offersAmount, offersNames, headingsHandler}) => {
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
-              <h2 className="visually-hidden" onClick={headingsHandler}>Places</h2>
+              <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersAmount} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -98,6 +98,7 @@ export const Main = ({offersAmount, offersNames, headingsHandler}) => {
 
               <OffersList
                 offersNames = {offersNames}
+                onOfferHeadingClick = {onOfferHeadingClick}
               />
 
               {/* Сохранено с исходными значениями */}
@@ -282,5 +283,5 @@ export const Main = ({offersAmount, offersNames, headingsHandler}) => {
 Main.propTypes = {
   offersAmount: PropTypes.string.isRequired,
   offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  headingsHandler: PropTypes.func
+  onOfferHeadingClick: PropTypes.func.isRequired
 };

@@ -14,13 +14,7 @@ export class OffersList extends React.PureComponent {
     this.state = {
       activeItemData: null
     };
-    this.onUpdateState = this.onUpdateState.bind(this);
-  }
-  /* для обнуления состояния передать null */
-  onUpdateState(activeItemData) {
-    this.setState({
-      activeItemData
-    });
+    this.onOfferMouseInteract = this.onOfferMouseInteract.bind(this);
   }
   render() {
     return (
@@ -28,15 +22,23 @@ export class OffersList extends React.PureComponent {
         {
           this.props.offersNames.map((name) => <OfferCard
             offerName = {name}
-            onUpdateState = {this.onUpdateState}
+            onOfferMouseInteract = {this.onOfferMouseInteract}
+            onOfferHeadingClick = {this.props.onOfferHeadingClick}
             key = {getId()}
           />)
         }
       </div>
     );
   }
+  /* для обнуления состояния передать null */
+  onOfferMouseInteract(activeItemData) {
+    this.setState({
+      activeItemData
+    });
+  }
 }
 
 OffersList.propTypes = {
-  offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  onOfferHeadingClick: PropTypes.func.isRequired
 };
