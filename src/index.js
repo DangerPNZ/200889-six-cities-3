@@ -7,6 +7,7 @@ ReactDOM.render(
     <App
       offersAmount = {DataValue.OFFERS_AMOUNT}
       offersNames = {DataValue.OFFERS_NAMES}
+      offerCoords = {DataValue.COORDINATES}
     />,
     document.getElementById(`root`)
 );

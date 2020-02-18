@@ -29,19 +29,17 @@ export class App extends React.PureComponent {
     );
   }
   getScreen() {
-    let component = null;
     if (this.state.selectedOfferName) {
-      component = <OfferDetails
+      return <OfferDetails
         offerName = {this.state.selectedOfferName}
       />;
-    } else {
-      component = <Main
-        offersAmount = {this.props.offersAmount}
-        offersNames = {this.props.offersNames}
-        onOfferHeadingClick = {this.onOfferHeadingClick}
-      />;
     }
-    return component;
+    return <Main
+      offersAmount = {this.props.offersAmount}
+      offersNames = {this.props.offersNames}
+      onOfferHeadingClick = {this.onOfferHeadingClick}
+      offerCoords = {this.props.offerCoords}
+    />;
   }
   onOfferHeadingClick(selectedOfferName) {
     /* передать null для возврата к главному экрану */
@@ -53,5 +51,8 @@ export class App extends React.PureComponent {
 
 App.propTypes = {
   offersAmount: PropTypes.string.isRequired,
-  offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  offerCoords: PropTypes.arrayOf(
+      PropTypes.arrayOf(PropTypes.number.isRequired)
+  ).isRequired
 };

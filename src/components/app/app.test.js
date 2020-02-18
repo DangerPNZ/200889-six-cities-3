@@ -8,6 +8,9 @@ const TestDataValue = {
     `Сomfortable apartments`,
     `Luxury room`,
     `Royal mansion`,
+  ],
+  COORDINATES: [
+    [0, 0]
   ]
 };
 
@@ -17,6 +20,7 @@ it(`App component structure test`, () => {
       <App
         offersAmount = {TestDataValue.OFFERS_AMOUNT}
         offersNames = {TestDataValue.OFFERS_NAMES}
+        offerCoords = {TestDataValue.COORDINATES}
       />
   ).toJSON();
 

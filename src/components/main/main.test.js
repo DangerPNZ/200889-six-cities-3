@@ -8,6 +8,9 @@ const TestDataValue = {
     `Сomfortable room`,
     `Hi-tech apartment`,
     `Country house`,
+  ],
+  COORDINATES: [
+    [0, 0]
   ]
 };
 
@@ -18,6 +21,7 @@ it(`Main component structure test`, () => {
         offersAmount = {TestDataValue.OFFERS_AMOUNT}
         offersNames = {TestDataValue.OFFERS_NAMES}
         onOfferHeadingClick = {() => {}}
+        offerCoords = {TestDataValue.COORDINATES}
       />
   ).toJSON();
 
