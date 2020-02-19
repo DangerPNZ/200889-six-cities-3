@@ -10,25 +10,26 @@ const MapSetting = {
   }),
   ZOOM: 12
 };
+
 export class Map extends React.PureComponent {
   constructor(props) {
     super(props);
     this.map = React.createRef();
   }
   componentDidMount() {
-    this.mapInit();
+    if (this.map.current) {
+      this.mapInit(this.map.current);
+    }
   }
   render() {
     return (
       <div id="map" style={{height: `100%`}} ref={this.map}></div>
     );
   }
-  mapInit() {
-    // Данное условие нарушает концепцию Код не должен подстраиваться под тесты
-    if (!this.map || !this.map.current) {
-      return;
+  mapInit(mapCurrent) {
+    if (!mapCurrent) {
+      throw new Error(`no map`);
     }
-
     const map = leaflet.map(this.map.current, {
       center: MapSetting.CITY,
       zoom: MapSetting.ZOOM,
