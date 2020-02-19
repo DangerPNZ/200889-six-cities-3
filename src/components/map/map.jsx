@@ -42,11 +42,11 @@ export class Map extends React.PureComponent {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(map);
-    for (const coordinates of this.props.offerCoords) {
+    this.props.offerCoords.forEach((coordinates) => {
       leaflet
       .marker(coordinates, {icon: MapSetting.ICON})
       .addTo(map);
-    }
+    });
   }
 }
 
