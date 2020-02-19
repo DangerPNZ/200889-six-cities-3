@@ -28,26 +28,25 @@ export class Map extends React.PureComponent {
   }
   mapInit(mapCurrent) {
     if (!mapCurrent) {
-      throw new Error(`no map`);
+      throw new Error(`no mapCurrent`);
     }
-    const map = leaflet.map(this.map.current, {
+    const map = leaflet.map(mapCurrent, {
       center: MapSetting.CITY,
       zoom: MapSetting.ZOOM,
       zoomControl: false,
       marker: true
     });
-    const icon = MapSetting.ICON;
     map.setView(MapSetting.CITY, MapSetting.ZOOM);
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(map);
-    this.props.offerCoords.map((offer) => {
+    for (const coordinates of this.props.offerCoords) {
       leaflet
-      .marker(offer, {icon})
+      .marker(coordinates, {icon: MapSetting.ICON})
       .addTo(map);
-    });
+    }
   }
 }
 
