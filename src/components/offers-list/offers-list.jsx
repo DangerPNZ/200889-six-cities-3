@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {OfferCard} from '../offer-card/offer-card.jsx';
-
-/* Временная функция. (магические значения не соответствуют критериям)
-Использую во избежание антипаттерна с назначением в качестве id индексов итерируемого массива.
-Применение на данном этапе пакета nanoid считаю избыточным.
-Если необходимость в генерации id останется актуальной, подключу nanoid */
-const getId = () => `_` + Math.random().toString(36).substr(2, 9);
+import nanoid from 'nanoid';
 
 export class OffersList extends React.PureComponent {
   constructor(props) {
@@ -24,7 +19,7 @@ export class OffersList extends React.PureComponent {
             offerName = {name}
             onOfferMouseInteract = {this.onOfferMouseInteract}
             onOfferHeadingClick = {this.props.onOfferHeadingClick}
-            key = {getId()}
+            key = {nanoid()}
           />)
         }
       </div>

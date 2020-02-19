@@ -4,34 +4,21 @@ import {Map} from './map.jsx';
 
 const TestDataValue = {
   COORDINATES: [
-    [0, 0]
+    [52.369553943508, 4.85309666406198],
+    [52.3909553943508, 4.929309666406198],
+    [52.3809553943508, 4.939309666406198]
   ]
 };
 
-const Leaflet = {
-  tileLayer: () => {},
-  addTo: () => {},
-  marker: () => {},
-  setView: () => {},
-  icon: () => {},
-  map: () => {}
-};
-const MapSetting = {
-  CITY: [52.38333, 4.9],
-  ICON: Leaflet.icon({
-    iconUrl: `img/pin.svg`,
-    iconSize: [30, 30]
-  }),
-  ZOOM: 12
-};
 it(`Map component structure test`, () => {
   const tree = renderer
   .create(
       <Map
         offerCoords = {TestDataValue.COORDINATES}
-        Leaflet = {Leaflet}
-        MapSetting = {MapSetting}
-      />
+      />,
+      {
+        createNodeMock: () => document.createElement(`div`)
+      }
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

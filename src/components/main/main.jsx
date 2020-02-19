@@ -1,17 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Leaflet from 'leaflet';
 import {OffersList} from '../offers-list/offers-list.jsx';
 import {Map} from '../map/map.jsx';
-
-const MapSetting = {
-  CITY: [52.38333, 4.9],
-  ICON: Leaflet.icon({
-    iconUrl: `img/pin.svg`,
-    iconSize: [30, 30]
-  }),
-  ZOOM: 12
-};
 
 export const Main = ({offersAmount, offersNames, onOfferHeadingClick, offerCoords}) => (
   <div className="page page--gray page--main">
@@ -280,11 +270,11 @@ export const Main = ({offersAmount, offersNames, onOfferHeadingClick, offerCoord
             </div> */}
           </section>
           <div className="cities__right-section">
-            <Map
-              offerCoords = {offerCoords}
-              Leaflet = {Leaflet}
-              MapSetting = {MapSetting}
-            />
+            <section className="cities__map map">
+              <Map
+                offerCoords = {offerCoords}
+              />
+            </section>
           </div>
         </div>
       </div>

@@ -1,44 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import leaflet from 'leaflet';
 
-
+const MapSetting = {
+  CITY: [52.38333, 4.9],
+  ICON: leaflet.icon({
+    iconUrl: `img/pin.svg`,
+    iconSize: [30, 30]
+  }),
+  ZOOM: 12
+};
 export class Map extends React.PureComponent {
   constructor(props) {
     super(props);
-    // this.map = React.createRef();
+    this.map = React.createRef();
   }
   componentDidMount() {
-    const map = this.props.Leaflet.map(`map`, {
-      center: this.props.MapSetting.CITY,
-      zoom: this.props.MapSetting.ZOOM,
+    this.mapInit();
+  }
+  render() {
+    return (
+      <div id="map" style={{height: `100%`}} ref={this.map}></div>
+    );
+  }
+  mapInit() {
+    // Данное условие нарушает концепцию Код не должен подстраиваться под тесты
+    if (!this.map || !this.map.current) {
+      return;
+    }
+
+    const map = leaflet.map(this.map.current, {
+      center: MapSetting.CITY,
+      zoom: MapSetting.ZOOM,
       zoomControl: false,
       marker: true
     });
-    const icon = this.props.MapSetting.ICON;
-    map.setView(this.props.MapSetting.CITY, this.props.MapSetting.ZOOM);
-    this.props.Leaflet
+    const icon = MapSetting.ICON;
+    map.setView(MapSetting.CITY, MapSetting.ZOOM);
+    leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(map);
     this.props.offerCoords.map((offer) => {
-      this.props.Leaflet
+      leaflet
       .marker(offer, {icon})
       .addTo(map);
     });
   }
-  render() {
-    return (
-      <section className="cities__map map">
-        <div id="map" style={{height: `100%`}}></div> {/* ref={this.map} */}
-      </section>
-    );
-  }
 }
+
 Map.propTypes = {
   offerCoords: PropTypes.arrayOf(
       PropTypes.arrayOf(PropTypes.number.isRequired)
-  ).isRequired,
-  Leaflet: PropTypes.object.isRequired,
-  MapSetting: PropTypes.object.isRequired
+  ).isRequired
 };

@@ -10,7 +10,15 @@ const TestDataValue = {
     `Royal mansion`,
   ],
   COORDINATES: [
-    [0, 0]
+    [52.3909553943508, 4.85309666406198],
+    [52.369553943508, 4.85309666406198],
+    [52.3909553943508, 4.929309666406198],
+    [52.3809553943508, 4.939309666406198]
+  ],
+  REVIEWS: [
+    {},
+    {},
+    {}
   ]
 };
 
@@ -21,6 +29,7 @@ it(`App component structure test`, () => {
         offersAmount = {TestDataValue.OFFERS_AMOUNT}
         offersNames = {TestDataValue.OFFERS_NAMES}
         offerCoords = {TestDataValue.COORDINATES}
+        reviews = {TestDataValue.REVIEWS}
       />
   ).toJSON();
 

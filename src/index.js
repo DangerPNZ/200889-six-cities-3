@@ -8,6 +8,7 @@ ReactDOM.render(
       offersAmount = {DataValue.OFFERS_AMOUNT}
       offersNames = {DataValue.OFFERS_NAMES}
       offerCoords = {DataValue.COORDINATES}
+      reviews = {DataValue.REVIEWS}
     />,
     document.getElementById(`root`)
 );

@@ -22,6 +22,8 @@ export class App extends React.PureComponent {
           <Route exact path="/offer">
             <OfferDetails
               offerName = {this.state.selectedOfferName}
+              offerCoords = {this.props.offerCoords}
+              reviews = {this.props.reviews}
             />
           </Route>
         </Switch>
@@ -32,6 +34,8 @@ export class App extends React.PureComponent {
     if (this.state.selectedOfferName) {
       return <OfferDetails
         offerName = {this.state.selectedOfferName}
+        offerCoords = {this.props.offerCoords}
+        reviews = {this.props.reviews}
       />;
     }
     return <Main
@@ -54,5 +58,8 @@ App.propTypes = {
   offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   offerCoords: PropTypes.arrayOf(
       PropTypes.arrayOf(PropTypes.number.isRequired)
+  ).isRequired,
+  reviews: PropTypes.arrayOf(
+      PropTypes.object.isRequired
   ).isRequired
 };
