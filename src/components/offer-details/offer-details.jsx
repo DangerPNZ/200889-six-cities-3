@@ -1,11 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Map} from '../map/map.jsx';
-import {ReviewsList} from '../reviews-list/reviews-list.jsx';
+import {Reviews} from '../reviews/reviews.jsx';
+import {NearPlacesList} from '../near-places-list/near-places-list.jsx';
+import {getStyleForRating} from '../../utils/utils.js';
 
-const getThreeCitiesCoords = (coords) => coords.slice(0, 3);
+const getCitiesOffersForMap = (offerCurrent, offers) => {
+  let offersForMap = offers.slice();
+  const currentOfferIndex = offersForMap.findIndex((item) => item === offerCurrent);
+  offersForMap.splice(currentOfferIndex, 1);
+  offersForMap.slice(0, 3);
+  offerCurrent.activePin = true;
+  offersForMap.push(offerCurrent);
+  return offersForMap;
+};
+const getNearPlacesMock = (offers) => offers.slice().slice(0, 3);
 
-export const OfferDetails = ({offerName, offerCoords, reviews}) => (
+export const OfferDetails = ({offerCurrent, offers}) => (
   <div className="page">
     <header className="header">
       <div className="container">
@@ -56,14 +67,14 @@ export const OfferDetails = ({offerName, offerCoords, reviews}) => (
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
-            <div className="property__mark">
+            {offerCurrent.premium && <div className="property__mark">
               <span>Premium</span>
-            </div>
+            </div>}
             <div className="property__name-wrapper">
               <h1 className="property__name">
-                {offerName}
+                {offerCurrent.name}
               </h1>
-              <button className="property__bookmark-button button" type="button">
+              <button className={offerCurrent.isFavorites ? `property__bookmark-button property__bookmark-button--active button` : `property__bookmark-button button`} type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
@@ -72,14 +83,14 @@ export const OfferDetails = ({offerName, offerCoords, reviews}) => (
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{width: `80%`}}></span>
+                <span style={getStyleForRating(offerCurrent.rating)}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="property__rating-value rating__value">4.8</span>
+              <span className="property__rating-value rating__value">{offerCurrent.rating}</span>
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                Apartment
+                {offerCurrent.type}
               </li>
               <li className="property__feature property__feature--bedrooms">
                 3 Bedrooms
@@ -89,7 +100,7 @@ export const OfferDetails = ({offerName, offerCoords, reviews}) => (
               </li>
             </ul>
             <div className="property__price">
-              <b className="property__price-value">&euro;120</b>
+              <b className="property__price-value">&euro;{offerCurrent.price}</b>
               <span className="property__price-text">&nbsp;night</span>
             </div>
             <div className="property__inside">
@@ -146,166 +157,21 @@ export const OfferDetails = ({offerName, offerCoords, reviews}) => (
                 </p>
               </div>
             </div>
-            <section className="property__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-              <ReviewsList
-                reviews = {reviews}
-              />
-              <form className="reviews__form form" action="#" method="post">
-                <label className="reviews__label form__label" htmlFor="review">Your review</label>
-                <div className="reviews__rating-form form__rating">
-                  <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio"/>
-                  <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-                    <svg className="form__star-image" width="37" height="33">
-                      <use xlinkHref="#icon-star"></use>
-                    </svg>
-                  </label>
-
-                  <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio"/>
-                  <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-                    <svg className="form__star-image" width="37" height="33">
-                      <use xlinkHref="#icon-star"></use>
-                    </svg>
-                  </label>
-
-                  <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio"/>
-                  <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-                    <svg className="form__star-image" width="37" height="33">
-                      <use xlinkHref="#icon-star"></use>
-                    </svg>
-                  </label>
-
-                  <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio"/>
-                  <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-                    <svg className="form__star-image" width="37" height="33">
-                      <use xlinkHref="#icon-star"></use>
-                    </svg>
-                  </label>
-
-                  <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio"/>
-                  <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-                    <svg className="form__star-image" width="37" height="33">
-                      <use xlinkHref="#icon-star"></use>
-                    </svg>
-                  </label>
-                </div>
-                <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
-                <div className="reviews__button-wrapper">
-                  <p className="reviews__help">
-                    To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
-                  </p>
-                  <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
-                </div>
-              </form>
-            </section>
+            <Reviews
+              offerCurrent = {offerCurrent}
+            />
           </div>
         </div>
         <section className="property__map map">
           <Map
-            offerCoords = {getThreeCitiesCoords(offerCoords)}
+            offers = {getCitiesOffersForMap(offerCurrent, offers)}
           />
         </section>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            <article className="near-places__card place-card">
-              <div className="near-places__image-wrapper place-card__image-wrapper">
-                <a href="#">
-                  <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"/>
-                </a>
-              </div>
-              <div className="place-card__info">
-                <div className="place-card__price-wrapper">
-                  <div className="place-card__price">
-                    <b className="place-card__price-value">&euro;80</b>
-                    <span className="place-card__price-text">&#47;&nbsp;night</span>
-                  </div>
-                  <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                    <svg className="place-card__bookmark-icon" width="18" height="19">
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">In bookmarks</span>
-                  </button>
-                </div>
-                <div className="place-card__rating rating">
-                  <div className="place-card__stars rating__stars">
-                    <span style={{width: `80%`}}></span>
-                    <span className="visually-hidden">Rating</span>
-                  </div>
-                </div>
-                <h2 className="place-card__name">
-                  <a href="#">Wood and stone place</a>
-                </h2>
-                <p className="place-card__type">Private room</p>
-              </div>
-            </article>
-
-            <article className="near-places__card place-card">
-              <div className="near-places__image-wrapper place-card__image-wrapper">
-                <a href="#">
-                  <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image"/>
-                </a>
-              </div>
-              <div className="place-card__info">
-                <div className="place-card__price-wrapper">
-                  <div className="place-card__price">
-                    <b className="place-card__price-value">&euro;132</b>
-                    <span className="place-card__price-text">&#47;&nbsp;night</span>
-                  </div>
-                  <button className="place-card__bookmark-button button" type="button">
-                    <svg className="place-card__bookmark-icon" width="18" height="19">
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
-                </div>
-                <div className="place-card__rating rating">
-                  <div className="place-card__stars rating__stars">
-                    <span style={{width: `80%`}}></span>
-                    <span className="visually-hidden">Rating</span>
-                  </div>
-                </div>
-                <h2 className="place-card__name">
-                  <a href="#">Canal View Prinsengracht</a>
-                </h2>
-                <p className="place-card__type">Apartment</p>
-              </div>
-            </article>
-
-            <article className="near-places__card place-card">
-              <div className="near-places__image-wrapper place-card__image-wrapper">
-                <a href="#">
-                  <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image"/>
-                </a>
-              </div>
-              <div className="place-card__info">
-                <div className="place-card__price-wrapper">
-                  <div className="place-card__price">
-                    <b className="place-card__price-value">&euro;180</b>
-                    <span className="place-card__price-text">&#47;&nbsp;night</span>
-                  </div>
-                  <button className="place-card__bookmark-button button" type="button">
-                    <svg className="place-card__bookmark-icon" width="18" height="19">
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
-                </div>
-                <div className="place-card__rating rating">
-                  <div className="place-card__stars rating__stars">
-                    <span style={{width: `80%`}}></span>
-                    <span className="visually-hidden">Rating</span>
-                  </div>
-                </div>
-                <h2 className="place-card__name">
-                  <a href="#">Nice, cozy, warm big bed apartment</a>
-                </h2>
-                <p className="place-card__type">Apartment</p>
-              </div>
-            </article>
-          </div>
+          <NearPlacesList offers = {getNearPlacesMock(offers)}/>
         </section>
       </div>
     </main>
@@ -313,11 +179,46 @@ export const OfferDetails = ({offerName, offerCoords, reviews}) => (
 );
 
 OfferDetails.propTypes = {
-  offerName: PropTypes.string,
-  offerCoords: PropTypes.arrayOf(
-      PropTypes.arrayOf(PropTypes.number.isRequired)
-  ).isRequired,
-  reviews: PropTypes.arrayOf(
-      PropTypes.object.isRequired
+  offerCurrent: PropTypes.exact({
+    name: PropTypes.string.isRequired,
+    coordinates: PropTypes.arrayOf(
+        PropTypes.number.isRequired
+    ).isRequired,
+    id: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    premium: PropTypes.bool.isRequired,
+    isFavorites: PropTypes.bool.isRequired,
+    rating: PropTypes.number.isRequired,
+    reviews: PropTypes.arrayOf(
+        PropTypes.exact({
+          author: PropTypes.string.isRequired,
+          review: PropTypes.string.isRequired,
+          userRating: PropTypes.number.isRequired,
+          date: PropTypes.string.isRequired
+        }).isRequired
+    ).isRequired
+  }),
+  offers: PropTypes.arrayOf(
+      PropTypes.exact({
+        name: PropTypes.string.isRequired,
+        coordinates: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
+        id: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        premium: PropTypes.bool.isRequired,
+        isFavorites: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
+        reviews: PropTypes.arrayOf(
+            PropTypes.exact({
+              author: PropTypes.string.isRequired,
+              review: PropTypes.string.isRequired,
+              userRating: PropTypes.number.isRequired,
+              date: PropTypes.string.isRequired
+            }).isRequired
+        ).isRequired
+      }).isRequired
   ).isRequired
 };

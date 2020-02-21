@@ -132,26 +132,19 @@ exports[`OfferCard component structure test 1`] = `
           className="property__wrapper"
         >
           <div
-            className="property__mark"
-          >
-            <span>
-              Premium
-            </span>
-          </div>
-          <div
             className="property__name-wrapper"
           >
             <h1
               className="property__name"
             >
-              Party apartment
+              Canal View Prinsengracht
             </h1>
             <button
-              className="property__bookmark-button button"
+              className="property__bookmark-button property__bookmark-button--active button"
               type="button"
             >
               <svg
-                className="property__bookmark-icon"
+                className="place-card__bookmark-icon"
                 height="33"
                 width="31"
               >
@@ -216,7 +209,8 @@ exports[`OfferCard component structure test 1`] = `
             <b
               className="property__price-value"
             >
-              €120
+              €
+              100
             </b>
             <span
               className="property__price-text"
@@ -425,7 +419,7 @@ exports[`OfferCard component structure test 1`] = `
                   <span
                     className="reviews__user-name"
                   >
-                    Max
+                    Adelina
                   </span>
                 </div>
                 <div
@@ -454,7 +448,7 @@ exports[`OfferCard component structure test 1`] = `
                   <p
                     className="reviews__text"
                   >
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                    A quiet cozy and picturesque that.
                   </p>
                   <time
                     className="reviews__time"
@@ -484,7 +478,7 @@ exports[`OfferCard component structure test 1`] = `
                   <span
                     className="reviews__user-name"
                   >
-                    Max
+                    Stephen
                   </span>
                 </div>
                 <div
@@ -513,7 +507,7 @@ exports[`OfferCard component structure test 1`] = `
                   <p
                     className="reviews__text"
                   >
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                    The building is green and from 18th century.
                   </p>
                   <time
                     className="reviews__time"

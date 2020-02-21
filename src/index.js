@@ -5,10 +5,7 @@ import {DataValue} from './mocks/offers.js';
 
 ReactDOM.render(
     <App
-      offersAmount = {DataValue.OFFERS_AMOUNT}
-      offersNames = {DataValue.OFFERS_NAMES}
-      offerCoords = {DataValue.COORDINATES}
-      reviews = {DataValue.REVIEWS}
+      offers = {DataValue.OFFERS_MOCK}
     />,
     document.getElementById(`root`)
 );

@@ -4,11 +4,13 @@ import leaflet from 'leaflet';
 
 const MapSetting = {
   CITY: [52.38333, 4.9],
-  ICON: leaflet.icon({
-    iconUrl: `img/pin.svg`,
-    iconSize: [30, 30]
-  }),
   ZOOM: 12
+};
+const getPin = (offer) => {
+  return leaflet.icon({
+    iconUrl: offer.activePin ? `img/pin-active.svg` : `img/pin.svg`,
+    iconSize: [30, 30]
+  });
 };
 
 export class Map extends React.PureComponent {
@@ -42,16 +44,36 @@ export class Map extends React.PureComponent {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(map);
-    this.props.offerCoords.forEach((coordinates) => {
+    this.props.offers.forEach((offerItem) => {
       leaflet
-      .marker(coordinates, {icon: MapSetting.ICON})
+      .marker(offerItem.coordinates, {icon: getPin(offerItem)})
       .addTo(map);
     });
   }
 }
 
 Map.propTypes = {
-  offerCoords: PropTypes.arrayOf(
-      PropTypes.arrayOf(PropTypes.number.isRequired)
+  offers: PropTypes.arrayOf(
+      PropTypes.exact({
+        name: PropTypes.string.isRequired,
+        coordinates: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
+        id: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        premium: PropTypes.bool.isRequired,
+        isFavorites: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
+        activePin: PropTypes.bool,
+        reviews: PropTypes.arrayOf(
+            PropTypes.exact({
+              author: PropTypes.string.isRequired,
+              review: PropTypes.string.isRequired,
+              userRating: PropTypes.number.isRequired,
+              date: PropTypes.string.isRequired
+            }).isRequired
+        ).isRequired
+      }).isRequired
   ).isRequired
 };

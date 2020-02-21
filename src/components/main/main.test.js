@@ -1,19 +1,56 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import nanoid from 'nanoid';
 import {Main} from './main.jsx';
 
 const TestDataValue = {
-  OFFERS_AMOUNT: `404`,
-  OFFERS_NAMES: [
-    `Сomfortable room`,
-    `Hi-tech apartment`,
-    `Country house`,
-  ],
-  COORDINATES: [
-    [52.3909553943508, 4.85309666406198],
-    [52.369553943508, 4.85309666406198],
-    [52.3909553943508, 4.929309666406198],
-    [52.3809553943508, 4.939309666406198]
+  OFFERS: [
+    {
+      name: `Canal View Prinsengracht`,
+      coordinates: [52.3909553943508, 4.929309666406198],
+      id: nanoid(),
+      price: 100,
+      type: `Hotel room`,
+      premium: false,
+      isFavorites: true,
+      reviews: [
+        {
+          author: `Max`,
+          review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
+        },
+        {
+          author: `Adelina`,
+          review: `A quiet cozy and picturesque that.`
+        },
+        {
+          author: `Stephen`,
+          review: `The building is green and from 18th century.`
+        }
+      ]
+    },
+    {
+      name: `Nice, cozy, warm big bed apartment`,
+      coordinates: [52.3809553943508, 4.939309666406198],
+      id: nanoid(),
+      price: 170,
+      type: `Lux apartment`,
+      premium: true,
+      isFavorites: true,
+      reviews: [
+        {
+          author: `Max`,
+          review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
+        },
+        {
+          author: `Adelina`,
+          review: `A quiet cozy and picturesque that.`
+        },
+        {
+          author: `Stephen`,
+          review: `The building is green and from 18th century.`
+        }
+      ]
+    }
   ]
 };
 
@@ -21,10 +58,8 @@ it(`Main component structure test`, () => {
   const tree = renderer
   .create(
       <Main
-        offersAmount = {TestDataValue.OFFERS_AMOUNT}
-        offersNames = {TestDataValue.OFFERS_NAMES}
+        offers = {TestDataValue.OFFERS}
         onOfferHeadingClick = {() => {}}
-        offerCoords = {TestDataValue.COORDINATES}
       />
   ).toJSON();
 

@@ -8,7 +8,7 @@ export class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOfferName: null
+      selectedOffer: null
     };
     this.onOfferHeadingClick = this.onOfferHeadingClick.bind(this);
   }
@@ -21,9 +21,8 @@ export class App extends React.PureComponent {
           </Route>
           <Route exact path="/offer">
             <OfferDetails
-              offerName = {this.state.selectedOfferName}
-              offerCoords = {this.props.offerCoords}
-              reviews = {this.props.reviews}
+              offerCurrent = {this.state.selectedOffer}
+              offers = {this.props.offers}
             />
           </Route>
         </Switch>
@@ -31,35 +30,46 @@ export class App extends React.PureComponent {
     );
   }
   getScreen() {
-    if (this.state.selectedOfferName) {
+    if (this.state.selectedOffer) {
       return <OfferDetails
-        offerName = {this.state.selectedOfferName}
-        offerCoords = {this.props.offerCoords}
-        reviews = {this.props.reviews}
+        offerCurrent = {this.state.selectedOffer}
+        offers = {this.props.offers}
       />;
     }
     return <Main
-      offersAmount = {this.props.offersAmount}
-      offersNames = {this.props.offersNames}
+      offers = {this.props.offers}
       onOfferHeadingClick = {this.onOfferHeadingClick}
-      offerCoords = {this.props.offerCoords}
     />;
   }
-  onOfferHeadingClick(selectedOfferName) {
+  onOfferHeadingClick(selectedOffer) {
     /* передать null для возврата к главному экрану */
     this.setState({
-      selectedOfferName
+      selectedOffer
     });
   }
 }
 
 App.propTypes = {
-  offersAmount: PropTypes.string.isRequired,
-  offersNames: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  offerCoords: PropTypes.arrayOf(
-      PropTypes.arrayOf(PropTypes.number.isRequired)
-  ).isRequired,
-  reviews: PropTypes.arrayOf(
-      PropTypes.object.isRequired
+  offers: PropTypes.arrayOf(
+      PropTypes.exact({
+        name: PropTypes.string.isRequired,
+        coordinates: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
+        id: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        premium: PropTypes.bool.isRequired,
+        isFavorites: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
+        reviews: PropTypes.arrayOf(
+            PropTypes.exact({
+              author: PropTypes.string.isRequired,
+              review: PropTypes.string.isRequired,
+              userRating: PropTypes.number.isRequired,
+              date: PropTypes.string.isRequired
+            }).isRequired
+        ).isRequired
+      }).isRequired
   ).isRequired
 };

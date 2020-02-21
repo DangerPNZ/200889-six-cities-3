@@ -40,7 +40,8 @@ exports[`OfferCard component structure test 1`] = `
         <b
           className="place-card__price-value"
         >
-          €120
+          €
+          170
         </b>
         <span
           className="place-card__price-text"
@@ -49,7 +50,7 @@ exports[`OfferCard component structure test 1`] = `
         </span>
       </div>
       <button
-        className="place-card__bookmark-button button"
+        className="place-card__bookmark-button place-card__bookmark-button--active button"
         type="button"
       >
         <svg
@@ -95,13 +96,13 @@ exports[`OfferCard component structure test 1`] = `
       <a
         href="#"
       >
-        House with pool
+        Nice, cozy, warm big bed apartment
       </a>
     </h2>
     <p
       className="place-card__type"
     >
-      Apartment
+      Lux apartment
     </p>
   </div>
 </article>

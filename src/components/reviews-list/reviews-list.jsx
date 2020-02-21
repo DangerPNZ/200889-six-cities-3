@@ -7,7 +7,7 @@ export const ReviewsList = ({reviews}) => (
   <ul className="reviews__list">
     {
       reviews.map((review) => (<ReviewItem
-        review = {review}
+        reviewItem = {review}
         key = {nanoid()}
       />))
     }
@@ -16,6 +16,12 @@ export const ReviewsList = ({reviews}) => (
 
 ReviewsList.propTypes = {
   reviews: PropTypes.arrayOf(
-      PropTypes.object.isRequired
+      PropTypes.exact({
+        id: PropTypes.string.isRequired,
+        author: PropTypes.string.isRequired,
+        review: PropTypes.string.isRequired,
+        userRating: PropTypes.number.isRequired,
+        date: PropTypes.string.isRequired
+      }).isRequired
   ).isRequired
 };

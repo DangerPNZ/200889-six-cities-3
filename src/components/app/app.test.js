@@ -1,24 +1,56 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import nanoid from 'nanoid';
 import {App} from './app.jsx';
 
 const TestDataValue = {
-  OFFERS_AMOUNT: `300`,
-  OFFERS_NAMES: [
-    `Сomfortable apartments`,
-    `Luxury room`,
-    `Royal mansion`,
-  ],
-  COORDINATES: [
-    [52.3909553943508, 4.85309666406198],
-    [52.369553943508, 4.85309666406198],
-    [52.3909553943508, 4.929309666406198],
-    [52.3809553943508, 4.939309666406198]
-  ],
-  REVIEWS: [
-    {},
-    {},
-    {}
+  OFFERS: [
+    {
+      name: `Canal View Prinsengracht`,
+      coordinates: [52.3909553943508, 4.929309666406198],
+      id: nanoid(),
+      price: 100,
+      type: `Hotel room`,
+      premium: false,
+      isFavorites: true,
+      reviews: [
+        {
+          author: `Max`,
+          review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
+        },
+        {
+          author: `Adelina`,
+          review: `A quiet cozy and picturesque that.`
+        },
+        {
+          author: `Stephen`,
+          review: `The building is green and from 18th century.`
+        }
+      ]
+    },
+    {
+      name: `Nice, cozy, warm big bed apartment`,
+      coordinates: [52.3809553943508, 4.939309666406198],
+      id: nanoid(),
+      price: 170,
+      type: `Lux apartment`,
+      premium: true,
+      isFavorites: true,
+      reviews: [
+        {
+          author: `Max`,
+          review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
+        },
+        {
+          author: `Adelina`,
+          review: `A quiet cozy and picturesque that.`
+        },
+        {
+          author: `Stephen`,
+          review: `The building is green and from 18th century.`
+        }
+      ]
+    }
   ]
 };
 
@@ -26,10 +58,7 @@ it(`App component structure test`, () => {
   const tree = renderer
   .create(
       <App
-        offersAmount = {TestDataValue.OFFERS_AMOUNT}
-        offersNames = {TestDataValue.OFFERS_NAMES}
-        offerCoords = {TestDataValue.COORDINATES}
-        reviews = {TestDataValue.REVIEWS}
+        offers = {TestDataValue.OFFERS}
       />
   ).toJSON();
 
