@@ -6,12 +6,6 @@ const MapSetting = {
   CITY: [52.38333, 4.9],
   ZOOM: 12
 };
-const getPin = (offer) => {
-  return leaflet.icon({
-    iconUrl: offer.activePin ? `img/pin-active.svg` : `img/pin.svg`,
-    iconSize: [30, 30]
-  });
-};
 
 export class Map extends React.PureComponent {
   constructor(props) {
@@ -20,7 +14,7 @@ export class Map extends React.PureComponent {
   }
   componentDidMount() {
     if (this.map.current) {
-      this.mapInit(this.map.current);
+      this._mapInit(this.map.current);
     }
   }
   render() {
@@ -28,7 +22,19 @@ export class Map extends React.PureComponent {
       <div id="map" style={{height: `100%`}} ref={this.map}></div>
     );
   }
-  mapInit(mapCurrent) {
+  _getPin(offer) {
+    if (this.props.offerCurrent) {
+      return leaflet.icon({
+        iconUrl: offer.id === this.props.offerCurrent.id ? `img/pin-active.svg` : `img/pin.svg`,
+        iconSize: [30, 30]
+      });
+    }
+    return leaflet.icon({
+      iconUrl: `img/pin.svg`,
+      iconSize: [30, 30]
+    });
+  }
+  _mapInit(mapCurrent) {
     if (!mapCurrent) {
       throw new Error(`no mapCurrent`);
     }
@@ -46,7 +52,7 @@ export class Map extends React.PureComponent {
       .addTo(map);
     this.props.offers.forEach((offerItem) => {
       leaflet
-      .marker(offerItem.coordinates, {icon: getPin(offerItem)})
+      .marker(offerItem.coordinates, {icon: this._getPin(offerItem)})
       .addTo(map);
     });
   }
@@ -75,5 +81,26 @@ Map.propTypes = {
             }).isRequired
         ).isRequired
       }).isRequired
-  ).isRequired
+  ).isRequired,
+  offerCurrent: PropTypes.exact({
+    name: PropTypes.string.isRequired,
+    coordinates: PropTypes.arrayOf(
+        PropTypes.number.isRequired
+    ).isRequired,
+    id: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    premium: PropTypes.bool.isRequired,
+    isFavorites: PropTypes.bool.isRequired,
+    rating: PropTypes.number.isRequired,
+    activePin: PropTypes.bool,
+    reviews: PropTypes.arrayOf(
+        PropTypes.exact({
+          author: PropTypes.string.isRequired,
+          review: PropTypes.string.isRequired,
+          userRating: PropTypes.number.isRequired,
+          date: PropTypes.string.isRequired
+        }).isRequired
+    ).isRequired
+  })
 };

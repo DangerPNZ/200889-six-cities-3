@@ -17,23 +17,25 @@ export class App extends React.PureComponent {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {this.getScreen()}
+            {this._getScreen()}
           </Route>
           <Route exact path="/offer">
             <OfferDetails
               offerCurrent = {this.state.selectedOffer}
               offers = {this.props.offers}
+              onOfferHeadingClick = {this.onOfferHeadingClick}
             />
           </Route>
         </Switch>
       </BrowserRouter>
     );
   }
-  getScreen() {
+  _getScreen() {
     if (this.state.selectedOffer) {
       return <OfferDetails
         offerCurrent = {this.state.selectedOffer}
         offers = {this.props.offers}
+        onOfferHeadingClick = {this.onOfferHeadingClick}
       />;
     }
     return <Main

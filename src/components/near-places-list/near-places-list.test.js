@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import nanoid from 'nanoid';
-import {OffersList} from './offers-list.jsx';
+import {NearPlacesList} from './near-places-list.jsx';
 
 const REVIEWS_MOCK = [
   {
@@ -50,10 +50,9 @@ const TestDataValue = {
   ]
 };
 
-it(`OffersList component structure test`, () => {
-  const tree = renderer
-  .create(
-      <OffersList
+it(`NearPlacesList component structure test`, () => {
+  const tree = renderer.create(
+      <NearPlacesList
         offers = {TestDataValue.OFFERS}
         onOfferHeadingClick = {() => {}}
       />

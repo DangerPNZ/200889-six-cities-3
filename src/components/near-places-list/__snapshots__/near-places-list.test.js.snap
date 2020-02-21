@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OffersList component structure test 1`] = `
+exports[`NearPlacesList component structure test 1`] = `
 <div
-  className="cities__places-list places__list tabs__content"
+  className="near-places__list places__list"
 >
   <article
-    className="cities__place-card place-card"
+    className="near-places__card place-card"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
     <div
-      className="cities__image-wrapper place-card__image-wrapper"
+      className="near-places__image-wrapper place-card__image-wrapper"
     >
       <a
         href="#"
@@ -103,7 +103,7 @@ exports[`OffersList component structure test 1`] = `
     </div>
   </article>
   <article
-    className="cities__place-card place-card"
+    className="near-places__card place-card"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
@@ -115,7 +115,7 @@ exports[`OffersList component structure test 1`] = `
       </span>
     </div>
     <div
-      className="cities__image-wrapper place-card__image-wrapper"
+      className="near-places__image-wrapper place-card__image-wrapper"
     >
       <a
         href="#"

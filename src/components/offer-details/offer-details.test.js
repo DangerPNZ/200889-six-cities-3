@@ -3,6 +3,26 @@ import renderer from 'react-test-renderer';
 import nanoid from 'nanoid';
 import {OfferDetails} from './offer-details.jsx';
 
+const REVIEWS_MOCK = [
+  {
+    author: `Hanna`,
+    review: `Unique lightness of Amsterdam. The building is green and from 18th century.`,
+    userRating: 1,
+    date: `April 2017`
+  },
+  {
+    author: `Bill`,
+    review: `A quiet cozy and picturesque that.`,
+    userRating: 0,
+    date: `January 2018`
+  },
+  {
+    author: `Ed`,
+    review: `The building is green and from 18th century.`,
+    userRating: 3,
+    date: `September 2019`
+  }
+];
 const TestDataValue = {
   OFFERS: [
     {
@@ -13,20 +33,8 @@ const TestDataValue = {
       type: `Hotel room`,
       premium: false,
       isFavorites: true,
-      reviews: [
-        {
-          author: `Max`,
-          review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
-        },
-        {
-          author: `Adelina`,
-          review: `A quiet cozy and picturesque that.`
-        },
-        {
-          author: `Stephen`,
-          review: `The building is green and from 18th century.`
-        }
-      ]
+      rating: 3.7,
+      reviews: REVIEWS_MOCK
     },
     {
       name: `Nice, cozy, warm big bed apartment`,
@@ -36,20 +44,8 @@ const TestDataValue = {
       type: `Lux apartment`,
       premium: true,
       isFavorites: true,
-      reviews: [
-        {
-          author: `Max`,
-          review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
-        },
-        {
-          author: `Adelina`,
-          review: `A quiet cozy and picturesque that.`
-        },
-        {
-          author: `Stephen`,
-          review: `The building is green and from 18th century.`
-        }
-      ]
+      rating: 2.7,
+      reviews: REVIEWS_MOCK
     }
   ]
 };
@@ -60,6 +56,7 @@ it(`OfferCard component structure test`, () => {
       <OfferDetails
         offerCurrent = {TestDataValue.OFFERS[0]}
         offers = {TestDataValue.OFFERS}
+        onOfferHeadingClick = {() => {}}
       />
   ).toJSON();
 

@@ -3,53 +3,49 @@ import renderer from 'react-test-renderer';
 import nanoid from 'nanoid';
 import {Main} from './main.jsx';
 
+const REVIEWS_MOCK = [
+  {
+    author: `Hanna`,
+    review: `Unique lightness of Amsterdam. The building is green and from 18th century.`,
+    userRating: 1,
+    date: `April 2017`
+  },
+  {
+    author: `Bill`,
+    review: `A quiet cozy and picturesque that.`,
+    userRating: 0,
+    date: `January 2018`
+  },
+  {
+    author: `Ed`,
+    review: `The building is green and from 18th century.`,
+    userRating: 3,
+    date: `September 2019`
+  }
+];
 const TestDataValue = {
   OFFERS: [
     {
-      name: `Canal View Prinsengracht`,
+      name: `Prinsengracht`,
       coordinates: [52.3909553943508, 4.929309666406198],
       id: nanoid(),
-      price: 100,
-      type: `Hotel room`,
-      premium: false,
-      isFavorites: true,
-      reviews: [
-        {
-          author: `Max`,
-          review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
-        },
-        {
-          author: `Adelina`,
-          review: `A quiet cozy and picturesque that.`
-        },
-        {
-          author: `Stephen`,
-          review: `The building is green and from 18th century.`
-        }
-      ]
-    },
-    {
-      name: `Nice, cozy, warm big bed apartment`,
-      coordinates: [52.3809553943508, 4.939309666406198],
-      id: nanoid(),
-      price: 170,
-      type: `Lux apartment`,
+      price: 74,
+      type: `Hotel`,
       premium: true,
       isFavorites: true,
-      reviews: [
-        {
-          author: `Max`,
-          review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
-        },
-        {
-          author: `Adelina`,
-          review: `A quiet cozy and picturesque that.`
-        },
-        {
-          author: `Stephen`,
-          review: `The building is green and from 18th century.`
-        }
-      ]
+      rating: 4.7,
+      reviews: REVIEWS_MOCK
+    },
+    {
+      name: `Nice apartment`,
+      coordinates: [52.3809553943508, 4.939309666406198],
+      id: nanoid(),
+      price: 90,
+      type: `Apartment`,
+      premium: false,
+      isFavorites: true,
+      rating: 4.7,
+      reviews: REVIEWS_MOCK
     }
   ]
 };

@@ -52,7 +52,6 @@ export class OfferCard extends React.PureComponent {
           }
         }
       >
-        {/* Разобраться, выводится-ли метка для near */ }
         {this.props.offer.premium && <div className="place-card__mark">
           <span>Premium</span>
         </div>

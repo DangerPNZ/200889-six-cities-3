@@ -8,13 +8,14 @@ export class NearPlacesList extends React.PureComponent {
   constructor(props) {
     super(props);
   }
+
   render() {
     return (
       <div className="near-places__list places__list">
         {
           this.props.offers.map((offerItem) => <OfferCard
             offer = {offerItem}
-            onOfferMouseInteract = {this.onOfferMouseInteract}
+            onOfferMouseInteract = {this.props.onOfferMouseInteract}
             onOfferHeadingClick = {this.props.onOfferHeadingClick}
             key = {offerItem.id}
             renderMode = {RENDER_MODE_TO_NEAR}
@@ -48,5 +49,6 @@ NearPlacesList.propTypes = {
         ).isRequired
       }).isRequired
   ).isRequired,
-  onOfferHeadingClick: PropTypes.func.isRequired
+  onOfferHeadingClick: PropTypes.func.isRequired,
+  onOfferMouseInteract: PropTypes.func
 };

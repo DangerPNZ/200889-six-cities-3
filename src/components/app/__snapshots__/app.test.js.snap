@@ -257,7 +257,7 @@ exports[`App component structure test 1`] = `
                       className="place-card__price-value"
                     >
                       €
-                      100
+                      110
                     </b>
                     <span
                       className="place-card__price-text"
@@ -312,13 +312,13 @@ exports[`App component structure test 1`] = `
                   <a
                     href="#"
                   >
-                    Canal View Prinsengracht
+                    Canal
                   </a>
                 </h2>
                 <p
                   className="place-card__type"
                 >
-                  Hotel room
+                  Room
                 </p>
               </div>
             </article>
@@ -362,7 +362,7 @@ exports[`App component structure test 1`] = `
                       className="place-card__price-value"
                     >
                       €
-                      170
+                      177
                     </b>
                     <span
                       className="place-card__price-text"
@@ -371,7 +371,7 @@ exports[`App component structure test 1`] = `
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button place-card__bookmark-button--active button"
+                    className="place-card__bookmark-button button"
                     type="button"
                   >
                     <svg
@@ -399,7 +399,7 @@ exports[`App component structure test 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "40%",
                         }
                       }
                     />
@@ -417,7 +417,7 @@ exports[`App component structure test 1`] = `
                   <a
                     href="#"
                   >
-                    Nice, cozy, warm big bed apartment
+                    Nice, warm big bed apartment
                   </a>
                 </h2>
                 <p

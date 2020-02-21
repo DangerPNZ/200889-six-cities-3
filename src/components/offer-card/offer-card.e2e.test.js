@@ -13,22 +13,30 @@ const TestDataValue = {
     type: `Lux apartment`,
     premium: true,
     isFavorites: true,
+    rating: 3.9,
     reviews: [
       {
-        author: `Max`,
-        review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
+        author: `Hanna`,
+        review: `Unique lightness of Amsterdam. The building is green and from 18th century.`,
+        userRating: 1,
+        date: `April 2017`
       },
       {
-        author: `Adelina`,
-        review: `A quiet cozy and picturesque that.`
+        author: `Bill`,
+        review: `A quiet cozy and picturesque that.`,
+        userRating: 0,
+        date: `January 2018`
       },
       {
-        author: `Stephen`,
-        review: `The building is green and from 18th century.`
+        author: `Ed`,
+        review: `The building is green and from 18th century.`,
+        userRating: 3,
+        date: `September 2019`
       }
     ]
   }
 };
+const RENDER_MODE_TO_MAIN = `toMain`;
 
 Enzume.configure({
   adapter: new Adapter()
@@ -42,6 +50,7 @@ it(`OfferCard component e2e test`, () => {
         offer = {TestDataValue.OFFER}
         onOfferMouseInteract = {handleMouseEnter}
         onOfferHeadingClick = {handleHeadingHandler}
+        renderMode = {RENDER_MODE_TO_MAIN}
       />
   );
   const cardHeading = card.find(`.place-card__name`);

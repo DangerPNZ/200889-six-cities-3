@@ -10,13 +10,12 @@ const getCitiesOffersForMap = (offerCurrent, offers) => {
   const currentOfferIndex = offersForMap.findIndex((item) => item === offerCurrent);
   offersForMap.splice(currentOfferIndex, 1);
   offersForMap.slice(0, 3);
-  offerCurrent.activePin = true;
   offersForMap.push(offerCurrent);
   return offersForMap;
 };
 const getNearPlacesMock = (offers) => offers.slice().slice(0, 3);
 
-export const OfferDetails = ({offerCurrent, offers}) => (
+export const OfferDetails = ({offerCurrent, offers, onOfferHeadingClick}) => (
   <div className="page">
     <header className="header">
       <div className="container">
@@ -165,13 +164,23 @@ export const OfferDetails = ({offerCurrent, offers}) => (
         <section className="property__map map">
           <Map
             offers = {getCitiesOffersForMap(offerCurrent, offers)}
+            offerCurrent = {offerCurrent}
           />
         </section>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <NearPlacesList offers = {getNearPlacesMock(offers)}/>
+          <NearPlacesList
+            offers = {getNearPlacesMock(offers)}
+            onOfferHeadingClick = {onOfferHeadingClick}
+            /* нужна ли нам тут функция подсветки пина предложения на карте?
+              Из ТЗ: При наведении курсора на карточку предложения, маркер,
+              соответствующий объявлению, становится оранжевым
+              НО активный пункт уже есть
+            */
+            onOfferMouseInteract = {() => {}}
+          />
         </section>
       </div>
     </main>
@@ -220,5 +229,6 @@ OfferDetails.propTypes = {
             }).isRequired
         ).isRequired
       }).isRequired
-  ).isRequired
+  ).isRequired,
+  onOfferHeadingClick: PropTypes.func.isRequired
 };

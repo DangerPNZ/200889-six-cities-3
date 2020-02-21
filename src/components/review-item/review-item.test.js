@@ -4,9 +4,11 @@ import {ReviewItem} from './review-item.jsx';
 
 const TestDataValue = {
   REVIEW: {
-    id: `_rt363f`,
-    author: `Max`,
-    review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`
+    id: `_7574hdfh`,
+    author: `Ed`,
+    review: `The building is green and from 18th century.`,
+    userRating: 3,
+    date: `September 2019`
   }
 };
 

@@ -1,18 +1,18 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import nanoid from 'nanoid';
-import {OfferCard} from './offer-card.jsx';
+import {Reviews} from './reviews.jsx';
 
 const TestDataValue = {
-  OFFER: {
-    name: `Nice, cozy, warm big bed apartment`,
-    coordinates: [52.3809553943508, 4.939309666406198],
+  REVIEW: {
+    name: `Prinsengracht`,
+    coordinates: [52.3909553943508, 4.929309666406198],
     id: nanoid(),
-    price: 145,
-    type: `Lux apartment`,
+    price: 74,
+    type: `Motel`,
     premium: true,
     isFavorites: true,
-    rating: 3.5,
+    rating: 4.9,
     reviews: [
       {
         author: `Hanna`,
@@ -35,16 +35,12 @@ const TestDataValue = {
     ]
   }
 };
-const RENDER_MODE_TO_MAIN = `toMain`;
 
-it(`OfferCard component structure test`, () => {
+it(`ReviewItem component structure test`, () => {
   const tree = renderer
   .create(
-      <OfferCard
-        offer = {TestDataValue.OFFER}
-        onOfferMouseInteract = {() => {}}
-        onOfferHeadingClick = {() => {}}
-        renderMode = {RENDER_MODE_TO_MAIN}
+      <Reviews
+        offerCurrent = {TestDataValue.REVIEW}
       />
   ).toJSON();
 
