@@ -6,14 +6,11 @@ import {NearPlacesList} from '../near-places-list/near-places-list.jsx';
 import {getStyleForRating} from '../../utils/utils.js';
 
 const getCitiesOffersForMap = (offerCurrent, offers) => {
-  let offersForMap = offers.slice();
-  const currentOfferIndex = offersForMap.findIndex((item) => item === offerCurrent);
-  offersForMap.splice(currentOfferIndex, 1);
-  offersForMap.slice(0, 3);
-  offersForMap.push(offerCurrent);
-  return offersForMap;
+  const nearPlacesOffers = offers.filter((offer) => offer.id !== offerCurrent.id).slice(0, 3);
+  nearPlacesOffers.push(offerCurrent);
+  return nearPlacesOffers;
 };
-const getNearPlacesMock = (offers) => offers.slice().slice(0, 3);
+const getNearPlacesMock = (offers) => offers.slice(0, 3);
 
 export const OfferDetails = ({offerCurrent, offers, onOfferHeadingClick}) => (
   <div className="page">
@@ -179,7 +176,7 @@ export const OfferDetails = ({offerCurrent, offers, onOfferHeadingClick}) => (
               соответствующий объявлению, становится оранжевым
               НО активный пункт уже есть
             */
-            onOfferMouseInteract = {() => {}}
+            // onOfferMouseInteract = {() => {}}
           />
         </section>
       </div>

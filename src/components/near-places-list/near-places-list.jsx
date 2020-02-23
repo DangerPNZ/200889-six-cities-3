@@ -15,7 +15,7 @@ export class NearPlacesList extends React.PureComponent {
         {
           this.props.offers.map((offerItem) => <OfferCard
             offer = {offerItem}
-            onOfferMouseInteract = {this.props.onOfferMouseInteract}
+            onOfferMouseInteract = {() => {}}
             onOfferHeadingClick = {this.props.onOfferHeadingClick}
             key = {offerItem.id}
             renderMode = {RENDER_MODE_TO_NEAR}

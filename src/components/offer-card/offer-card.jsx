@@ -10,7 +10,7 @@ const ElementType = {
   CONTAINER: `main container`,
   IMAGE_WRAPPER: `image wrapper`
 };
-const getCSSClass = (renderMode, elementType) => {
+const getCSSClassToElementByRenderMode = (renderMode, elementType) => {
   let cls = null;
   if (elementType === ElementType.CONTAINER) {
     switch (renderMode) {
@@ -40,7 +40,7 @@ export class OfferCard extends React.PureComponent {
   render() {
     return (
       <article
-        className={getCSSClass(this.props.renderMode, ElementType.CONTAINER)}
+        className={getCSSClassToElementByRenderMode(this.props.renderMode, ElementType.CONTAINER)}
         onMouseEnter={
           () => {
             this.props.onOfferMouseInteract(this.props.offer);
@@ -56,7 +56,7 @@ export class OfferCard extends React.PureComponent {
           <span>Premium</span>
         </div>
         }
-        <div className={getCSSClass(this.props.renderMode, ElementType.IMAGE_WRAPPER)}>
+        <div className={getCSSClassToElementByRenderMode(this.props.renderMode, ElementType.IMAGE_WRAPPER)}>
           <a href="#">
             <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image"/>
           </a>

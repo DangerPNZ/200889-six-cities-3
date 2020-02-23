@@ -17,7 +17,7 @@ export class App extends React.PureComponent {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {this._getScreen()}
+            {this.screen}
           </Route>
           <Route exact path="/offer">
             <OfferDetails
@@ -30,7 +30,7 @@ export class App extends React.PureComponent {
       </BrowserRouter>
     );
   }
-  _getScreen() {
+  get screen() {
     if (this.state.selectedOffer) {
       return <OfferDetails
         offerCurrent = {this.state.selectedOffer}

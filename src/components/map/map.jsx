@@ -22,15 +22,9 @@ export class Map extends React.PureComponent {
       <div id="map" style={{height: `100%`}} ref={this.map}></div>
     );
   }
-  _getPin(offer) {
-    if (this.props.offerCurrent) {
-      return leaflet.icon({
-        iconUrl: offer.id === this.props.offerCurrent.id ? `img/pin-active.svg` : `img/pin.svg`,
-        iconSize: [30, 30]
-      });
-    }
+  getPin(offer) {
     return leaflet.icon({
-      iconUrl: `img/pin.svg`,
+      iconUrl: this.props.offerCurrent && offer.id === this.props.offerCurrent.id ? `img/pin-active.svg` : `img/pin.svg`,
       iconSize: [30, 30]
     });
   }
@@ -52,7 +46,7 @@ export class Map extends React.PureComponent {
       .addTo(map);
     this.props.offers.forEach((offerItem) => {
       leaflet
-      .marker(offerItem.coordinates, {icon: this._getPin(offerItem)})
+      .marker(offerItem.coordinates, {icon: this.getPin(offerItem)})
       .addTo(map);
     });
   }
