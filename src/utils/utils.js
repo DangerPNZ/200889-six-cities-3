@@ -15,3 +15,7 @@ export const getStyleForRating = (rating) => {
   }
   return style;
 };
+
+export const extend = (a, b = null) => {
+  return b !== null ? Object.assign({}, a, b) : Object.assign({}, a);
+};

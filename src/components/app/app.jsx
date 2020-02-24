@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/reducer.js";
+
 import {Main} from '../main/main.jsx';
 import {OfferDetails} from '../offer-details/offer-details.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
@@ -10,7 +14,6 @@ export class App extends React.PureComponent {
     this.state = {
       selectedOffer: null
     };
-    this.onOfferHeadingClick = this.onOfferHeadingClick.bind(this);
   }
   render() {
     return (
@@ -43,12 +46,6 @@ export class App extends React.PureComponent {
       onOfferHeadingClick = {this.onOfferHeadingClick}
     />;
   }
-  onOfferHeadingClick(selectedOffer) {
-    /* передать null для возврата к главному экрану */
-    this.setState({
-      selectedOffer
-    });
-  }
 }
 
 App.propTypes = {
@@ -75,3 +72,18 @@ App.propTypes = {
       }).isRequired
   ).isRequired
 };
+
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  selectedOffer: state.currentOffer
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onOfferHeadingClick(selectedOffer) {
+    /* передать null для возврата к главному экрану */
+    dispatch(ActionCreator.selectOffer(selectedOffer));
+  }
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
