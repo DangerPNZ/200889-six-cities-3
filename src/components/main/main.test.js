@@ -56,6 +56,8 @@ it(`Main component structure test`, () => {
       <Main
         offers = {TestDataValue.OFFERS}
         onOfferHeadingClick = {() => {}}
+        selectedCity = {`Cologne`}
+        onCityTabClick = {() => {}}
       />
   ).toJSON();
 

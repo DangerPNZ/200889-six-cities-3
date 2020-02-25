@@ -55,6 +55,9 @@ it(`App component structure test`, () => {
   .create(
       <App
         offers = {TestDataValue.OFFERS}
+        onOfferHeadingClick = {() => {}}
+        selectedCity = {`Paris`}
+        onCityTabClick = {() => {}}
       />
   ).toJSON();
 
