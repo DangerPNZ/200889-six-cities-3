@@ -11,16 +11,15 @@ export class Map extends React.PureComponent {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
-    this.pins = [];
   }
   componentDidMount() {
     if (this.mapRef.current) {
-      this._mapInit(this.mapRef.current);
+      this.mapInit(this.mapRef.current);
     }
   }
   componentDidUpdate(prevProps) {
     if (this.props.selectedOfferId !== prevProps.selectedOfferId) {
-      this.rerenderPins();
+      this.updatePins();
     }
   }
   render() {
@@ -28,29 +27,29 @@ export class Map extends React.PureComponent {
       <div id="map" style={{height: `100%`}} ref={this.mapRef}></div>
     );
   }
-  getPin(offer) {
+  getPinIcon(offer) {
     return leaflet.icon({
       iconUrl: this.props.selectedOfferId && offer.id === this.props.selectedOfferId ? `img/pin-active.svg` : `img/pin.svg`,
       iconSize: [30, 30]
     });
   }
-  rerenderPins() {
+  updatePins() {
     if (this.map !== null) {
       this.pins.forEach((pin) => {
         this.map.removeLayer(pin);
       });
     }
-    this.pin = [];
-    this.addPins();
+    this.addPinsToMap();
   }
-  addPins() {
+  addPinsToMap() {
+    this.pins = [];
     this.props.offers.forEach((offerItem) => {
-      const pin = leaflet.marker(offerItem.coordinates, {icon: this.getPin(offerItem)})
+      const pin = leaflet.marker(offerItem.coordinates, {icon: this.getPinIcon(offerItem)})
       .addTo(this.map);
       this.pins.push(pin);
     });
   }
-  _mapInit(mapCurrent) {
+  mapInit(mapCurrent) {
     if (!mapCurrent) {
       throw new Error(`no mapCurrent`);
     }
@@ -66,7 +65,7 @@ export class Map extends React.PureComponent {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(this.map);
-    this.addPins();
+    this.addPinsToMap();
   }
 }
 

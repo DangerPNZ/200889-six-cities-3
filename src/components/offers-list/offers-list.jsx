@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {OfferCard} from '../offer-card/offer-card.jsx';
 import {SortOption} from '../../utils/utils.js';
+import {CompareDirection} from '../../utils/utils.js';
 import {compare} from '../../utils/utils.js';
 
 const RENDER_MODE_TO_MAIN = `toMain`;
@@ -12,9 +13,9 @@ const OfferKey = {
 const getOffersBySortType = (sortType, offers) => {
   switch (sortType) {
     case SortOption.DEFAULT: return offers;
-    case SortOption.BY_PRICE_LOW_TO_HIGHT: return offers.sort(compare(OfferKey.PRICE)).reverse();
-    case SortOption.BY_PRICE_HIGHT_TO_LOW: return offers.sort(compare(OfferKey.PRICE));
-    case SortOption.BY_RATING_HIGHT_TO_LOW: return offers.sort(compare(OfferKey.RATING));
+    case SortOption.BY_PRICE_LOW_TO_HIGHT: return offers.sort(compare(OfferKey.PRICE, CompareDirection.DESC));
+    case SortOption.BY_PRICE_HIGHT_TO_LOW: return offers.sort(compare(OfferKey.PRICE, CompareDirection.ASC));
+    case SortOption.BY_RATING_HIGHT_TO_LOW: return offers.sort(compare(OfferKey.RATING, CompareDirection.ASC));
   }
   return offers;
 };

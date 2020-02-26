@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {ReviewsList} from '../reviews-list/reviews-list.jsx';
-import {compare} from '../../utils/utils.js';
+import {CompareDirection} from '../../utils/utils.js';
+import {compareByDate} from '../../utils/utils.js';
 
 const getSortedReviewsByDate = (reviews) => {
-  return reviews.sort(compare(`date`, true));
+  return reviews.sort(compareByDate(`date`, CompareDirection.ASC));
 };
 const getReviews = (reviews) => getSortedReviewsByDate(reviews.slice()).slice(0, 10);
 

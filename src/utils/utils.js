@@ -12,6 +12,10 @@ export const SortOption = {
   BY_PRICE_HIGHT_TO_LOW: `Price: high to low`,
   BY_RATING_HIGHT_TO_LOW: `Top rated first`,
 };
+export const CompareDirection = {
+  ASC: `ASC`,
+  DESC: `DESK`
+};
 export const getStyleForRating = (rating) => {
   let style = null;
   if (rating < 1) {
@@ -41,23 +45,33 @@ export const getValuesListFromEnum = (enumeration) => {
   }
   return values;
 };
-export const compare = (property, byDate) => {
-  if (byDate) {
-    return (a, b) => {
-      if (new Date(a[property]) < new Date(b[property])) {
-        return 1;
-      } else if (new Date(a[property]) > new Date(b[property])) {
-        return -1;
-      }
-      return 0;
-    };
-  }
+export const compare = (property, compareDirection = CompareDirection.ASC) => {
   return (a, b) => {
-    if (a[property] < b[property]) {
+    if (a[property] < b[property] && compareDirection === CompareDirection.ASC) {
       return 1;
-    } else if (a[property] > b[property]) {
+    } else if (a[property] < b[property] && compareDirection === CompareDirection.DESC) {
       return -1;
+    } else if (a[property] > b[property] && compareDirection === CompareDirection.ASC) {
+      return -1;
+    } else if (a[property] > b[property] && compareDirection === CompareDirection.DESC) {
+      return 1;
     }
     return 0;
   };
 };
+export const compareByDate = (property, compareDirection = CompareDirection.ASC) => {
+  return (a, b) => {
+    if (new Date(a[property]) < new Date(b[property]) && compareDirection === CompareDirection.ASC) {
+      return 1;
+    } else if (new Date(a[property]) < new Date(b[property]) && compareDirection === CompareDirection.DESC) {
+      return -1;
+    } else if (new Date(a[property]) > new Date(b[property]) && compareDirection === CompareDirection.ASC) {
+      return -1;
+    } else if (new Date(a[property]) > new Date(b[property]) && compareDirection === CompareDirection.DESC) {
+      return 1;
+    }
+    return 0;
+  };
+};
+
+
