@@ -10,45 +10,63 @@ const MapSetting = {
 export class Map extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.map = React.createRef();
+    this.mapRef = React.createRef();
+    this.pins = [];
   }
   componentDidMount() {
-    if (this.map.current) {
-      this._mapInit(this.map.current);
+    if (this.mapRef.current) {
+      this._mapInit(this.mapRef.current);
+    }
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.selectedOfferId !== prevProps.selectedOfferId) {
+      this.rerenderPins();
     }
   }
   render() {
     return (
-      <div id="map" style={{height: `100%`}} ref={this.map}></div>
+      <div id="map" style={{height: `100%`}} ref={this.mapRef}></div>
     );
   }
   getPin(offer) {
     return leaflet.icon({
-      iconUrl: this.props.offerCurrent && offer.id === this.props.offerCurrent.id ? `img/pin-active.svg` : `img/pin.svg`,
+      iconUrl: this.props.selectedOfferId && offer.id === this.props.selectedOfferId ? `img/pin-active.svg` : `img/pin.svg`,
       iconSize: [30, 30]
+    });
+  }
+  rerenderPins() {
+    if (this.map !== null) {
+      this.pins.forEach((pin) => {
+        this.map.removeLayer(pin);
+      });
+    }
+    this.pin = [];
+    this.addPins();
+  }
+  addPins() {
+    this.props.offers.forEach((offerItem) => {
+      const pin = leaflet.marker(offerItem.coordinates, {icon: this.getPin(offerItem)})
+      .addTo(this.map);
+      this.pins.push(pin);
     });
   }
   _mapInit(mapCurrent) {
     if (!mapCurrent) {
       throw new Error(`no mapCurrent`);
     }
-    const map = leaflet.map(mapCurrent, {
+    this.map = leaflet.map(mapCurrent, {
       center: MapSetting.CITY,
       zoom: MapSetting.ZOOM,
       zoomControl: false,
       marker: true
     });
-    map.setView(MapSetting.CITY, MapSetting.ZOOM);
+    this.map.setView(MapSetting.CITY, MapSetting.ZOOM);
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
-      .addTo(map);
-    this.props.offers.forEach((offerItem) => {
-      leaflet
-      .marker(offerItem.coordinates, {icon: this.getPin(offerItem)})
-      .addTo(map);
-    });
+      .addTo(this.map);
+    this.addPins();
   }
 }
 
@@ -76,25 +94,5 @@ Map.propTypes = {
         ).isRequired
       }).isRequired
   ).isRequired,
-  offerCurrent: PropTypes.exact({
-    name: PropTypes.string.isRequired,
-    coordinates: PropTypes.arrayOf(
-        PropTypes.number.isRequired
-    ).isRequired,
-    id: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    premium: PropTypes.bool.isRequired,
-    isFavorites: PropTypes.bool.isRequired,
-    rating: PropTypes.number.isRequired,
-    activePin: PropTypes.bool,
-    reviews: PropTypes.arrayOf(
-        PropTypes.exact({
-          author: PropTypes.string.isRequired,
-          review: PropTypes.string.isRequired,
-          userRating: PropTypes.number.isRequired,
-          date: PropTypes.string.isRequired
-        }).isRequired
-    ).isRequired
-  })
+  selectedOfferId: PropTypes.string
 };

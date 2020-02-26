@@ -161,7 +161,7 @@ export const OfferDetails = ({offerCurrent, offers, onOfferHeadingClick}) => (
         <section className="property__map map">
           <Map
             offers = {getCitiesOffersForMap(offerCurrent, offers)}
-            offerCurrent = {offerCurrent}
+            selectedOfferId = {offerCurrent.id}
           />
         </section>
       </section>

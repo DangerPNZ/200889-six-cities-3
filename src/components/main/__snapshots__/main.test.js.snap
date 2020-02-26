@@ -188,7 +188,7 @@ exports[`Main component structure test 1`] = `
               className="places__sorting-type"
               tabIndex="0"
             >
-              Popular
+              Price: low to high
               <svg
                 className="places__sorting-arrow"
                 height="4"
@@ -203,25 +203,29 @@ exports[`Main component structure test 1`] = `
               className="places__options places__options--custom places__options--opened"
             >
               <li
-                className="places__option places__option--active"
+                className="places__option"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Popular
               </li>
               <li
-                className="places__option"
+                className="places__option places__option--active"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Price: low to high
               </li>
               <li
                 className="places__option"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Price: high to low
               </li>
               <li
                 className="places__option"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Top rated first
@@ -280,7 +284,7 @@ exports[`Main component structure test 1`] = `
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button place-card__bookmark-button--active button"
+                    className="place-card__bookmark-button button place-card__bookmark-button--active"
                     type="button"
                   >
                     <svg
@@ -378,7 +382,7 @@ exports[`Main component structure test 1`] = `
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button place-card__bookmark-button--active button"
+                    className="place-card__bookmark-button button place-card__bookmark-button--active"
                     type="button"
                   >
                     <svg

@@ -1,19 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {ReviewsList} from '../reviews-list/reviews-list.jsx';
+import {compare} from '../../utils/utils.js';
 
-const compareByDate = (property) => {
-  return (a, b) => {
-    if (new Date(a[property]) < new Date(b[property])) {
-      return 1;
-    } else if (new Date(a[property]) > new Date(b[property])) {
-      return -1;
-    }
-    return 0;
-  };
-};
 const getSortedReviewsByDate = (reviews) => {
-  return reviews.sort(compareByDate(`date`));
+  return reviews.sort(compare(`date`, true));
 };
 const getReviews = (reviews) => getSortedReviewsByDate(reviews.slice()).slice(0, 10);
 

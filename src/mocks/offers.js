@@ -24,7 +24,7 @@ export const DataValue = {
   OFFERS_MOCK: [
     {
       name: `Beautiful & luxurious apartment at great location`,
-      coordinates: [52.3909553943508, 4.85309666406198],
+      coordinates: [52.383344, 4.861853],
       id: nanoid(),
       price: 120,
       type: `Apartment`,
@@ -35,7 +35,7 @@ export const DataValue = {
     },
     {
       name: `Wood and stone place`,
-      coordinates: [52.369553943508, 4.85309666406198],
+      coordinates: [52.361695, 4.844823],
       id: nanoid(),
       price: 150,
       type: `Room`,
@@ -46,7 +46,7 @@ export const DataValue = {
     },
     {
       name: `Canal View Prinsengracht`,
-      coordinates: [52.3909553943508, 4.929309666406198],
+      coordinates: [52.351589, 4.926567],
       id: nanoid(),
       price: 100,
       type: `Hotel room`,
@@ -57,7 +57,7 @@ export const DataValue = {
     },
     {
       name: `Nice, cozy, warm big bed apartment`,
-      coordinates: [52.3809553943508, 4.939309666406198],
+      coordinates: [52.384466, 4.921065],
       id: nanoid(),
       price: 170,
       type: `Lux apartment`,

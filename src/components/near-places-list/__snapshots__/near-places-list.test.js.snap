@@ -46,7 +46,7 @@ exports[`NearPlacesList component structure test 1`] = `
           </span>
         </div>
         <button
-          className="place-card__bookmark-button place-card__bookmark-button--active button"
+          className="place-card__bookmark-button button place-card__bookmark-button--active"
           type="button"
         >
           <svg
@@ -151,7 +151,7 @@ exports[`NearPlacesList component structure test 1`] = `
           </span>
         </div>
         <button
-          className="place-card__bookmark-button place-card__bookmark-button--active button"
+          className="place-card__bookmark-button button place-card__bookmark-button--active"
           type="button"
         >
           <svg

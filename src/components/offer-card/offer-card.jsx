@@ -43,7 +43,7 @@ export class OfferCard extends React.PureComponent {
         className={getCSSClassToElementByRenderMode(this.props.renderMode, ElementType.CONTAINER)}
         onMouseEnter={
           () => {
-            this.props.onOfferMouseInteract(this.props.offer);
+            this.props.onOfferMouseInteract(this.props.offer.id);
           }
         }
         onMouseLeave={
@@ -67,7 +67,7 @@ export class OfferCard extends React.PureComponent {
               <b className="place-card__price-value">&euro;{this.props.offer.price}</b>
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
-            <button className={this.props.offer.isFavorites ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`} type="button">
+            <button className={`place-card__bookmark-button button${this.props.offer.isFavorites ? ` place-card__bookmark-button--active` : ``}`} type="button">
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>

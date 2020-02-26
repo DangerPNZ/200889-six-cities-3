@@ -49,6 +49,7 @@ const TestDataValue = {
     }
   ]
 };
+const OFFERS_SORT_TYPE = `Price: low to high`;
 
 it(`OffersList component structure test`, () => {
   const tree = renderer
@@ -56,6 +57,8 @@ it(`OffersList component structure test`, () => {
       <OffersList
         offers = {TestDataValue.OFFERS}
         onOfferHeadingClick = {() => {}}
+        offersSortType = {OFFERS_SORT_TYPE}
+        onOfferMouseInteract = {() => {}}
       />
   ).toJSON();
 

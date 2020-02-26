@@ -1,54 +1,105 @@
 import {reducer, ActionCreator} from './reducer.js';
 import {DataValue} from '../mocks/offers.js';
+import {City} from '../utils/utils.js';
+import {SortOption} from '../utils/utils.js';
 
+const mockId = `_tse4436gf`;
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
-    selectedCity: `Paris`,
+    selectedCity: City.PARIS,
     currentOffer: null,
-    offers: DataValue.OFFERS_MOCK
+    offers: DataValue.OFFERS_MOCK,
+    offersSortType: SortOption.DEFAULT,
+    offerInMouseEnterId: null
   });
 });
 
 describe(`Reducer actions tests`, () => {
   it(`Reducer change city`, () => {
     expect(reducer({
-      selectedCity: `Paris`,
+      selectedCity: City.PARIS,
       currentOffer: null,
-      offers: DataValue.OFFERS_MOCK
+      offers: DataValue.OFFERS_MOCK,
+      offersSortType: SortOption.DEFAULT,
+      offerInMouseEnterId: null
     },
-    ActionCreator.changeCity(`Cologne`)
+    ActionCreator.changeCity(City.COLOGNE)
     ))
     .toEqual({
-      selectedCity: `Cologne`,
+      selectedCity: City.COLOGNE,
       currentOffer: null,
-      offers: DataValue.OFFERS_MOCK
+      offers: DataValue.OFFERS_MOCK,
+      offersSortType: SortOption.DEFAULT,
+      offerInMouseEnterId: null
     });
   });
   it(`Reducer change getCityOffers`, () => {
     expect(reducer({
-      selectedCity: `Paris`,
+      selectedCity: City.COLOGNE,
       currentOffer: null,
-      offers: DataValue.OFFERS_MOCK
+      offers: DataValue.OFFERS_MOCK,
+      offersSortType: SortOption.DEFAULT,
+      offerInMouseEnterId: null
     },
-    ActionCreator.getCityOffers(`Cologne`)
+    ActionCreator.getCityOffers(City.COLOGNE)
     ))
     .toEqual({
-      selectedCity: `Paris`,
+      selectedCity: City.COLOGNE,
       currentOffer: null,
-      offers: []
+      offers: [],
+      offersSortType: SortOption.DEFAULT,
+      offerInMouseEnterId: null
     });
   });
   it(`Reducer select offer`, () => {
     expect(reducer({
-      city: `Cologne`,
+      city: City.COLOGNE,
       currentOffer: null,
-      offers: DataValue.OFFERS_MOCK
+      offers: DataValue.OFFERS_MOCK,
+      offersSortType: SortOption.DEFAULT,
+      offerInMouseEnterId: null
     },
     ActionCreator.selectOffer(DataValue.OFFERS_MOCK[2])
     )).toEqual({
-      city: `Cologne`,
+      city: City.COLOGNE,
       currentOffer: DataValue.OFFERS_MOCK[2],
-      offers: DataValue.OFFERS_MOCK
+      offers: DataValue.OFFERS_MOCK,
+      offersSortType: SortOption.DEFAULT,
+      offerInMouseEnterId: null
+    });
+  });
+  it(`Reducer change offersSortType`, () => {
+    expect(reducer({
+      city: City.COLOGNE,
+      currentOffer: null,
+      offers: DataValue.OFFERS_MOCK,
+      offersSortType: SortOption.DEFAULT,
+      offerInMouseEnterId: null
+    },
+    ActionCreator.changeOffersSortType(SortOption.BY_PRICE_LOW_TO_HIGHT)
+    )).toEqual({
+      city: City.COLOGNE,
+      currentOffer: null,
+      offers: DataValue.OFFERS_MOCK,
+      offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
+      offerInMouseEnterId: null
+    });
+  });
+  it(`Reducer change offerInMouseEnterId`, () => {
+    expect(reducer({
+      city: City.COLOGNE,
+      currentOffer: null,
+      offers: DataValue.OFFERS_MOCK,
+      offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
+      offerInMouseEnterId: null
+    },
+    ActionCreator.getOfferInMouseEnterId(mockId)
+    )).toEqual({
+      city: City.COLOGNE,
+      currentOffer: null,
+      offers: DataValue.OFFERS_MOCK,
+      offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
+      offerInMouseEnterId: mockId
     });
   });
 });

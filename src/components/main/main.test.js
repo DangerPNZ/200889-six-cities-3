@@ -49,6 +49,8 @@ const TestDataValue = {
     }
   ]
 };
+const SELECTED_CITY = `Cologne`;
+const OFFERS_SORT_TYPE = `Price: low to high`;
 
 it(`Main component structure test`, () => {
   const tree = renderer
@@ -56,8 +58,11 @@ it(`Main component structure test`, () => {
       <Main
         offers = {TestDataValue.OFFERS}
         onOfferHeadingClick = {() => {}}
-        selectedCity = {`Cologne`}
+        selectedCity = {SELECTED_CITY}
         onCityTabClick = {() => {}}
+        offersSortType = {OFFERS_SORT_TYPE}
+        onSortOptionClick = {() => {}}
+        onOfferMouseInteract = {() => {}}
       />
   ).toJSON();
 
