@@ -2,65 +2,51 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import nanoid from 'nanoid';
 import {Offers} from './offers.jsx';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import {reducer} from '../../reducer/reducer.js';
 
-const REVIEWS_MOCK = [
-  {
-    author: `Oliver`,
-    review: `The most comfortable place`,
-    userRating: 5,
-    date: `May 2018`
-  },
-  {
-    author: `James`,
-    review: `Really liked`,
-    userRating: 4,
-    date: `January 2016`
-  },
-  {
-    author: `Mia`,
-    review: `I've been better`,
-    userRating: 2,
-    date: `February 2020`
-  }
-];
+const store = createStore(reducer, (f) => f);
 const TestDataValue = {
   OFFERS: [
     {
       name: `Apartment overlooking the river`,
-      coordinates: [52.3909553943508, 4.929309666406198],
+      coordinates: [],
       id: nanoid(),
       price: 200,
       type: `Apartment`,
       premium: true,
       isFavorites: true,
       rating: 4.7,
-      reviews: REVIEWS_MOCK
+      reviews: []
     },
     {
       name: `Room in the city center`,
-      coordinates: [52.3809553943508, 4.939309666406198],
+      coordinates: [],
       id: nanoid(),
       price: 170,
       type: `Hotel room`,
       premium: true,
       isFavorites: false,
       rating: 4,
-      reviews: REVIEWS_MOCK
+      reviews: []
     }
   ]
 };
 const OFFERS_SORT_TYPE = `Price: low to high`;
+const SELECTED_CITY = `Cologne`;
 
 it(`Offers component structure test`, () => {
   const tree = renderer
   .create(
-      <Offers
-        offers = {TestDataValue.OFFERS}
-        onOfferHeadingClick = {() => {}}
-        offersSortType = {OFFERS_SORT_TYPE}
-        onSortOptionClick = {() => {}}
-        onOfferMouseInteract = {() => {}}
-      />
+      <Provider store = {store}>
+        <Offers
+          offers = {TestDataValue.OFFERS}
+          offersSortType = {OFFERS_SORT_TYPE}
+          onSortOptionClick = {() => {}}
+          selectedCity = {SELECTED_CITY}
+        />
+      </Provider>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

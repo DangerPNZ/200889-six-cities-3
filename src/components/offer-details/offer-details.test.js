@@ -27,7 +27,7 @@ const TestDataValue = {
   OFFERS: [
     {
       name: `Canal View Prinsengracht`,
-      coordinates: [52.3909553943508, 4.929309666406198],
+      coordinates: [],
       id: nanoid(),
       price: 100,
       type: `Hotel room`,
@@ -38,14 +38,14 @@ const TestDataValue = {
     },
     {
       name: `Nice, cozy, warm big bed apartment`,
-      coordinates: [52.3809553943508, 4.939309666406198],
+      coordinates: [],
       id: nanoid(),
       price: 170,
       type: `Lux apartment`,
       premium: true,
       isFavorites: true,
       rating: 2.7,
-      reviews: REVIEWS_MOCK
+      reviews: []
     }
   ]
 };

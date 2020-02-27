@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {getStyleForRating} from '../../utils/utils.js';
 
-export const ReviewItem = ({reviewItem}) => (
+const ReviewItemComponent = ({reviewItem}) => (
   <li className="reviews__item">
     <div className="reviews__user user">
       <div className="reviews__avatar-wrapper user__avatar-wrapper">
@@ -26,8 +26,9 @@ export const ReviewItem = ({reviewItem}) => (
     </div>
   </li>
 );
+export const ReviewItem = React.memo(ReviewItemComponent);
 
-ReviewItem.propTypes = {
+ReviewItemComponent.propTypes = {
   reviewItem: PropTypes.exact({
     id: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,

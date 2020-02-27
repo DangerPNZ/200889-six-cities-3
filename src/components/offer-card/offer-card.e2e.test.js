@@ -6,34 +6,15 @@ import {OfferCard} from './offer-card.jsx';
 
 const TestDataValue = {
   OFFER: {
-    name: `Nice, cozy, warm big bed apartment`,
-    coordinates: [52.3809553943508, 4.939309666406198],
+    name: ``,
+    coordinates: [],
     id: nanoid(),
     price: 170,
-    type: `Lux apartment`,
+    type: ``,
     premium: true,
     isFavorites: true,
     rating: 3.9,
-    reviews: [
-      {
-        author: `Hanna`,
-        review: `Unique lightness of Amsterdam. The building is green and from 18th century.`,
-        userRating: 1,
-        date: `April 2017`
-      },
-      {
-        author: `Bill`,
-        review: `A quiet cozy and picturesque that.`,
-        userRating: 0,
-        date: `January 2018`
-      },
-      {
-        author: `Ed`,
-        review: `The building is green and from 18th century.`,
-        userRating: 3,
-        date: `September 2019`
-      }
-    ]
+    reviews: []
   }
 };
 const RENDER_MODE_TO_MAIN = `toMain`;

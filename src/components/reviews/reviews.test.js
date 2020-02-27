@@ -6,7 +6,7 @@ import {Reviews} from './reviews.jsx';
 const TestDataValue = {
   REVIEW: {
     name: `Prinsengracht`,
-    coordinates: [52.3909553943508, 4.929309666406198],
+    coordinates: [],
     id: nanoid(),
     price: 74,
     type: `Motel`,

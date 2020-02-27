@@ -1,25 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {OffersSortOptions} from '../offers-sort-options/offers-sort-options.jsx';
-import {OffersList} from '../offers-list/offers-list.jsx';
+import OffersList from '../offers-list/offers-list.jsx';
 import {Map} from '../map/map.jsx';
 
-export const Offers = ({offers, onOfferHeadingClick, offersSortType, onSortOptionClick, offerInMouseEnterId, onOfferMouseInteract}) => (
+const OffersComponent = ({offers, offersSortType, onSortOptionClick, offerInMouseEnterId, selectedCity}) => (
   <div className="cities">
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+        <b className="places__found">{offers.length} places to stay in {selectedCity}</b>
         <OffersSortOptions
           offersSortType = {offersSortType}
           onSortOptionClick = {onSortOptionClick}
         />
-        <OffersList
-          offers = {offers}
-          onOfferHeadingClick = {onOfferHeadingClick}
-          offersSortType = {offersSortType}
-          onOfferMouseInteract = {onOfferMouseInteract}
-        />
+        <OffersList/>
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">
@@ -32,8 +27,9 @@ export const Offers = ({offers, onOfferHeadingClick, offersSortType, onSortOptio
     </div>
   </div>
 );
+export const Offers = React.memo(OffersComponent);
 
-Offers.propTypes = {
+OffersComponent.propTypes = {
   offers: PropTypes.arrayOf(
       PropTypes.exact({
         name: PropTypes.string.isRequired,
@@ -56,9 +52,8 @@ Offers.propTypes = {
         ).isRequired
       }).isRequired
   ).isRequired,
-  onOfferHeadingClick: PropTypes.func.isRequired,
   offersSortType: PropTypes.string.isRequired,
   onSortOptionClick: PropTypes.func.isRequired,
   offerInMouseEnterId: PropTypes.string,
-  onOfferMouseInteract: PropTypes.func.isRequired
+  selectedCity: PropTypes.string.isRequired
 };

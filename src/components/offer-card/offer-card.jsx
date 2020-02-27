@@ -33,66 +33,60 @@ const getCSSClassToElementByRenderMode = (renderMode, elementType) => {
   }
   return cls;
 };
-export class OfferCard extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <article
-        className={getCSSClassToElementByRenderMode(this.props.renderMode, ElementType.CONTAINER)}
-        onMouseEnter={
-          () => {
-            this.props.onOfferMouseInteract(this.props.offer.id);
-          }
-        }
-        onMouseLeave={
-          () => {
-            this.props.onOfferMouseInteract(null);
-          }
-        }
+const OfferCardComponent = ({renderMode, offer, onOfferMouseInteract, onOfferHeadingClick}) => (
+  <article
+    className={getCSSClassToElementByRenderMode(renderMode, ElementType.CONTAINER)}
+    onMouseEnter={
+      () => {
+        onOfferMouseInteract(offer.id);
+      }
+    }
+    onMouseLeave={
+      () => {
+        onOfferMouseInteract(null);
+      }
+    }
+  >
+    {offer.premium && <div className="place-card__mark">
+      <span>Premium</span>
+    </div>
+    }
+    <div className={getCSSClassToElementByRenderMode(renderMode, ElementType.IMAGE_WRAPPER)}>
+      <a href="#">
+        <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image"/>
+      </a>
+    </div>
+    <div className="place-card__info">
+      <div className="place-card__price-wrapper">
+        <div className="place-card__price">
+          <b className="place-card__price-value">&euro;{offer.price}</b>
+          <span className="place-card__price-text">&#47;&nbsp;night</span>
+        </div>
+        <button className={`place-card__bookmark-button button${offer.isFavorites ? ` place-card__bookmark-button--active` : ``}`} type="button">
+          <svg className="place-card__bookmark-icon" width="18" height="19">
+            <use xlinkHref="#icon-bookmark"></use>
+          </svg>
+          <span className="visually-hidden">To bookmarks</span>
+        </button>
+      </div>
+      <div className="place-card__rating rating">
+        <div className="place-card__stars rating__stars">
+          <span style={getStyleForRating(offer.rating)}></span>
+          <span className="visually-hidden">Rating</span>
+        </div>
+      </div>
+      <h2 className="place-card__name"
+        onClick={() => onOfferHeadingClick(offer)}
       >
-        {this.props.offer.premium && <div className="place-card__mark">
-          <span>Premium</span>
-        </div>
-        }
-        <div className={getCSSClassToElementByRenderMode(this.props.renderMode, ElementType.IMAGE_WRAPPER)}>
-          <a href="#">
-            <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image"/>
-          </a>
-        </div>
-        <div className="place-card__info">
-          <div className="place-card__price-wrapper">
-            <div className="place-card__price">
-              <b className="place-card__price-value">&euro;{this.props.offer.price}</b>
-              <span className="place-card__price-text">&#47;&nbsp;night</span>
-            </div>
-            <button className={`place-card__bookmark-button button${this.props.offer.isFavorites ? ` place-card__bookmark-button--active` : ``}`} type="button">
-              <svg className="place-card__bookmark-icon" width="18" height="19">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
-          </div>
-          <div className="place-card__rating rating">
-            <div className="place-card__stars rating__stars">
-              <span style={getStyleForRating(this.props.offer.rating)}></span>
-              <span className="visually-hidden">Rating</span>
-            </div>
-          </div>
-          <h2 className="place-card__name"
-            onClick={() => this.props.onOfferHeadingClick(this.props.offer)}
-          >
-            <a href="#">{this.props.offer.name}</a>
-          </h2>
-          <p className="place-card__type">{this.props.offer.type}</p>
-        </div>
-      </article>
-    );
-  }
-}
+        <a href="#">{offer.name}</a>
+      </h2>
+      <p className="place-card__type">{offer.type}</p>
+    </div>
+  </article>
+);
+export const OfferCard = React.memo(OfferCardComponent);
 
-OfferCard.propTypes = {
+OfferCardComponent.propTypes = {
   offer: PropTypes.exact({
     name: PropTypes.string.isRequired,
     coordinates: PropTypes.arrayOf(

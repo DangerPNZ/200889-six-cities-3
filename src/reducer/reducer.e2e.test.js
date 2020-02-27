@@ -2,6 +2,8 @@ import {reducer, ActionCreator} from './reducer.js';
 import {DataValue} from '../mocks/offers.js';
 import {City} from '../utils/utils.js';
 import {SortOption} from '../utils/utils.js';
+import {CompareDirection} from '../utils/utils.js';
+import {compare} from '../utils/utils.js';
 
 const mockId = `_tse4436gf`;
 it(`Reducer without additional parameters should return initial state`, () => {
@@ -9,6 +11,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     selectedCity: City.PARIS,
     currentOffer: null,
     offers: DataValue.OFFERS_MOCK,
+    sortedOffers: DataValue.OFFERS_MOCK,
     offersSortType: SortOption.DEFAULT,
     offerInMouseEnterId: null
   });
@@ -20,6 +23,7 @@ describe(`Reducer actions tests`, () => {
       selectedCity: City.PARIS,
       currentOffer: null,
       offers: DataValue.OFFERS_MOCK,
+      sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.DEFAULT,
       offerInMouseEnterId: null
     },
@@ -29,6 +33,7 @@ describe(`Reducer actions tests`, () => {
       selectedCity: City.COLOGNE,
       currentOffer: null,
       offers: DataValue.OFFERS_MOCK,
+      sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.DEFAULT,
       offerInMouseEnterId: null
     });
@@ -38,6 +43,7 @@ describe(`Reducer actions tests`, () => {
       selectedCity: City.COLOGNE,
       currentOffer: null,
       offers: DataValue.OFFERS_MOCK,
+      sortedOffers: [],
       offersSortType: SortOption.DEFAULT,
       offerInMouseEnterId: null
     },
@@ -47,6 +53,7 @@ describe(`Reducer actions tests`, () => {
       selectedCity: City.COLOGNE,
       currentOffer: null,
       offers: [],
+      sortedOffers: [],
       offersSortType: SortOption.DEFAULT,
       offerInMouseEnterId: null
     });
@@ -56,6 +63,7 @@ describe(`Reducer actions tests`, () => {
       city: City.COLOGNE,
       currentOffer: null,
       offers: DataValue.OFFERS_MOCK,
+      sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.DEFAULT,
       offerInMouseEnterId: null
     },
@@ -64,6 +72,7 @@ describe(`Reducer actions tests`, () => {
       city: City.COLOGNE,
       currentOffer: DataValue.OFFERS_MOCK[2],
       offers: DataValue.OFFERS_MOCK,
+      sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.DEFAULT,
       offerInMouseEnterId: null
     });
@@ -73,6 +82,7 @@ describe(`Reducer actions tests`, () => {
       city: City.COLOGNE,
       currentOffer: null,
       offers: DataValue.OFFERS_MOCK,
+      sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.DEFAULT,
       offerInMouseEnterId: null
     },
@@ -81,6 +91,7 @@ describe(`Reducer actions tests`, () => {
       city: City.COLOGNE,
       currentOffer: null,
       offers: DataValue.OFFERS_MOCK,
+      sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
       offerInMouseEnterId: null
     });
@@ -90,6 +101,7 @@ describe(`Reducer actions tests`, () => {
       city: City.COLOGNE,
       currentOffer: null,
       offers: DataValue.OFFERS_MOCK,
+      sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
       offerInMouseEnterId: null
     },
@@ -98,8 +110,28 @@ describe(`Reducer actions tests`, () => {
       city: City.COLOGNE,
       currentOffer: null,
       offers: DataValue.OFFERS_MOCK,
+      sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
       offerInMouseEnterId: mockId
+    });
+  });
+  it(`Reducer sort offers`, () => {
+    expect(reducer({
+      city: City.COLOGNE,
+      currentOffer: null,
+      offers: DataValue.OFFERS_MOCK,
+      sortedOffers: DataValue.OFFERS_MOCK,
+      offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
+      offerInMouseEnterId: null
+    },
+    ActionCreator.sortOffers(SortOption.BY_PRICE_HIGHT_TO_LOW)
+    )).toEqual({
+      city: City.COLOGNE,
+      currentOffer: null,
+      offers: DataValue.OFFERS_MOCK,
+      sortedOffers: DataValue.OFFERS_MOCK.sort(compare(`price`, CompareDirection.ASC)),
+      offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
+      offerInMouseEnterId: null
     });
   });
 });

@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer.js";
-
 import {Main} from '../main/main.jsx';
 import {OfferDetails} from '../offer-details/offer-details.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
@@ -40,13 +38,11 @@ export class App extends React.PureComponent {
     }
     return <Main
       offers = {this.props.offers}
-      onOfferHeadingClick = {this.props.onOfferHeadingClick}
       selectedCity = {this.props.selectedCity}
       onCityTabClick = {this.props.onCityTabClick}
       offersSortType = {this.props.offersSortType}
       onSortOptionClick = {this.props.onSortOptionClick}
       offerInMouseEnterId = {this.props.offerInMouseEnterId}
-      onOfferMouseInteract = {this.props.onOfferMouseInteract}
     />;
   }
 }
@@ -99,19 +95,16 @@ App.propTypes = {
   selectedCity: PropTypes.string.isRequired,
   offersSortType: PropTypes.string.isRequired,
   onSortOptionClick: PropTypes.func.isRequired,
-  offerInMouseEnterId: PropTypes.string,
-  onOfferMouseInteract: PropTypes.func.isRequired
+  offerInMouseEnterId: PropTypes.string
 };
 
-const mapStateToProps = (state) => {
-  return {
-    selectedCity: state.selectedCity,
-    offers: state.offers,
-    selectedOffer: state.currentOffer,
-    offersSortType: state.offersSortType,
-    offerInMouseEnterId: state.offerInMouseEnterId
-  };
-};
+const mapStateToProps = (state) => ({
+  selectedCity: state.selectedCity,
+  offers: state.offers,
+  selectedOffer: state.currentOffer,
+  offersSortType: state.offersSortType,
+  offerInMouseEnterId: state.offerInMouseEnterId
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onOfferHeadingClick(selectedOffer) {
@@ -124,11 +117,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSortOptionClick(sortType) {
     dispatch(ActionCreator.changeOffersSortType(sortType));
-  },
-  onOfferMouseInteract(id) {
-    dispatch(ActionCreator.getOfferInMouseEnterId(id));
+    dispatch(ActionCreator.sortOffers(sortType));
   }
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

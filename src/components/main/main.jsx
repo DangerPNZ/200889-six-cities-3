@@ -4,7 +4,7 @@ import {CitiesTabs} from '../cities-tabs/cities-tabs.jsx';
 import {Offers} from '../offers/offers.jsx';
 import {OffersEmpty} from '../offers-empty/offers-empty.jsx';
 
-export const Main = ({offers, onOfferHeadingClick, selectedCity, onCityTabClick, offersSortType, onSortOptionClick, offerInMouseEnterId, onOfferMouseInteract}) => (
+const MainComponent = ({offers, selectedCity, onCityTabClick, offersSortType, onSortOptionClick, offerInMouseEnterId}) => (
   <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -37,11 +37,10 @@ export const Main = ({offers, onOfferHeadingClick, selectedCity, onCityTabClick,
       />
       {offers.length !== 0 && <Offers
         offers = {offers}
-        onOfferHeadingClick = {onOfferHeadingClick}
         offersSortType = {offersSortType}
+        selectedCity = {selectedCity}
         onSortOptionClick = {onSortOptionClick}
         offerInMouseEnterId = {offerInMouseEnterId}
-        onOfferMouseInteract = {onOfferMouseInteract}
       />}
       {offers.length === 0 && <OffersEmpty
         selectedCity = {selectedCity}
@@ -49,14 +48,13 @@ export const Main = ({offers, onOfferHeadingClick, selectedCity, onCityTabClick,
     </main>
   </div>
 );
+export const Main = React.memo(MainComponent);
 
-Main.propTypes = {
+MainComponent.propTypes = {
   offers: PropTypes.array.isRequired,
   selectedCity: PropTypes.string.isRequired,
-  onOfferHeadingClick: PropTypes.func.isRequired,
   onCityTabClick: PropTypes.func.isRequired,
   offersSortType: PropTypes.string.isRequired,
   onSortOptionClick: PropTypes.func.isRequired,
-  offerInMouseEnterId: PropTypes.string,
-  onOfferMouseInteract: PropTypes.func.isRequired
+  offerInMouseEnterId: PropTypes.string
 };

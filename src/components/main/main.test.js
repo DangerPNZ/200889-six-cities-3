@@ -2,39 +2,23 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import nanoid from 'nanoid';
 import {Main} from './main.jsx';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import {reducer} from '../../reducer/reducer.js';
 
-const REVIEWS_MOCK = [
-  {
-    author: `Hanna`,
-    review: `Unique lightness of Amsterdam. The building is green and from 18th century.`,
-    userRating: 1,
-    date: `April 2017`
-  },
-  {
-    author: `Bill`,
-    review: `A quiet cozy and picturesque that.`,
-    userRating: 0,
-    date: `January 2018`
-  },
-  {
-    author: `Ed`,
-    review: `The building is green and from 18th century.`,
-    userRating: 3,
-    date: `September 2019`
-  }
-];
+const store = createStore(reducer, (f) => f);
 const TestDataValue = {
   OFFERS: [
     {
       name: `Prinsengracht`,
-      coordinates: [52.3909553943508, 4.929309666406198],
+      coordinates: [],
       id: nanoid(),
       price: 74,
       type: `Hotel`,
       premium: true,
       isFavorites: true,
       rating: 4.7,
-      reviews: REVIEWS_MOCK
+      reviews: []
     },
     {
       name: `Nice apartment`,
@@ -45,7 +29,7 @@ const TestDataValue = {
       premium: false,
       isFavorites: true,
       rating: 4.7,
-      reviews: REVIEWS_MOCK
+      reviews: []
     }
   ]
 };
@@ -55,15 +39,15 @@ const OFFERS_SORT_TYPE = `Price: low to high`;
 it(`Main component structure test`, () => {
   const tree = renderer
   .create(
-      <Main
-        offers = {TestDataValue.OFFERS}
-        onOfferHeadingClick = {() => {}}
-        selectedCity = {SELECTED_CITY}
-        onCityTabClick = {() => {}}
-        offersSortType = {OFFERS_SORT_TYPE}
-        onSortOptionClick = {() => {}}
-        onOfferMouseInteract = {() => {}}
-      />
+      <Provider store = {store}>
+        <Main
+          offers = {TestDataValue.OFFERS}
+          selectedCity = {SELECTED_CITY}
+          onCityTabClick = {() => {}}
+          offersSortType = {OFFERS_SORT_TYPE}
+          onSortOptionClick = {() => {}}
+        />
+      </Provider>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();
