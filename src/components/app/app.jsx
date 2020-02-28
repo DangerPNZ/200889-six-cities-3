@@ -113,11 +113,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onCityTabClick(city) {
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.getCityOffers(city));
   },
   onSortOptionClick(sortType) {
     dispatch(ActionCreator.changeOffersSortType(sortType));
-    dispatch(ActionCreator.sortOffers(sortType));
   }
 });
 

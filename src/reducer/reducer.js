@@ -20,10 +20,8 @@ const OfferKey = {
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   SELECT_OFFER: `SELECT_OFFER`,
-  GET_CITY_OFFERS: `GET_CITY_OFFERS`,
   CHANGE_OFFERS_SORT_TYPE: `CHANGE_OFFERS_SORT_TYPE`,
-  GET_OFFER_IN_MOUSE_ENTER_ID: `GET_OFFER_IN_MOUSE_ENTER_ID`,
-  GET_SORTED_OFFERS: `GET_SORTED_OFFERS`
+  GET_OFFER_IN_MOUSE_ENTER_ID: `GET_OFFER_IN_MOUSE_ENTER_ID`
 };
 const getSelectedCityOffers = (city) => {
   switch (city) {
@@ -48,28 +46,26 @@ const getSortedOffers = (sortType) => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
-      return extend(state, {
+      extend(state, {
         selectedCity: action.payload
+      });
+      return extend(state, {
+        offers: getSelectedCityOffers(action.payload)
       });
     case ActionType.SELECT_OFFER:
       return extend(state, {
         currentOffer: action.payload
       });
-    case ActionType.GET_CITY_OFFERS:
-      return extend(state, {
-        offers: getSelectedCityOffers(action.payload)
-      });
     case ActionType.CHANGE_OFFERS_SORT_TYPE:
-      return extend(state, {
+      extend(state, {
         offersSortType: action.payload
+      });
+      return extend(state, {
+        sortedOffers: getSortedOffers(action.payload)
       });
     case ActionType.GET_OFFER_IN_MOUSE_ENTER_ID:
       return extend(state, {
         offerInMouseEnterId: action.payload
-      });
-    case ActionType.GET_SORTED_OFFERS:
-      return extend(state, {
-        sortedOffers: getSortedOffers(action.payload)
       });
   }
   return state;
@@ -83,10 +79,6 @@ const ActionCreator = {
     type: ActionType.SELECT_OFFER,
     payload: value
   }),
-  getCityOffers: (city) => ({
-    type: ActionType.GET_CITY_OFFERS,
-    payload: city
-  }),
   changeOffersSortType: (type) => ({
     type: ActionType.CHANGE_OFFERS_SORT_TYPE,
     payload: type
@@ -94,10 +86,6 @@ const ActionCreator = {
   getOfferInMouseEnterId: (id) => ({
     type: ActionType.GET_OFFER_IN_MOUSE_ENTER_ID,
     payload: id
-  }),
-  sortOffers: (sortType) => ({
-    type: ActionType.GET_SORTED_OFFERS,
-    payload: sortType
   })
 };
 
