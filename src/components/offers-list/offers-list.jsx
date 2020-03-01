@@ -66,7 +66,7 @@ OffersListComponent.propTypes = {
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
-  sortedOffers: getSortedOffers(state.offersSortType, state.offers),
+  sortedOffers: getSortedOffers(state.offersSortType, state.offers).slice(),
 });
 const mapDispatchToProps = (dispatch) => ({
   onOfferHeadingClick(selectedOffer) {

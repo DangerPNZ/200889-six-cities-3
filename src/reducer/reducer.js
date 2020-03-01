@@ -17,22 +17,10 @@ const ActionType = {
   CHANGE_OFFERS_SORT_TYPE: `CHANGE_OFFERS_SORT_TYPE`,
   GET_OFFER_ID: `GET_OFFER_ID`
 };
-const getSelectedCityOffers = (city) => {
-  switch (city) {
-    case City.PARIS: return DataValue.OFFERS_MOCK;
-    case City.COLOGNE: return [];
-    case City.BRUSSELS: return DataValue.OFFERS_MOCK;
-    case City.AMSTERDAM: return DataValue.OFFERS_MOCK;
-    case City.HAMBURG: return DataValue.OFFERS_MOCK;
-    case City.DUSSELDORF: return DataValue.OFFERS_MOCK;
-  }
-  return null;
-};
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return extend(state, {
-        offers: getSelectedCityOffers(action.payload),
         selectedCity: action.payload
       });
     case ActionType.SELECT_OFFER:

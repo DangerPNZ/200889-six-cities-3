@@ -3,8 +3,22 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer.js";
 import {Main} from '../main/main.jsx';
+import {City} from '../../utils/utils.js';
+import {DataValue} from '../../mocks/offers.js';
 import {OfferDetails} from '../offer-details/offer-details.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+
+const getSelectedCityOffers = (city) => {
+  switch (city) {
+    case City.PARIS: return DataValue.OFFERS_MOCK.slice();
+    case City.COLOGNE: return [];
+    case City.BRUSSELS: return DataValue.OFFERS_MOCK.slice();
+    case City.AMSTERDAM: return DataValue.OFFERS_MOCK.slice();
+    case City.HAMBURG: return DataValue.OFFERS_MOCK.slice();
+    case City.DUSSELDORF: return DataValue.OFFERS_MOCK.slice();
+  }
+  return null;
+};
 
 export class App extends React.PureComponent {
   constructor(props) {
@@ -100,7 +114,7 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   selectedCity: state.selectedCity,
-  offers: state.offers,
+  offers: getSelectedCityOffers(state.selectedCity),
   selectedOffer: state.currentOffer,
   offersSortType: state.offersSortType,
   offerInMouseEnterId: state.offerInMouseEnterId
