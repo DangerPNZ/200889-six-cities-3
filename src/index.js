@@ -20,11 +20,12 @@ const store = createStore(reducer,
 
         applyMiddleware(thunk)
         */
-        applyMiddleware(thunk.withExtraArgument(api)),
+        applyMiddleware(thunk.withExtraArgument(ApiMethod)),
         window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
     )
 );
-// store.dispatch(ActionCreator.getOffers(ApiMethod.getOffers));
+// store.dispatch(ActionCreator.getOffers(ApiMethod.GET_OFFERS));
+// console.log(ApiMethod.GET_OFFERS);
 
 ReactDOM.render(
     <Provider store = {store}>
