@@ -14,12 +14,12 @@ const OfferKey = {
 };
 const getSortedOffers = (sortType, offers) => {
   switch (sortType) {
-    case SortOption.DEFAULT: return offers;
-    case SortOption.BY_PRICE_LOW_TO_HIGHT: return offers.sort(compare(OfferKey.PRICE, CompareDirection.DESC));
-    case SortOption.BY_PRICE_HIGHT_TO_LOW: return offers.sort(compare(OfferKey.PRICE, CompareDirection.ASC));
-    case SortOption.BY_RATING_HIGHT_TO_LOW: return offers.sort(compare(OfferKey.RATING, CompareDirection.ASC));
+    case SortOption.DEFAULT: return offers.slice();
+    case SortOption.BY_PRICE_LOW_TO_HIGHT: return offers.sort(compare(OfferKey.PRICE, CompareDirection.DESC)).slice();
+    case SortOption.BY_PRICE_HIGHT_TO_LOW: return offers.sort(compare(OfferKey.PRICE, CompareDirection.ASC)).slice();
+    case SortOption.BY_RATING_HIGHT_TO_LOW: return offers.sort(compare(OfferKey.RATING, CompareDirection.ASC)).slice();
   }
-  return offers;
+  return offers.slice();
 };
 const OffersListComponent = ({sortedOffers, onOfferMouseInteract, onOfferHeadingClick}) => (
   <div className="cities__places-list places__list tabs__content">
@@ -66,7 +66,7 @@ OffersListComponent.propTypes = {
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
-  sortedOffers: getSortedOffers(state.offersSortType, state.offers).slice(),
+  sortedOffers: getSortedOffers(state.offersSortType, state.offers),
 });
 const mapDispatchToProps = (dispatch) => ({
   onOfferHeadingClick(selectedOffer) {
@@ -74,7 +74,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.selectOffer(selectedOffer));
   },
   onOfferMouseInteract(id) {
-    dispatch(ActionCreator.getOfferId(id));
+    dispatch(ActionCreator.setOfferId(id));
   }
 });
 

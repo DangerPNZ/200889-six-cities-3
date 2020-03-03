@@ -11,7 +11,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
     offers: DataValue.OFFERS_MOCK,
     sortedOffers: DataValue.OFFERS_MOCK,
     offersSortType: SortOption.DEFAULT,
-    offerInMouseEnterId: null
+    activeOfferId: null
   });
 });
 
@@ -23,7 +23,7 @@ describe(`Reducer actions tests`, () => {
       offers: DataValue.OFFERS_MOCK,
       sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.DEFAULT,
-      offerInMouseEnterId: null
+      activeOfferId: null
     },
     ActionCreator.changeCity(City.COLOGNE)
     ))
@@ -33,7 +33,7 @@ describe(`Reducer actions tests`, () => {
       offers: DataValue.OFFERS_MOCK,
       sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.DEFAULT,
-      offerInMouseEnterId: null
+      activeOfferId: null
     });
   });
   it(`Reducer select offer`, () => {
@@ -43,7 +43,7 @@ describe(`Reducer actions tests`, () => {
       offers: DataValue.OFFERS_MOCK,
       sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.DEFAULT,
-      offerInMouseEnterId: null
+      activeOfferId: null
     },
     ActionCreator.selectOffer(DataValue.OFFERS_MOCK[2])
     )).toEqual({
@@ -52,7 +52,7 @@ describe(`Reducer actions tests`, () => {
       offers: DataValue.OFFERS_MOCK,
       sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.DEFAULT,
-      offerInMouseEnterId: null
+      activeOfferId: null
     });
   });
   it(`Reducer change offersSortType`, () => {
@@ -62,7 +62,7 @@ describe(`Reducer actions tests`, () => {
       offers: DataValue.OFFERS_MOCK,
       sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.DEFAULT,
-      offerInMouseEnterId: null
+      activeOfferId: null
     },
     ActionCreator.changeOffersSortType(SortOption.BY_PRICE_LOW_TO_HIGHT)
     )).toEqual({
@@ -71,7 +71,7 @@ describe(`Reducer actions tests`, () => {
       offers: DataValue.OFFERS_MOCK,
       sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
-      offerInMouseEnterId: null
+      activeOfferId: null
     });
   });
   it(`Reducer change getOfferId`, () => {
@@ -81,7 +81,7 @@ describe(`Reducer actions tests`, () => {
       offers: DataValue.OFFERS_MOCK,
       sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
-      offerInMouseEnterId: null
+      activeOfferId: null
     },
     ActionCreator.getOfferId(mockId)
     )).toEqual({
@@ -90,7 +90,7 @@ describe(`Reducer actions tests`, () => {
       offers: DataValue.OFFERS_MOCK,
       sortedOffers: DataValue.OFFERS_MOCK,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
-      offerInMouseEnterId: mockId
+      activeOfferId: mockId
     });
   });
 });

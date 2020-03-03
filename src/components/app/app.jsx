@@ -117,7 +117,7 @@ const mapStateToProps = (state) => ({
   offers: getSelectedCityOffers(state.selectedCity),
   selectedOffer: state.currentOffer,
   offersSortType: state.offersSortType,
-  offerInMouseEnterId: state.offerInMouseEnterId
+  offerInMouseEnterId: state.activeOfferId
 });
 
 const mapDispatchToProps = (dispatch) => ({
