@@ -4,7 +4,7 @@ export const City = {
   BRUSSELS: `Brussels`,
   AMSTERDAM: `Amsterdam`,
   HAMBURG: `Hamburg`,
-  DUSSELDORF: `Dusselgorf`
+  DUSSELDORF: `Dusseldorf`
 };
 export const SortOption = {
   DEFAULT: `Popular`,
@@ -16,22 +16,10 @@ export const CompareDirection = {
   ASC: `ASC`,
   DESC: `DESK`
 };
+const MAX_RATING_VALUE = 5;
 export const getStyleForRating = (rating) => {
-  let style = null;
-  if (rating < 1) {
-    style = {width: `0`};
-  } else if (rating >= 1 && rating < 2) {
-    style = {width: `20%`};
-  } else if (rating >= 2 && rating < 3) {
-    style = {width: `40%`};
-  } else if (rating >= 3 && rating < 4) {
-    style = {width: `60%`};
-  } else if (rating >= 4 && rating < 5) {
-    style = {width: `80%`};
-  } else if (rating === 5) {
-    style = {width: `100%`};
-  }
-  return style;
+  const ratingValueInPercents = (rating / MAX_RATING_VALUE) * 100;
+  return {width: `${ratingValueInPercents}%`};
 };
 export const extend = (a, b = null) => {
   return b !== null ? Object.assign({}, a, b) : Object.assign({}, a);
@@ -59,19 +47,4 @@ export const compare = (property, compareDirection = CompareDirection.ASC) => {
     return 0;
   };
 };
-export const compareByDate = (property, compareDirection = CompareDirection.ASC) => {
-  return (a, b) => {
-    if (new Date(a[property]) < new Date(b[property]) && compareDirection === CompareDirection.ASC) {
-      return 1;
-    } else if (new Date(a[property]) < new Date(b[property]) && compareDirection === CompareDirection.DESC) {
-      return -1;
-    } else if (new Date(a[property]) > new Date(b[property]) && compareDirection === CompareDirection.ASC) {
-      return -1;
-    } else if (new Date(a[property]) > new Date(b[property]) && compareDirection === CompareDirection.DESC) {
-      return 1;
-    }
-    return 0;
-  };
-};
-
-
+export const getSelectedCityOffers = (offers, selectedCity) => offers.filter((item) => item.city.name === selectedCity);

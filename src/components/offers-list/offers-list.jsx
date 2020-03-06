@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer.js";
+import {ActionCreator as AppStateActionCreator} from "../../reducer/app-state/app-state.js";
 import {OfferCard} from '../offer-card/offer-card.jsx';
-import {SortOption} from '../../utils/utils.js';
-import {CompareDirection} from '../../utils/utils.js';
-import {compare} from '../../utils/utils.js';
+import {SortOption, CompareDirection, compare, getSelectedCityOffers} from '../../utils/utils.js';
+import {Operation as DataOperation} from '../../reducer/data/data.js';
+import {getOffers} from '../../reducer/data/selectors.js';
+import {getSelectedCity, getOffersSortType} from '../../reducer/app-state/selectors.js';
 
 const RENDER_MODE_TO_MAIN = `toMain`;
 const OfferKey = {
@@ -65,16 +66,15 @@ OffersListComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
-  sortedOffers: getSortedOffers(state.offersSortType, state.offers),
+  offers: getSelectedCityOffers(getOffers(state), getSelectedCity(state)),
+  sortedOffers: getSortedOffers(getOffersSortType(state), getSelectedCityOffers(getOffers(state), getSelectedCity(state))),
 });
 const mapDispatchToProps = (dispatch) => ({
   onOfferHeadingClick(selectedOffer) {
-    /* передать null для возврата к главному экрану */
-    dispatch(ActionCreator.selectOffer(selectedOffer));
+    dispatch(DataOperation.getDataByDetalize(selectedOffer));
   },
   onOfferMouseInteract(id) {
-    dispatch(ActionCreator.setOfferId(id));
+    dispatch(AppStateActionCreator.setOfferId(id));
   }
 });
 

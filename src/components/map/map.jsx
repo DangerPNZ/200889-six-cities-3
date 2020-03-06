@@ -18,8 +18,9 @@ export class Map extends React.PureComponent {
     }
   }
   componentDidUpdate(prevProps) {
-    if (this.props.selectedOfferId !== prevProps.selectedOfferId) {
+    if (this.props.offers !== prevProps.offers || this.props.selectedOfferId !== prevProps.selectedOfferId) {
       this.updatePins();
+      this.map.setView(this.props.offers[0].city.coordinates, this.props.offers[0].city.zoom);
     }
   }
   render() {
@@ -44,7 +45,7 @@ export class Map extends React.PureComponent {
   addPinsToMap() {
     this.pins = [];
     this.props.offers.forEach((offerItem) => {
-      const pin = leaflet.marker(offerItem.coordinates, {icon: this.getPinIcon(offerItem)})
+      const pin = leaflet.marker(offerItem.location.coordinates, {icon: this.getPinIcon(offerItem)})
       .addTo(this.map);
       this.pins.push(pin);
     });
@@ -59,7 +60,7 @@ export class Map extends React.PureComponent {
       zoomControl: false,
       marker: true
     });
-    this.map.setView(MapSetting.CITY, MapSetting.ZOOM);
+    this.map.setView(this.props.offers[0].city.coordinates, this.props.offers[0].city.zoom);
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`

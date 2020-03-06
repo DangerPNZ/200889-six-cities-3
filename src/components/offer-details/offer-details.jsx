@@ -5,14 +5,9 @@ import {Reviews} from '../reviews/reviews.jsx';
 import {NearPlacesList} from '../near-places-list/near-places-list.jsx';
 import {getStyleForRating} from '../../utils/utils.js';
 
-const getCitiesOffersForMap = (offerCurrent, offers) => {
-  const nearPlacesOffers = offers.filter((offer) => offer.id !== offerCurrent.id).slice(0, 3);
-  nearPlacesOffers.push(offerCurrent);
-  return nearPlacesOffers;
-};
-const getNearPlacesMock = (offers) => offers.slice(0, 3);
+const getCitiesOffersForMap = (currentOffer) => [currentOffer, ...currentOffer.nearby];
 
-export const OfferDetails = ({offerCurrent, offers, onOfferHeadingClick}) => (
+export const OfferDetails = ({offerCurrent, onOfferHeadingClick}) => (
   <div className="page">
     <header className="header">
       <div className="container">
@@ -41,24 +36,11 @@ export const OfferDetails = ({offerCurrent, offers, onOfferHeadingClick}) => (
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/room.jpg" alt="Photo studio"/>
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio"/>
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio"/>
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio"/>
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/studio-01.jpg" alt="Photo studio"/>
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio"/>
-            </div>
+            {offerCurrent.images.map((item) => (
+              <div className="property__image-wrapper" key={item.id}>
+                <img className="property__image" src={item.url} alt="Photo studio"/>
+              </div>
+            ))}
           </div>
         </div>
         <div className="property__container container">
@@ -89,10 +71,10 @@ export const OfferDetails = ({offerCurrent, offers, onOfferHeadingClick}) => (
                 {offerCurrent.type}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                3 Bedrooms
+                {offerCurrent.bedrooms} Bedrooms
               </li>
               <li className="property__feature property__feature--adults">
-                Max 4 adults
+                Max {offerCurrent.maxAdults} adults
               </li>
             </ul>
             <div className="property__price">
@@ -102,54 +84,26 @@ export const OfferDetails = ({offerCurrent, offers, onOfferHeadingClick}) => (
             <div className="property__inside">
               <h2 className="property__inside-title">What&apos;s inside</h2>
               <ul className="property__inside-list">
-                <li className="property__inside-item">
-                  Wi-Fi
-                </li>
-                <li className="property__inside-item">
-                  Washing machine
-                </li>
-                <li className="property__inside-item">
-                  Towels
-                </li>
-                <li className="property__inside-item">
-                  Heating
-                </li>
-                <li className="property__inside-item">
-                  Coffee machine
-                </li>
-                <li className="property__inside-item">
-                  Baby seat
-                </li>
-                <li className="property__inside-item">
-                  Kitchen
-                </li>
-                <li className="property__inside-item">
-                  Dishwasher
-                </li>
-                <li className="property__inside-item">
-                  Cabel TV
-                </li>
-                <li className="property__inside-item">
-                  Fridge
-                </li>
+                {
+                  offerCurrent.goods.map((item) => (
+                    <li className="property__inside-item" key={item.id}>{item.text}</li>
+                  ))
+                }
               </ul>
             </div>
             <div className="property__host">
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
-                <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
+                <div className={`property__avatar-wrapper user__avatar-wrapper${offerCurrent.host.isPro ? ` property__avatar-wrapper--pro` : ``}`}>
+                  <img className="property__avatar user__avatar" src={offerCurrent.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                 </div>
                 <span className="property__user-name">
-                  Angelina
+                  {offerCurrent.host.name}
                 </span>
               </div>
               <div className="property__description">
                 <p className="property__text">
-                  A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                </p>
-                <p className="property__text">
-                  An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                  {offerCurrent.description}
                 </p>
               </div>
             </div>
@@ -160,7 +114,7 @@ export const OfferDetails = ({offerCurrent, offers, onOfferHeadingClick}) => (
         </div>
         <section className="property__map map">
           <Map
-            offers = {getCitiesOffersForMap(offerCurrent, offers)}
+            offers = {getCitiesOffersForMap(offerCurrent)}
             selectedOfferId = {offerCurrent.id}
           />
         </section>
@@ -169,7 +123,7 @@ export const OfferDetails = ({offerCurrent, offers, onOfferHeadingClick}) => (
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <NearPlacesList
-            offers = {getNearPlacesMock(offers)}
+            offers = {offerCurrent.nearby}
             onOfferHeadingClick = {onOfferHeadingClick}
             /* нужна ли нам тут функция подсветки пина предложения на карте?
               Из ТЗ: При наведении курсора на карточку предложения, маркер,

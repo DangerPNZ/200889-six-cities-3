@@ -1,24 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer.js";
+import {ActionCreator as AppStateActionCreator} from "../../reducer/app-state/app-state.js";
 import {Main} from '../main/main.jsx';
-import {City} from '../../utils/utils.js';
-import {DataValue} from '../../mocks/offers.js';
 import {OfferDetails} from '../offer-details/offer-details.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-
-const getSelectedCityOffers = (city) => {
-  switch (city) {
-    case City.PARIS: return DataValue.OFFERS_MOCK.slice();
-    case City.COLOGNE: return [];
-    case City.BRUSSELS: return DataValue.OFFERS_MOCK.slice();
-    case City.AMSTERDAM: return DataValue.OFFERS_MOCK.slice();
-    case City.HAMBURG: return DataValue.OFFERS_MOCK.slice();
-    case City.DUSSELDORF: return DataValue.OFFERS_MOCK.slice();
-  }
-  return null;
-};
+import {getSelectedCityOffers} from '../../utils/utils.js';
+import {Operation as DataOperation} from '../../reducer/data/data.js';
+import {getOffers} from '../../reducer/data/selectors.js';
+import {getSelectedCity, getCurrentOffer, getOffersSortType, getActiveOfferId} from '../../reducer/app-state/selectors.js';
 
 export class App extends React.PureComponent {
   constructor(props) {
@@ -113,23 +103,22 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  selectedCity: state.selectedCity,
-  offers: getSelectedCityOffers(state.selectedCity),
-  selectedOffer: state.currentOffer,
-  offersSortType: state.offersSortType,
-  offerInMouseEnterId: state.activeOfferId
+  selectedCity: getSelectedCity(state),
+  offers: getSelectedCityOffers(getOffers(state), getSelectedCity(state)),
+  selectedOffer: getCurrentOffer(state),
+  offersSortType: getOffersSortType(state),
+  offerInMouseEnterId: getActiveOfferId(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onOfferHeadingClick(selectedOffer) {
-    /* передать null для возврата к главному экрану */
-    dispatch(ActionCreator.selectOffer(selectedOffer));
+    dispatch(DataOperation.getDataByDetalize(selectedOffer));
   },
   onCityTabClick(city) {
-    dispatch(ActionCreator.changeCity(city));
+    dispatch(AppStateActionCreator.changeCity(city));
   },
   onSortOptionClick(sortType) {
-    dispatch(ActionCreator.changeOffersSortType(sortType));
+    dispatch(AppStateActionCreator.changeOffersSortType(sortType));
   }
 });
 

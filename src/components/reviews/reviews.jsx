@@ -1,25 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {ReviewsList} from '../reviews-list/reviews-list.jsx';
-import {CompareDirection} from '../../utils/utils.js';
-import {compareByDate} from '../../utils/utils.js';
-
-const getSortedReviewsByDate = (reviews) => {
-  return reviews.sort(compareByDate(`date`, CompareDirection.ASC));
-};
-const getReviews = (reviews) => getSortedReviewsByDate(reviews.slice()).slice(0, 10);
 
 const ReviewsComponent = ({offerCurrent}) => (
   <section className="property__reviews reviews">
     <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerCurrent.reviews.length}</span></h2>
     <ReviewsList
-      reviews = {getReviews(offerCurrent.reviews).map((item) => ({
-        id: offerCurrent.id,
-        review: item.review,
-        author: item.author,
-        userRating: item.userRating,
-        date: item.date
-      }))}
+      reviews = {offerCurrent.reviews}
     />
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>

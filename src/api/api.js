@@ -15,13 +15,12 @@ const createApi = () => {
     withCredentials: true
   });
   const onSuccess = (response) => response;
-  const onFail = (error) => {
-    if (error.response.status === Error.UNAUTHORIZED) {
+  const onFail = (response) => {
+    if (response.status === Error.UNAUTHORIZED) {
       // В случае неавторизованной сессии
-    } else if (error.response.status === Error.INTERNAL_SERVER_ERROR) {
+    } else if (response.status === Error.INTERNAL_SERVER_ERROR) {
       // Сообщение в случае недоступности сервера. Оформление на усмотрение разработчика
     }
-    // разобраться с видом возвращааемой сущности
     return [];
   };
   api.interceptors.response.use(onSuccess, onFail);

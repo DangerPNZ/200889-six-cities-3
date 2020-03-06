@@ -5,27 +5,17 @@ import {api} from './api/api.js';
 import thunk from 'redux-thunk';
 import {createStore, compose, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import {reducer} from './reducer/reducer.js';
-
-//
-import {ActionCreator} from './reducer/reducer.js';
-import {ApiMethod} from './api/methods.js';
-//
+import reducer from './reducer/reducer.js';
+import {Operation as DataOperation} from './reducer/data/data.js';
 
 const store = createStore(reducer,
     compose(
-        /* цепочка аргументов. Тут или в reducer?
-        Для получения массива объектов со всеми данными нужна цепочка запросов.
-        посмотреть про цепочку middleware в redux compose
-
-        applyMiddleware(thunk)
-        */
-        applyMiddleware(thunk.withExtraArgument(ApiMethod)),
+        applyMiddleware(thunk.withExtraArgument(api)),
         window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
     )
 );
-// store.dispatch(ActionCreator.getOffers(ApiMethod.GET_OFFERS));
-// console.log(ApiMethod.GET_OFFERS);
+
+store.dispatch(DataOperation.getOffers());
 
 ReactDOM.render(
     <Provider store = {store}>
