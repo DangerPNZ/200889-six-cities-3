@@ -37,7 +37,7 @@ const TestDataValue = {
     {
       city: {
         name: `Hamburg`,
-        coordinates: [0],
+        coordinates: [45.4566, 54.355],
         mapZoom: 10
       },
       name: `Light room`,
@@ -53,7 +53,7 @@ const TestDataValue = {
       images: [`./photo.jpg`, `./photo_1.jpg`, `./photo_2.jpg`, `./photo_3.jpg`],
       previewImage: `./preview.jpg`,
       location: {
-        coordinates: [0],
+        coordinates: [45.4566, 54.355],
         zoom: 10
       },
       id: 2,
