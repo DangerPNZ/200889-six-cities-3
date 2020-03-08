@@ -8,7 +8,7 @@ const Error = {
   UNAUTHORIZED: 401,
   INTERNAL_SERVER_ERROR: 500
 };
-const createApi = () => {
+export const createApi = () => {
   const api = axios.create({
     baseURL: ConfigParameter.BASE_URL,
     timeout: ConfigParameter.TIMEOUT,

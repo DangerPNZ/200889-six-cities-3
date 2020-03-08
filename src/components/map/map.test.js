@@ -7,7 +7,7 @@ const TestDataValue = {
     {
       city: {
         name: `Hamburg`,
-        coordinates: [45.4566, 54.355],
+        coordinates: [55.720507, 37.660059],
         mapZoom: 10
       },
       name: `Amazing room`,
@@ -23,7 +23,7 @@ const TestDataValue = {
       images: [`./photo.jpg`, `./photo_1.jpg`, `./photo_2.jpg`, `./photo_3.jpg`],
       previewImage: `./preview.jpg`,
       location: {
-        coordinates: [45.4566, 54.355],
+        coordinates: [55.720507, 37.660059],
         zoom: 10
       },
       id: 1,
@@ -37,7 +37,7 @@ const TestDataValue = {
     {
       city: {
         name: `Hamburg`,
-        coordinates: [45.4566, 54.355],
+        coordinates: [55.720507, 37.660059],
         mapZoom: 10
       },
       name: `Light room`,
@@ -53,7 +53,7 @@ const TestDataValue = {
       images: [`./photo.jpg`, `./photo_1.jpg`, `./photo_2.jpg`, `./photo_3.jpg`],
       previewImage: `./preview.jpg`,
       location: {
-        coordinates: [45.4566, 54.355],
+        coordinates: [55.720507, 37.660059],
         zoom: 10
       },
       id: 2,
