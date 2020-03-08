@@ -17,11 +17,16 @@ export const ReviewsList = React.memo(ReviewsListComponent);
 ReviewsListComponent.propTypes = {
   reviews: PropTypes.arrayOf(
       PropTypes.exact({
-        id: PropTypes.string.isRequired,
-        author: PropTypes.string.isRequired,
         review: PropTypes.string.isRequired,
         userRating: PropTypes.number.isRequired,
-        date: PropTypes.string.isRequired
-      }).isRequired
+        date: PropTypes.string.isRequired,
+        commentId: PropTypes.number.isRequired,
+        author: PropTypes.exact({
+          avatarUrl: PropTypes.string.isRequired,
+          id: PropTypes.number.isRequired,
+          isPro: PropTypes.bool.isRequired,
+          name: PropTypes.string.isRequired
+        }).isRequired
+      })
   ).isRequired
 };

@@ -84,7 +84,7 @@ exports[`CitiesTabs component structure test 1`] = `
           onClick={[Function]}
         >
           <span>
-            Dusselgorf
+            Dusseldorf
           </span>
         </a>
       </li>

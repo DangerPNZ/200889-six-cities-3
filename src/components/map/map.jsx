@@ -18,9 +18,12 @@ export class Map extends React.PureComponent {
     }
   }
   componentDidUpdate(prevProps) {
-    if (this.props.offers !== prevProps.offers || this.props.selectedOfferId !== prevProps.selectedOfferId) {
+    if (this.props.offers[0].city.name !== prevProps.offers[0].city.name) {
       this.updatePins();
       this.map.setView(this.props.offers[0].city.coordinates, this.props.offers[0].city.zoom);
+    }
+    if (this.props.selectedOfferId !== prevProps.selectedOfferId) {
+      this.updatePins();
     }
   }
   render() {
@@ -71,28 +74,79 @@ export class Map extends React.PureComponent {
 }
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.exact({
-        name: PropTypes.string.isRequired,
-        coordinates: PropTypes.arrayOf(
-            PropTypes.number.isRequired
-        ).isRequired,
-        id: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        premium: PropTypes.bool.isRequired,
-        isFavorites: PropTypes.bool.isRequired,
-        rating: PropTypes.number.isRequired,
-        activePin: PropTypes.bool,
-        reviews: PropTypes.arrayOf(
-            PropTypes.exact({
-              author: PropTypes.string.isRequired,
-              review: PropTypes.string.isRequired,
-              userRating: PropTypes.number.isRequired,
-              date: PropTypes.string.isRequired
-            }).isRequired
-        ).isRequired
+  offers: PropTypes.arrayOf(PropTypes.exact({
+    city: PropTypes.exact({
+      name: PropTypes.string.isRequired,
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      mapZoom: PropTypes.number.isRequired
+    }).isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    host: PropTypes.exact({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    previewImage: PropTypes.string.isRequired,
+    location: PropTypes.exact({
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    premium: PropTypes.bool.isRequired,
+    isFavorites: PropTypes.bool.isRequired,
+    rating: PropTypes.number.isRequired,
+    maxAdults: PropTypes.number.isRequired,
+
+    reviews: PropTypes.arrayOf(PropTypes.exact({
+      review: PropTypes.string.isRequired,
+      userRating: PropTypes.number.isRequired,
+      date: PropTypes.string.isRequired,
+      commentId: PropTypes.number.isRequired,
+      author: PropTypes.exact({
+        avatarUrl: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        isPro: PropTypes.bool.isRequired,
+        name: PropTypes.string.isRequired
       }).isRequired
-  ).isRequired,
-  selectedOfferId: PropTypes.string
+    })),
+    nearby: PropTypes.arrayOf(PropTypes.exact({
+      city: PropTypes.exact({
+        name: PropTypes.string.isRequired,
+        coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        mapZoom: PropTypes.number.isRequired
+      }).isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      bedrooms: PropTypes.number.isRequired,
+      host: PropTypes.exact({
+        avatarUrl: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        isPro: PropTypes.bool.isRequired,
+        name: PropTypes.string.isRequired
+      }).isRequired,
+      images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      previewImage: PropTypes.string.isRequired,
+      location: PropTypes.exact({
+        coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        zoom: PropTypes.number.isRequired
+      }).isRequired,
+      id: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
+      premium: PropTypes.bool.isRequired,
+      isFavorites: PropTypes.bool.isRequired,
+      rating: PropTypes.number.isRequired,
+      maxAdults: PropTypes.number.isRequired
+    }))
+  }).isRequired).isRequired,
+
+  selectedOfferId: PropTypes.number
 };

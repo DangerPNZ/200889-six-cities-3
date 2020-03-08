@@ -25,5 +25,6 @@ export const CitiesTabs = React.memo(CitiesTabsComponent);
 
 CitiesTabsComponent.propTypes = {
   selectedCity: PropTypes.string.isRequired,
+
   onCityTabClick: PropTypes.func.isRequired
 };

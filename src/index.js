@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import {createStore, compose, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from './reducer/reducer.js';
-import {Operation as DataOperation} from './reducer/data/data.js';
+import {Operation as DataOperation} from './reducer/fetched-data/fetched-data.js';
 
 const store = createStore(reducer,
     compose(

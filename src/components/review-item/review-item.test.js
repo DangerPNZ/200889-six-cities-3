@@ -4,11 +4,16 @@ import {ReviewItem} from './review-item.jsx';
 
 const TestDataValue = {
   REVIEW: {
-    id: `_7574hdfh`,
-    author: `Ed`,
-    review: `The building is green and from 18th century.`,
-    userRating: 3,
-    date: `September 2019`
+    review: `Good!`,
+    userRating: 5,
+    date: `May 2019`,
+    commentId: 1,
+    author: {
+      avatarUrl: `./user.jpg`,
+      id: 3,
+      isPro: true,
+      name: `Mike`
+    }
   }
 };
 

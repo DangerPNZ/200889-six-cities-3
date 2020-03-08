@@ -19,28 +19,36 @@ const NearPlacesListComponent = ({offers, onOfferHeadingClick}) => (
 export const NearPlacesList = React.memo(NearPlacesListComponent);
 
 NearPlacesListComponent.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.exact({
-        name: PropTypes.string.isRequired,
-        coordinates: PropTypes.arrayOf(
-            PropTypes.number.isRequired
-        ).isRequired,
-        id: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        premium: PropTypes.bool.isRequired,
-        isFavorites: PropTypes.bool.isRequired,
-        rating: PropTypes.number.isRequired,
-        reviews: PropTypes.arrayOf(
-            PropTypes.exact({
-              author: PropTypes.string.isRequired,
-              review: PropTypes.string.isRequired,
-              userRating: PropTypes.number.isRequired,
-              date: PropTypes.string.isRequired
-            }).isRequired
-        ).isRequired
-      }).isRequired
-  ).isRequired,
+  offers: PropTypes.arrayOf(PropTypes.exact({
+    city: PropTypes.exact({
+      name: PropTypes.string.isRequired,
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      mapZoom: PropTypes.number.isRequired
+    }).isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    host: PropTypes.exact({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    previewImage: PropTypes.string.isRequired,
+    location: PropTypes.exact({
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    premium: PropTypes.bool.isRequired,
+    isFavorites: PropTypes.bool.isRequired,
+    rating: PropTypes.number.isRequired,
+    maxAdults: PropTypes.number.isRequired
+  }).isRequired).isRequired,
   onOfferHeadingClick: PropTypes.func.isRequired,
   onOfferMouseInteract: PropTypes.func
 };

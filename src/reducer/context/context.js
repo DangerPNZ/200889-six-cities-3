@@ -1,24 +1,43 @@
 import {extend, City, SortOption} from '../../utils/utils.js';
+
+const ActionType = {
+  CHANGE_CITY: `CHANGE_CITY`,
+  SET_CURRENT_OFFER: `SET_CURRENT_OFFER`,
+  CHANGE_OFFERS_SORT_TYPE: `CHANGE_OFFERS_SORT_TYPE`,
+  SET_OFFER_ID: `SET_OFFER_ID`
+};
+const ActionCreator = {
+  changeCity: (value) => ({
+    type: ActionType.CHANGE_CITY,
+    payload: value
+  }),
+  setCurrentOffer: (value) => ({
+    type: ActionType.SET_CURRENT_OFFER,
+    payload: value
+  }),
+  changeOffersSortType: (type) => ({
+    type: ActionType.CHANGE_OFFERS_SORT_TYPE,
+    payload: type
+  }),
+  setOfferId: (id) => ({
+    type: ActionType.SET_OFFER_ID,
+    payload: id
+  })
+};
+
 const initialState = {
   selectedCity: City.PARIS,
   currentOffer: null,
   offersSortType: SortOption.DEFAULT,
   activeOfferId: null
 };
-const ActionType = {
-  CHANGE_CITY: `CHANGE_CITY`,
-  SELECT_OFFER: `SELECT_OFFER`,
-  CHANGE_OFFERS_SORT_TYPE: `CHANGE_OFFERS_SORT_TYPE`,
-  SET_OFFER_ID: `SET_OFFER_ID`
-};
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return extend(state, {
         selectedCity: action.payload
       });
-    case ActionType.SELECT_OFFER:
+    case ActionType.SET_CURRENT_OFFER:
       return extend(state, {
         currentOffer: action.payload
       });
@@ -32,24 +51,6 @@ const reducer = (state = initialState, action) => {
       });
   }
   return state;
-};
-const ActionCreator = {
-  changeCity: (value) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: value
-  }),
-  selectOffer: (value) => ({
-    type: ActionType.SELECT_OFFER,
-    payload: value
-  }),
-  changeOffersSortType: (type) => ({
-    type: ActionType.CHANGE_OFFERS_SORT_TYPE,
-    payload: type
-  }),
-  setOfferId: (id) => ({
-    type: ActionType.SET_OFFER_ID,
-    payload: id
-  })
 };
 
 export {reducer, ActionType, ActionCreator};

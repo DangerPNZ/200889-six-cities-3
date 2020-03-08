@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {ActionCreator as AppStateActionCreator} from "../../reducer/app-state/app-state.js";
+import {ActionCreator as ContextActionCreator} from "../../reducer/context/context.js";
 import {Main} from '../main/main.jsx';
 import {OfferDetails} from '../offer-details/offer-details.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {getSelectedCityOffers} from '../../utils/utils.js';
-import {Operation as DataOperation} from '../../reducer/data/data.js';
-import {getOffers} from '../../reducer/data/selectors.js';
-import {getSelectedCity, getCurrentOffer, getOffersSortType, getActiveOfferId} from '../../reducer/app-state/selectors.js';
+import {Operation as DataOperation} from '../../reducer/fetched-data/fetched-data.js';
+import {getSortedOffers} from '../../reducer/fetched-data/selectors.js';
+import {getSelectedCity, getCurrentOffer, getOffersSortType, getActiveOfferId} from '../../reducer/context/selectors.js';
 
 export class App extends React.PureComponent {
   constructor(props) {
@@ -24,7 +23,6 @@ export class App extends React.PureComponent {
           <Route exact path="/offer">
             <OfferDetails
               offerCurrent = {this.props.selectedOffer}
-              offers = {this.props.offers}
               onOfferHeadingClick = {this.props.onOfferHeadingClick}
             />
           </Route>
@@ -36,12 +34,11 @@ export class App extends React.PureComponent {
     if (this.props.selectedOffer) {
       return <OfferDetails
         offerCurrent = {this.props.selectedOffer}
-        offers = {this.props.offers}
         onOfferHeadingClick = {this.props.onOfferHeadingClick}
       />;
     }
     return <Main
-      offers = {this.props.offers}
+      sortedOffers = {this.props.sortedOffers}
       selectedCity = {this.props.selectedCity}
       onCityTabClick = {this.props.onCityTabClick}
       offersSortType = {this.props.offersSortType}
@@ -52,59 +49,126 @@ export class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.exact({
-        name: PropTypes.string.isRequired,
-        coordinates: PropTypes.arrayOf(
-            PropTypes.number.isRequired
-        ).isRequired,
-        id: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        premium: PropTypes.bool.isRequired,
-        isFavorites: PropTypes.bool.isRequired,
-        rating: PropTypes.number.isRequired,
-        reviews: PropTypes.arrayOf(
-            PropTypes.exact({
-              author: PropTypes.string.isRequired,
-              review: PropTypes.string.isRequired,
-              userRating: PropTypes.number.isRequired,
-              date: PropTypes.string.isRequired
-            }).isRequired
-        ).isRequired
-      }).isRequired
-  ).isRequired,
-  onOfferHeadingClick: PropTypes.func.isRequired,
-  onCityTabClick: PropTypes.func.isRequired,
-  selectedOffer: PropTypes.exact({
+  selectedCity: PropTypes.string.isRequired,
+
+  sortedOffers: PropTypes.arrayOf(PropTypes.exact({
+    city: PropTypes.exact({
+      name: PropTypes.string.isRequired,
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      mapZoom: PropTypes.number.isRequired
+    }).isRequired,
     name: PropTypes.string.isRequired,
-    coordinates: PropTypes.arrayOf(
-        PropTypes.number.isRequired
-    ).isRequired,
-    id: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    host: PropTypes.exact({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    previewImage: PropTypes.string.isRequired,
+    location: PropTypes.exact({
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     premium: PropTypes.bool.isRequired,
     isFavorites: PropTypes.bool.isRequired,
     rating: PropTypes.number.isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.exact({
-          author: PropTypes.string.isRequired,
-          review: PropTypes.string.isRequired,
-          userRating: PropTypes.number.isRequired,
-          date: PropTypes.string.isRequired
-        }).isRequired
-    ).isRequired
+    maxAdults: PropTypes.number.isRequired
+  }).isRequired).isRequired,
+
+  selectedOffer: PropTypes.exact({
+    city: PropTypes.exact({
+      name: PropTypes.string.isRequired,
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      mapZoom: PropTypes.number.isRequired
+    }).isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    host: PropTypes.exact({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    previewImage: PropTypes.string.isRequired,
+    location: PropTypes.exact({
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    premium: PropTypes.bool.isRequired,
+    isFavorites: PropTypes.bool.isRequired,
+    rating: PropTypes.number.isRequired,
+    maxAdults: PropTypes.number.isRequired,
+    reviews: PropTypes.arrayOf(PropTypes.exact({
+      review: PropTypes.string.isRequired,
+      userRating: PropTypes.number.isRequired,
+      date: PropTypes.string.isRequired,
+      commentId: PropTypes.number.isRequired,
+      author: PropTypes.exact({
+        avatarUrl: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        isPro: PropTypes.bool.isRequired,
+        name: PropTypes.string.isRequired
+      }).isRequired
+    })).isRequired,
+    nearby: PropTypes.arrayOf(PropTypes.exact({
+      city: PropTypes.exact({
+        name: PropTypes.string.isRequired,
+        coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        mapZoom: PropTypes.number.isRequired
+      }).isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      bedrooms: PropTypes.number.isRequired,
+      host: PropTypes.exact({
+        avatarUrl: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        isPro: PropTypes.bool.isRequired,
+        name: PropTypes.string.isRequired
+      }).isRequired,
+      images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      previewImage: PropTypes.string.isRequired,
+      location: PropTypes.exact({
+        coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        zoom: PropTypes.number.isRequired
+      }).isRequired,
+      id: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
+      premium: PropTypes.bool.isRequired,
+      isFavorites: PropTypes.bool.isRequired,
+      rating: PropTypes.number.isRequired,
+      maxAdults: PropTypes.number.isRequired
+    })).isRequired
   }),
-  selectedCity: PropTypes.string.isRequired,
+
+  onOfferHeadingClick: PropTypes.func.isRequired,
+
+  onCityTabClick: PropTypes.func.isRequired,
+
   offersSortType: PropTypes.string.isRequired,
+
   onSortOptionClick: PropTypes.func.isRequired,
-  offerInMouseEnterId: PropTypes.string
+
+  offerInMouseEnterId: PropTypes.number
 };
 
 const mapStateToProps = (state) => ({
   selectedCity: getSelectedCity(state),
-  offers: getSelectedCityOffers(getOffers(state), getSelectedCity(state)),
+  sortedOffers: getSortedOffers(state),
   selectedOffer: getCurrentOffer(state),
   offersSortType: getOffersSortType(state),
   offerInMouseEnterId: getActiveOfferId(state)
@@ -115,10 +179,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(DataOperation.getDataByDetalize(selectedOffer));
   },
   onCityTabClick(city) {
-    dispatch(AppStateActionCreator.changeCity(city));
+    dispatch(ContextActionCreator.changeCity(city));
   },
   onSortOptionClick(sortType) {
-    dispatch(AppStateActionCreator.changeOffersSortType(sortType));
+    dispatch(ContextActionCreator.changeOffersSortType(sortType));
   }
 });
 

@@ -36,15 +36,14 @@ export const getValuesListFromEnum = (enumeration) => {
 export const compare = (property, compareDirection = CompareDirection.ASC) => {
   return (a, b) => {
     if (a[property] < b[property] && compareDirection === CompareDirection.ASC) {
-      return 1;
+      return -1;
     } else if (a[property] < b[property] && compareDirection === CompareDirection.DESC) {
-      return -1;
-    } else if (a[property] > b[property] && compareDirection === CompareDirection.ASC) {
-      return -1;
-    } else if (a[property] > b[property] && compareDirection === CompareDirection.DESC) {
       return 1;
+    } else if (a[property] > b[property] && compareDirection === CompareDirection.ASC) {
+      return 1;
+    } else if (a[property] > b[property] && compareDirection === CompareDirection.DESC) {
+      return -1;
     }
     return 0;
   };
 };
-export const getSelectedCityOffers = (offers, selectedCity) => offers.filter((item) => item.city.name === selectedCity);

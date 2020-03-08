@@ -1,43 +1,29 @@
-import nanoid from 'nanoid';
 import {CompareDirection} from '../utils/utils.js';
 import {compare} from '../utils/utils.js';
 
 const MONTHS = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
+const MAX_REVIEWS_AMOUNT = 10;
+const MAX_IMAGES_AMOUNT = 6;
 const changeReviewsDateFormat = (reviews) => {
   reviews.forEach((item, index, arr) => {
     arr[index].date = `${MONTHS[new Date(item.date).getMonth()]} ${new Date(item.date).getFullYear()}`;
   });
   return reviews;
 };
-const getReviews = (rawReviews) => {
+const formatReviews = (rawReviews) => {
   const sortedReviews = rawReviews.slice().sort(compare(`date`, CompareDirection.ASC));
-  const sortedAndLimitedReviews = sortedReviews.slice(0, 10);
+  const sortedAndLimitedReviews = sortedReviews.slice(0, MAX_REVIEWS_AMOUNT);
   return changeReviewsDateFormat(sortedAndLimitedReviews);
 };
-const getGoods = (rawGoods) => {
-  const goods = [];
-  rawGoods.forEach((item) => {
-    goods.push({
-      text: item,
-      id: nanoid()
-    });
-  });
-  return goods;
-};
 const getImages = (rawImages) => {
-  const images = rawImages.map((item) => ({
-    url: item,
-    id: nanoid()
-  }));
-  const limitedImages = images.slice(0, 6);
+  const limitedImages = rawImages.slice(0, MAX_IMAGES_AMOUNT);
   return limitedImages;
 };
 
 export const DataAdapter = {
   formatCityOffersInAppFormat(rawOffers) {
-    const offers = [];
-    rawOffers.forEach((item) => {
-      offers.push({
+    return rawOffers.map((item) => {
+      return {
         city: {
           name: item.city.name,
           coordinates: [
@@ -48,7 +34,7 @@ export const DataAdapter = {
         },
         name: item.title,
         description: item.description,
-        goods: getGoods(item.goods),
+        goods: item.goods,
         bedrooms: item.bedrooms,
         host: {
           avatarUrl: item.host.avatar_url,
@@ -72,14 +58,12 @@ export const DataAdapter = {
         isFavorites: item.is_favorite,
         rating: item.rating,
         maxAdults: item.max_adults
-      });
+      };
     });
-    return offers;
   },
   formatReviewsInAppFormat(rawReviews) {
-    const reviews = [];
-    rawReviews.forEach((item) => {
-      reviews.push({
+    const reviews = rawReviews.map((item) => {
+      return {
         review: item.comment,
         userRating: item.rating,
         date: item.date,
@@ -90,8 +74,8 @@ export const DataAdapter = {
           isPro: item.user.is_pro,
           name: item.user.name
         }
-      });
+      };
     });
-    return getReviews(reviews);
+    return formatReviews(reviews);
   }
 };

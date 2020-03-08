@@ -10,6 +10,13 @@ exports[`NearPlacesList component structure test 1`] = `
     onMouseLeave={[Function]}
   >
     <div
+      className="place-card__mark"
+    >
+      <span>
+        Premium
+      </span>
+    </div>
+    <div
       className="near-places__image-wrapper place-card__image-wrapper"
     >
       <a
@@ -19,7 +26,7 @@ exports[`NearPlacesList component structure test 1`] = `
           alt="Place image"
           className="place-card__image"
           height="200"
-          src="img/apartment-01.jpg"
+          src="./preview.jpg"
           width="260"
         />
       </a>
@@ -46,7 +53,7 @@ exports[`NearPlacesList component structure test 1`] = `
           </span>
         </div>
         <button
-          className="place-card__bookmark-button button place-card__bookmark-button--active"
+          className="place-card__bookmark-button button"
           type="button"
         >
           <svg
@@ -74,7 +81,7 @@ exports[`NearPlacesList component structure test 1`] = `
           <span
             style={
               Object {
-                "width": "60%",
+                "width": "80%",
               }
             }
           />
@@ -92,13 +99,13 @@ exports[`NearPlacesList component structure test 1`] = `
         <a
           href="#"
         >
-          Canal View Prinsengracht
+          Amazing room
         </a>
       </h2>
       <p
         className="place-card__type"
       >
-        Hotel room
+        room
       </p>
     </div>
   </article>
@@ -107,13 +114,6 @@ exports[`NearPlacesList component structure test 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="place-card__mark"
-    >
-      <span>
-        Premium
-      </span>
-    </div>
     <div
       className="near-places__image-wrapper place-card__image-wrapper"
     >
@@ -124,7 +124,7 @@ exports[`NearPlacesList component structure test 1`] = `
           alt="Place image"
           className="place-card__image"
           height="200"
-          src="img/apartment-01.jpg"
+          src="./preview.jpg"
           width="260"
         />
       </a>
@@ -142,7 +142,7 @@ exports[`NearPlacesList component structure test 1`] = `
             className="place-card__price-value"
           >
             €
-            170
+            150
           </b>
           <span
             className="place-card__price-text"
@@ -179,7 +179,7 @@ exports[`NearPlacesList component structure test 1`] = `
           <span
             style={
               Object {
-                "width": "40%",
+                "width": "80%",
               }
             }
           />
@@ -197,13 +197,13 @@ exports[`NearPlacesList component structure test 1`] = `
         <a
           href="#"
         >
-          Nice, cozy, warm big bed apartment
+          Light room
         </a>
       </h2>
       <p
         className="place-card__type"
       >
-        Lux apartment
+        room
       </p>
     </div>
   </article>

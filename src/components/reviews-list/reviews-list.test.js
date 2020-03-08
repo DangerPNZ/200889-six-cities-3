@@ -1,30 +1,44 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import nanoid from 'nanoid';
 import {ReviewsList} from './reviews-list.jsx';
 
 const TestDataValue = {
   REVIEWS: [
     {
-      id: nanoid(),
-      author: `Mike`,
-      review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+      review: `Good!`,
       userRating: 5,
-      date: `April 2017`
+      date: `May 2019`,
+      commentId: 1,
+      author: {
+        avatarUrl: `./user.jpg`,
+        id: 3,
+        isPro: false,
+        name: `Mike`
+      }
     },
     {
-      id: nanoid(),
-      author: `Edward`,
-      review: `A quiet cozy and picturesque that.`,
-      userRating: 2,
-      date: `January 2017`
+      review: `Amazing`,
+      userRating: 4.5,
+      date: `June 2019`,
+      commentId: 2,
+      author: {
+        avatarUrl: `./user.jpg`,
+        id: 2,
+        isPro: true,
+        name: `Ed`
+      }
     },
     {
-      id: nanoid(),
-      author: `Stephen`,
-      review: `The building is green and from 18th century.`,
+      review: `Not bad`,
       userRating: 4,
-      date: `April 2017`
+      date: `May 2019`,
+      commentId: 3,
+      author: {
+        avatarUrl: `./user.jpg`,
+        id: 1,
+        isPro: false,
+        name: `Max`
+      }
     }
   ]
 };

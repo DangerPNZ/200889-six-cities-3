@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import nanoid from 'nanoid';
 import {Map} from '../map/map.jsx';
 import {Reviews} from '../reviews/reviews.jsx';
 import {NearPlacesList} from '../near-places-list/near-places-list.jsx';
@@ -37,8 +38,8 @@ export const OfferDetails = ({offerCurrent, onOfferHeadingClick}) => (
         <div className="property__gallery-container container">
           <div className="property__gallery">
             {offerCurrent.images.map((item) => (
-              <div className="property__image-wrapper" key={item.id}>
-                <img className="property__image" src={item.url} alt="Photo studio"/>
+              <div className="property__image-wrapper" key={nanoid()}>
+                <img className="property__image" src={item} alt="Photo studio"/>
               </div>
             ))}
           </div>
@@ -86,7 +87,7 @@ export const OfferDetails = ({offerCurrent, onOfferHeadingClick}) => (
               <ul className="property__inside-list">
                 {
                   offerCurrent.goods.map((item) => (
-                    <li className="property__inside-item" key={item.id}>{item.text}</li>
+                    <li className="property__inside-item" key={nanoid()}>{item}</li>
                   ))
                 }
               </ul>
@@ -130,7 +131,6 @@ export const OfferDetails = ({offerCurrent, onOfferHeadingClick}) => (
               соответствующий объявлению, становится оранжевым
               НО активный пункт уже есть
             */
-            // onOfferMouseInteract = {() => {}}
           />
         </section>
       </div>
@@ -140,46 +140,77 @@ export const OfferDetails = ({offerCurrent, onOfferHeadingClick}) => (
 
 OfferDetails.propTypes = {
   offerCurrent: PropTypes.exact({
+    city: PropTypes.exact({
+      name: PropTypes.string.isRequired,
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      mapZoom: PropTypes.number.isRequired
+    }).isRequired,
     name: PropTypes.string.isRequired,
-    coordinates: PropTypes.arrayOf(
-        PropTypes.number.isRequired
-    ).isRequired,
-    id: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    host: PropTypes.exact({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    previewImage: PropTypes.string.isRequired,
+    location: PropTypes.exact({
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     premium: PropTypes.bool.isRequired,
     isFavorites: PropTypes.bool.isRequired,
     rating: PropTypes.number.isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.exact({
-          author: PropTypes.string.isRequired,
-          review: PropTypes.string.isRequired,
-          userRating: PropTypes.number.isRequired,
-          date: PropTypes.string.isRequired
-        }).isRequired
-    ).isRequired
-  }),
-  offers: PropTypes.arrayOf(
-      PropTypes.exact({
-        name: PropTypes.string.isRequired,
-        coordinates: PropTypes.arrayOf(
-            PropTypes.number.isRequired
-        ).isRequired,
-        id: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        premium: PropTypes.bool.isRequired,
-        isFavorites: PropTypes.bool.isRequired,
-        rating: PropTypes.number.isRequired,
-        reviews: PropTypes.arrayOf(
-            PropTypes.exact({
-              author: PropTypes.string.isRequired,
-              review: PropTypes.string.isRequired,
-              userRating: PropTypes.number.isRequired,
-              date: PropTypes.string.isRequired
-            }).isRequired
-        ).isRequired
+    maxAdults: PropTypes.number.isRequired,
+    reviews: PropTypes.arrayOf(PropTypes.exact({
+      review: PropTypes.string.isRequired,
+      userRating: PropTypes.number.isRequired,
+      date: PropTypes.string.isRequired,
+      commentId: PropTypes.number.isRequired,
+      author: PropTypes.exact({
+        avatarUrl: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        isPro: PropTypes.bool.isRequired,
+        name: PropTypes.string.isRequired
       }).isRequired
-  ).isRequired,
+    })).isRequired,
+    nearby: PropTypes.arrayOf(PropTypes.exact({
+      city: PropTypes.exact({
+        name: PropTypes.string.isRequired,
+        coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        mapZoom: PropTypes.number.isRequired
+      }).isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      bedrooms: PropTypes.number.isRequired,
+      host: PropTypes.exact({
+        avatarUrl: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        isPro: PropTypes.bool.isRequired,
+        name: PropTypes.string.isRequired
+      }).isRequired,
+      images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      previewImage: PropTypes.string.isRequired,
+      location: PropTypes.exact({
+        coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        zoom: PropTypes.number.isRequired
+      }).isRequired,
+      id: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
+      premium: PropTypes.bool.isRequired,
+      isFavorites: PropTypes.bool.isRequired,
+      rating: PropTypes.number.isRequired,
+      maxAdults: PropTypes.number.isRequired
+    })).isRequired
+  }),
+
   onOfferHeadingClick: PropTypes.func.isRequired
 };

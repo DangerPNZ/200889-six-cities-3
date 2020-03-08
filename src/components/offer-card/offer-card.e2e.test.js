@@ -1,20 +1,38 @@
 import React from 'react';
 import Enzume, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import nanoid from 'nanoid';
 import {OfferCard} from './offer-card.jsx';
 
 const TestDataValue = {
   OFFER: {
+    city: {
+      name: ``,
+      coordinates: [],
+      mapZoom: 10
+    },
     name: ``,
-    coordinates: [],
-    id: nanoid(),
-    price: 170,
+    description: ``,
+    goods: [``],
+    bedrooms: 3,
+    host: {
+      avatarUrl: ``,
+      id: 5,
+      isPro: true,
+      name: ``
+    },
+    images: [``],
+    previewImage: ``,
+    location: {
+      coordinates: [],
+      zoom: 10
+    },
+    id: 1,
+    price: 100,
     type: ``,
     premium: true,
-    isFavorites: true,
-    rating: 3.9,
-    reviews: []
+    isFavorites: false,
+    rating: 4,
+    maxAdults: 1
   }
 };
 const RENDER_MODE_TO_MAIN = `toMain`;

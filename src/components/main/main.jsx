@@ -4,7 +4,7 @@ import {CitiesTabs} from '../cities-tabs/cities-tabs.jsx';
 import {Offers} from '../offers/offers.jsx';
 import {OffersEmpty} from '../offers-empty/offers-empty.jsx';
 
-const MainComponent = ({offers, selectedCity, onCityTabClick, offersSortType, onSortOptionClick, offerInMouseEnterId}) => (
+const MainComponent = ({sortedOffers, selectedCity, onCityTabClick, offersSortType, onSortOptionClick, offerInMouseEnterId}) => (
   <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -29,20 +29,20 @@ const MainComponent = ({offers, selectedCity, onCityTabClick, offersSortType, on
       </div>
     </header>
 
-    <main className={offers.length ? `page__main page__main--index` : `page__main page__main--index page__main--index-empty`}>
+    <main className={sortedOffers.length ? `page__main page__main--index` : `page__main page__main--index page__main--index-empty`}>
       <h1 className="visually-hidden">Cities</h1>
       <CitiesTabs
         selectedCity = {selectedCity}
         onCityTabClick = {onCityTabClick}
       />
-      {offers.length !== 0 && <Offers
-        offers = {offers}
+      {sortedOffers.length !== 0 && <Offers
+        sortedOffers = {sortedOffers}
         offersSortType = {offersSortType}
         selectedCity = {selectedCity}
         onSortOptionClick = {onSortOptionClick}
         offerInMouseEnterId = {offerInMouseEnterId}
       />}
-      {offers.length === 0 && <OffersEmpty
+      {sortedOffers.length === 0 && <OffersEmpty
         selectedCity = {selectedCity}
       />}
     </main>
@@ -51,10 +51,44 @@ const MainComponent = ({offers, selectedCity, onCityTabClick, offersSortType, on
 export const Main = React.memo(MainComponent);
 
 MainComponent.propTypes = {
-  offers: PropTypes.array.isRequired,
   selectedCity: PropTypes.string.isRequired,
+
+  sortedOffers: PropTypes.arrayOf(PropTypes.exact({
+    city: PropTypes.exact({
+      name: PropTypes.string.isRequired,
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      mapZoom: PropTypes.number.isRequired
+    }).isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    host: PropTypes.exact({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    previewImage: PropTypes.string.isRequired,
+    location: PropTypes.exact({
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    premium: PropTypes.bool.isRequired,
+    isFavorites: PropTypes.bool.isRequired,
+    rating: PropTypes.number.isRequired,
+    maxAdults: PropTypes.number.isRequired
+  }).isRequired).isRequired,
+
   onCityTabClick: PropTypes.func.isRequired,
+
   offersSortType: PropTypes.string.isRequired,
+
   onSortOptionClick: PropTypes.func.isRequired,
-  offerInMouseEnterId: PropTypes.string
+
+  offerInMouseEnterId: PropTypes.number
 };

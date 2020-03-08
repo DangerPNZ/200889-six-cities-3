@@ -60,23 +60,75 @@ export const Reviews = React.memo(ReviewsComponent);
 
 ReviewsComponent.propTypes = {
   offerCurrent: PropTypes.exact({
+    city: PropTypes.exact({
+      name: PropTypes.string.isRequired,
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      mapZoom: PropTypes.number.isRequired
+    }).isRequired,
     name: PropTypes.string.isRequired,
-    coordinates: PropTypes.arrayOf(
-        PropTypes.number.isRequired
-    ).isRequired,
-    id: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    host: PropTypes.exact({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    previewImage: PropTypes.string.isRequired,
+    location: PropTypes.exact({
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     type: PropTypes.string.isRequired,
     premium: PropTypes.bool.isRequired,
     isFavorites: PropTypes.bool.isRequired,
     rating: PropTypes.number.isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.exact({
-          author: PropTypes.string.isRequired,
-          review: PropTypes.string.isRequired,
-          userRating: PropTypes.number.isRequired,
-          date: PropTypes.string.isRequired
-        }).isRequired
-    ).isRequired
-  }).isRequired
+    maxAdults: PropTypes.number.isRequired,
+    reviews: PropTypes.arrayOf(PropTypes.exact({
+      review: PropTypes.string.isRequired,
+      userRating: PropTypes.number.isRequired,
+      date: PropTypes.string.isRequired,
+      commentId: PropTypes.number.isRequired,
+      author: PropTypes.exact({
+        avatarUrl: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        isPro: PropTypes.bool.isRequired,
+        name: PropTypes.string.isRequired
+      }).isRequired
+    })).isRequired,
+    nearby: PropTypes.arrayOf(PropTypes.exact({
+      city: PropTypes.exact({
+        name: PropTypes.string.isRequired,
+        coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        mapZoom: PropTypes.number.isRequired
+      }).isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      bedrooms: PropTypes.number.isRequired,
+      host: PropTypes.exact({
+        avatarUrl: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        isPro: PropTypes.bool.isRequired,
+        name: PropTypes.string.isRequired
+      }).isRequired,
+      images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      previewImage: PropTypes.string.isRequired,
+      location: PropTypes.exact({
+        coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        zoom: PropTypes.number.isRequired
+      }).isRequired,
+      id: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
+      premium: PropTypes.bool.isRequired,
+      isFavorites: PropTypes.bool.isRequired,
+      rating: PropTypes.number.isRequired,
+      maxAdults: PropTypes.number.isRequired
+    })).isRequired
+  }),
 };
