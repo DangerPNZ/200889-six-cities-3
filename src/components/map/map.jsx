@@ -56,15 +56,14 @@ export class Map extends React.PureComponent {
   mapInit(mapCurrent) {
     if (!mapCurrent) {
       throw new Error(`no mapCurrent`);
-    }
-    this.map = () => (leaflet.map(mapCurrent, {
-      center: MapSetting.CITY,
-      zoom: MapSetting.ZOOM,
-      zoomControl: false,
-      marker: true
-    }));
-    if (typeof this.map.setView === `function`) {
-      this.map.setView(MapSetting.CITY, MapSetting.ZOOM);
+    } else if (mapCurrent instanceof Element) {
+      this.map = leaflet.map(mapCurrent, {
+        center: MapSetting.CITY,
+        zoom: MapSetting.ZOOM,
+        zoomControl: false,
+        marker: true
+      });
+      this.map.setView(this.props.offers[0].city.coordinates, this.props.offers[0].city.zoom);
       leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
