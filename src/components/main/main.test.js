@@ -69,10 +69,15 @@ const TestDataValue = {
       rating: 4,
       maxAdults: 1
     }
-  ]
+  ],
+  SELECTED_CITY: `Cologne`,
+  OFFERS_SORT_TYPE: `Price: low to high`,
+  ERROR_DATA: {
+    heading: `Test error. This heading`,
+    description: `Test error. This discription.`
+  },
+  USER_EMAIL: `user@mail.ru`
 };
-const SELECTED_CITY = `Cologne`;
-const OFFERS_SORT_TYPE = `Price: low to high`;
 
 it(`Main component structure test`, () => {
   const store = mockStore({
@@ -88,11 +93,14 @@ it(`Main component structure test`, () => {
   .create(
       <Provider store = {store}>
         <Main
-          selectedCity = {SELECTED_CITY}
-          offersSortType = {OFFERS_SORT_TYPE}
+          selectedCity = {TestDataValue.SELECTED_CITY}
+          offersSortType = {TestDataValue.OFFERS_SORT_TYPE}
           sortedOffers = {TestDataValue.OFFERS}
           onSortOptionClick = {() => {}}
           onCityTabClick = {() => {}}
+          userEmail = {TestDataValue.USER_EMAIL}
+          errorData = {TestDataValue.ERROR_DATA}
+          onErrorClose = {() => {}}
         />
       </Provider>,
       {

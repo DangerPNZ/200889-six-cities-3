@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {OfferDetails} from './offer-details.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const TestDataValue = {
   OFFER: {
@@ -83,6 +84,8 @@ it(`OfferCard component structure test`, () => {
       <OfferDetails
         offerCurrent = {TestDataValue.OFFER}
         onOfferHeadingClick = {() => {}}
+        authorizationStatus = {AuthorizationStatus.NO_AUTH}
+        onErrorClose = {() => {}}
       />
   ).toJSON();
 

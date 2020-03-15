@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {Reviews} from './reviews.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const TestDataValue = {
   OFFER: {
@@ -82,6 +83,7 @@ it(`ReviewItem component structure test`, () => {
   .create(
       <Reviews
         offerCurrent = {TestDataValue.OFFER}
+        authorizationStatus = {AuthorizationStatus.AUTHORIZED}
       />
   ).toJSON();
 

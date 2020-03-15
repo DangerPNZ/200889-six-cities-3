@@ -3,9 +3,14 @@ import PropTypes from 'prop-types';
 import {CitiesTabs} from '../cities-tabs/cities-tabs.jsx';
 import {Offers} from '../offers/offers.jsx';
 import {OffersEmpty} from '../offers-empty/offers-empty.jsx';
+import {ErrorMessage} from '../error-message/error-message.jsx';
 
-const MainComponent = ({sortedOffers, selectedCity, onCityTabClick, offersSortType, onSortOptionClick, offerInMouseEnterId}) => (
+const MainComponent = ({sortedOffers, selectedCity, onCityTabClick, offersSortType, onSortOptionClick, offerInMouseEnterId, userEmail, errorData, onErrorClose}) => (
   <div className="page page--gray page--main">
+    {errorData && <ErrorMessage
+      errorData = {errorData}
+      onErrorClose = {onErrorClose}
+    />}
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
@@ -20,7 +25,11 @@ const MainComponent = ({sortedOffers, selectedCity, onCityTabClick, offersSortTy
                 <a className="header__nav-link header__nav-link--profile" href="#">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  <span className="header__user-name user__name">
+                    {
+                      userEmail ? `${userEmail}` : `Sign in`
+                    }
+                  </span>
                 </a>
               </li>
             </ul>
@@ -84,11 +93,20 @@ MainComponent.propTypes = {
     maxAdults: PropTypes.number.isRequired
   }).isRequired).isRequired,
 
+  userEmail: PropTypes.string,
+
   onCityTabClick: PropTypes.func.isRequired,
 
   offersSortType: PropTypes.string.isRequired,
 
   onSortOptionClick: PropTypes.func.isRequired,
 
-  offerInMouseEnterId: PropTypes.number
+  offerInMouseEnterId: PropTypes.number,
+
+  errorData: PropTypes.exact({
+    heading: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired
+  }),
+
+  onErrorClose: PropTypes.func.isRequired
 };

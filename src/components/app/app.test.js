@@ -5,6 +5,7 @@ import {App} from './app.jsx';
 import {Provider} from 'react-redux';
 import {City, SortOption} from '../../utils/utils.js';
 import {ReducerName} from '../../reducer/reducer.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const mockStore = configureStore([]);
 const TestDataValue = {
@@ -69,7 +70,8 @@ const TestDataValue = {
       rating: 4,
       maxAdults: 1
     }
-  ]
+  ],
+  USER_EMAIL: `user@mail.ru`
 };
 
 it(`App component structure test`, () => {
@@ -92,6 +94,11 @@ it(`App component structure test`, () => {
           onCityTabClick = {() => {}}
           onSortOptionClick = {() => {}}
           onOfferHeadingClick = {() => {}}
+          onError = {() => {}}
+          userEmail = {TestDataValue.USER_EMAIL}
+          authorizationStatus = {AuthorizationStatus.AUTHORIZED}
+          onLogIn = {() => {}}
+          handleCloseError = {() => {}}
         />
       </Provider>,
       {

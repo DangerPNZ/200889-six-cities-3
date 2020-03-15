@@ -15,6 +15,8 @@ it(`OffersSortOptions component e2e test`, () => {
       <OffersSortOptions
         offersSortType = {SortOption.BY_PRICE_HIGHT_TO_LOW}
         onSortOptionClick = {onSortOptionClick}
+        isVisible = {true}
+        onToggleVisible = {() => {}}
       />
   );
   const tabs = component.find(`.places__option`);

@@ -4,6 +4,33 @@ exports[`Main component structure test 1`] = `
 <div
   className="page page--gray page--main"
 >
+  <section
+    className="error-message"
+  >
+    <div
+      className="error-message__header"
+    >
+      <div
+        className="error-message__header-text"
+      >
+        Error: 
+        Test error. This heading
+      </div>
+      <div
+        className="error-message__close-btn"
+        onClick={[Function]}
+      />
+    </div>
+    <div
+      className="error-message__inner-container"
+    >
+      <div
+        className="error-message__error-text"
+      >
+        Test error. This discription.
+      </div>
+    </div>
+  </section>
   <header
     className="header"
   >
@@ -47,7 +74,7 @@ exports[`Main component structure test 1`] = `
                 <span
                   className="header__user-name user__name"
                 >
-                  Oliver.conner@gmail.com
+                  user@mail.ru
                 </span>
               </a>
             </li>
@@ -187,6 +214,7 @@ exports[`Main component structure test 1`] = `
             </span>
             <span
               className="places__sorting-type"
+              onClick={[Function]}
               tabIndex="0"
             >
               Price: low to high
@@ -201,7 +229,7 @@ exports[`Main component structure test 1`] = `
               </svg>
             </span>
             <ul
-              className="places__options places__options--custom places__options--opened"
+              className="places__options places__options--custom"
             >
               <li
                 className="places__option"

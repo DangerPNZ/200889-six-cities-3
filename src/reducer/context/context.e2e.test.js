@@ -74,7 +74,11 @@ const TestDataValue = {
       maxAdults: 1
     }]
   },
-  MOCK_ID: 23
+  MOCK_ID: 23,
+  ERROR_DATA: {
+    heading: `Test error. This heading`,
+    description: `Test error. This discription.`
+  }
 };
 
 it(`Reducer without additional parameters should return initial state`, () => {
@@ -82,7 +86,8 @@ it(`Reducer without additional parameters should return initial state`, () => {
     selectedCity: City.PARIS,
     currentOffer: null,
     offersSortType: SortOption.DEFAULT,
-    activeOfferId: null
+    activeOfferId: null,
+    errorData: null
   });
 });
 
@@ -92,7 +97,8 @@ describe(`Reducer actions tests`, () => {
       selectedCity: City.PARIS,
       currentOffer: null,
       offersSortType: SortOption.DEFAULT,
-      activeOfferId: null
+      activeOfferId: null,
+      errorData: null
     },
     ActionCreator.changeCity(City.COLOGNE)
     ))
@@ -100,7 +106,8 @@ describe(`Reducer actions tests`, () => {
       selectedCity: City.COLOGNE,
       currentOffer: null,
       offersSortType: SortOption.DEFAULT,
-      activeOfferId: null
+      activeOfferId: null,
+      errorData: null
     });
   });
 
@@ -109,14 +116,16 @@ describe(`Reducer actions tests`, () => {
       selectedCity: City.COLOGNE,
       currentOffer: null,
       offersSortType: SortOption.DEFAULT,
-      activeOfferId: null
+      activeOfferId: null,
+      errorData: null
     },
     ActionCreator.setCurrentOffer(TestDataValue.OFFER)
     )).toEqual({
       selectedCity: City.COLOGNE,
       currentOffer: TestDataValue.OFFER,
       offersSortType: SortOption.DEFAULT,
-      activeOfferId: null
+      activeOfferId: null,
+      errorData: null
     });
   });
 
@@ -125,14 +134,16 @@ describe(`Reducer actions tests`, () => {
       selectedCity: City.COLOGNE,
       currentOffer: TestDataValue.OFFER,
       offersSortType: SortOption.DEFAULT,
-      activeOfferId: null
+      activeOfferId: null,
+      errorData: null
     },
     ActionCreator.changeOffersSortType(SortOption.BY_PRICE_LOW_TO_HIGHT)
     )).toEqual({
       selectedCity: City.COLOGNE,
       currentOffer: TestDataValue.OFFER,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
-      activeOfferId: null
+      activeOfferId: null,
+      errorData: null
     });
   });
 
@@ -141,14 +152,34 @@ describe(`Reducer actions tests`, () => {
       selectedCity: City.COLOGNE,
       currentOffer: TestDataValue.OFFER,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
-      activeOfferId: null
+      activeOfferId: null,
+      errorData: null
     },
     ActionCreator.setOfferId(TestDataValue.MOCK_ID)
     )).toEqual({
       selectedCity: City.COLOGNE,
       currentOffer: TestDataValue.OFFER,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
-      activeOfferId: TestDataValue.MOCK_ID
+      activeOfferId: TestDataValue.MOCK_ID,
+      errorData: null
+    });
+  });
+
+  it(`Reducer change setOfferId`, () => {
+    expect(reducer({
+      selectedCity: City.COLOGNE,
+      currentOffer: TestDataValue.OFFER,
+      offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
+      activeOfferId: TestDataValue.MOCK_ID,
+      errorData: null
+    },
+    ActionCreator.setErrorData(TestDataValue.ERROR_DATA)
+    )).toEqual({
+      selectedCity: City.COLOGNE,
+      currentOffer: TestDataValue.OFFER,
+      offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
+      activeOfferId: TestDataValue.MOCK_ID,
+      errorData: TestDataValue.ERROR_DATA
     });
   });
 });

@@ -4,10 +4,13 @@ import {connect} from "react-redux";
 import {ActionCreator as ContextActionCreator} from "../../reducer/context/context.js";
 import {Main} from '../main/main.jsx';
 import {OfferDetails} from '../offer-details/offer-details.jsx';
+import {SignIn} from '../sign-in/sign-in.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {Operation as DataOperation} from '../../reducer/fetched-data/fetched-data.js';
+import {Operation as UserOperation} from '../../reducer/user/user.js';
 import {getSortedOffers} from '../../reducer/fetched-data/selectors.js';
-import {getSelectedCity, getCurrentOffer, getOffersSortType, getActiveOfferId} from '../../reducer/context/selectors.js';
+import {getSelectedCity, getCurrentOffer, getOffersSortType, getActiveOfferId, getErrorData} from '../../reducer/context/selectors.js';
+import {getUserEmail, getAuthorizationStatus} from '../../reducer/user/selectors.js';
 
 export class App extends React.PureComponent {
   constructor(props) {
@@ -24,6 +27,20 @@ export class App extends React.PureComponent {
             <OfferDetails
               offerCurrent = {this.props.selectedOffer}
               onOfferHeadingClick = {this.props.onOfferHeadingClick}
+              authorizationStatus = {this.props.authorizationStatus}
+              userEmail = {this.props.userEmail}
+              errorData = {this.props.errorData}
+              onErrorClose = {this.props.handleCloseError}
+            />
+          </Route>
+          <Route exact path="/dev-auth">
+            <SignIn
+              selectedCity = {this.props.selectedCity}
+              userEmail = {this.props.userEmail}
+              onLogIn = {this.props.onLogIn}
+              errorData = {this.props.errorData}
+              onErrorClose = {this.props.handleCloseError}
+              onError = {this.props.onError}
             />
           </Route>
         </Switch>
@@ -35,6 +52,10 @@ export class App extends React.PureComponent {
       return <OfferDetails
         offerCurrent = {this.props.selectedOffer}
         onOfferHeadingClick = {this.props.onOfferHeadingClick}
+        authorizationStatus = {this.props.authorizationStatus}
+        userEmail = {this.props.userEmail}
+        errorData = {this.props.errorData}
+        onErrorClose = {this.props.handleCloseError}
       />;
     }
     return <Main
@@ -44,6 +65,9 @@ export class App extends React.PureComponent {
       offersSortType = {this.props.offersSortType}
       onSortOptionClick = {this.props.onSortOptionClick}
       offerInMouseEnterId = {this.props.offerInMouseEnterId}
+      userEmail = {this.props.userEmail}
+      errorData = {this.props.errorData}
+      onErrorClose = {this.props.handleCloseError}
     />;
   }
 }
@@ -155,6 +179,10 @@ App.propTypes = {
     })).isRequired
   }),
 
+  userEmail: PropTypes.string,
+
+  authorizationStatus: PropTypes.string.isRequired,
+
   onOfferHeadingClick: PropTypes.func.isRequired,
 
   onCityTabClick: PropTypes.func.isRequired,
@@ -163,7 +191,18 @@ App.propTypes = {
 
   onSortOptionClick: PropTypes.func.isRequired,
 
-  offerInMouseEnterId: PropTypes.number
+  offerInMouseEnterId: PropTypes.number,
+
+  onLogIn: PropTypes.func.isRequired,
+
+  handleCloseError: PropTypes.func.isRequired,
+
+  onError: PropTypes.func.isRequired,
+
+  errorData: PropTypes.exact({
+    heading: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired
+  })
 };
 
 const mapStateToProps = (state) => ({
@@ -171,7 +210,10 @@ const mapStateToProps = (state) => ({
   sortedOffers: getSortedOffers(state),
   selectedOffer: getCurrentOffer(state),
   offersSortType: getOffersSortType(state),
-  offerInMouseEnterId: getActiveOfferId(state)
+  offerInMouseEnterId: getActiveOfferId(state),
+  userEmail: getUserEmail(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  errorData: getErrorData(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -183,6 +225,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSortOptionClick(sortType) {
     dispatch(ContextActionCreator.changeOffersSortType(sortType));
+  },
+  onLogIn(logInData) {
+    dispatch(UserOperation.logIn(logInData));
+  },
+  handleCloseError() {
+    dispatch(ContextActionCreator.setErrorData(null));
   }
 });
 

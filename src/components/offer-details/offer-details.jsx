@@ -5,11 +5,16 @@ import {Map} from '../map/map.jsx';
 import {Reviews} from '../reviews/reviews.jsx';
 import {NearPlacesList} from '../near-places-list/near-places-list.jsx';
 import {getStyleForRating} from '../../utils/utils.js';
+import {ErrorMessage} from '../error-message/error-message.jsx';
 
 const getCitiesOffersForMap = (currentOffer) => [currentOffer, ...currentOffer.nearby];
 
-export const OfferDetails = ({offerCurrent, onOfferHeadingClick}) => (
+export const OfferDetails = ({offerCurrent, onOfferHeadingClick, authorizationStatus, userEmail, errorData, onErrorClose}) => (
   <div className="page">
+    {errorData && <ErrorMessage
+      errorData = {errorData}
+      onErrorClose = {onErrorClose}
+    />}
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
@@ -24,7 +29,9 @@ export const OfferDetails = ({offerCurrent, onOfferHeadingClick}) => (
                 <a className="header__nav-link header__nav-link--profile" href="#">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  <span className="header__user-name user__name">
+                    {userEmail ? `${userEmail}` : `Sign in`}
+                  </span>
                 </a>
               </li>
             </ul>
@@ -110,6 +117,7 @@ export const OfferDetails = ({offerCurrent, onOfferHeadingClick}) => (
             </div>
             <Reviews
               offerCurrent = {offerCurrent}
+              authorizationStatus = {authorizationStatus}
             />
           </div>
         </div>
@@ -212,5 +220,16 @@ OfferDetails.propTypes = {
     })).isRequired
   }),
 
-  onOfferHeadingClick: PropTypes.func.isRequired
+  userEmail: PropTypes.string,
+
+  authorizationStatus: PropTypes.string.isRequired,
+
+  onOfferHeadingClick: PropTypes.func.isRequired,
+
+  errorData: PropTypes.exact({
+    heading: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired
+  }),
+
+  onErrorClose: PropTypes.func.isRequired
 };

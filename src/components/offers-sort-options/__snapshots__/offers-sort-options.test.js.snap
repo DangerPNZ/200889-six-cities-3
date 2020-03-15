@@ -13,6 +13,7 @@ exports[`CitiesTabs component structure test 1`] = `
   </span>
   <span
     className="places__sorting-type"
+    onClick={[Function]}
     tabIndex="0"
   >
     Price: high to low

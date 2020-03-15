@@ -1,9 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
-import {reducer, ActionType, Operation} from './fetched-data.js';
+import {reducer, ActionType, ActionCreator, Operation} from './fetched-data.js';
 import {createApi} from '../../api/api.js';
 import {DataAdapter} from '../../api/data-adapter.js';
-
-const api = createApi();
 
 const TestDataValue = {
   RAW_OFFERS: [
@@ -43,6 +41,7 @@ const TestDataValue = {
     }
   ]
 };
+const api = createApi(() => {}, () => {});
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
@@ -53,10 +52,7 @@ it(`Reducer without additional parameters should return initial state`, () => {
 it(`Reducer should update offers by load offers`, () => {
   expect(reducer({
     offers: [],
-  }, {
-    type: ActionType.SET_OFFERS,
-    payload: TestDataValue.OFFERS
-  })).toEqual({
+  }, ActionCreator.setOffers(TestDataValue.OFFERS))).toEqual({
     offers: TestDataValue.OFFERS
   });
 });
@@ -76,7 +72,7 @@ describe(`Operation work correctly`, () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.SET_OFFERS,
-          payload: DataAdapter.formatCityOffersInAppFormat(TestDataValue.RAW_OFFERS),
+          payload: DataAdapter.formatCityOffersInAppFormat(TestDataValue.RAW_OFFERS)
         });
       });
   });
