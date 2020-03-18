@@ -1,7 +1,7 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import {OfferDetails} from './offer-details.jsx';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import Enzume, {shallow} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import {ReviewForm} from './review-form.jsx';
 
 const TestDataValue = {
   OFFER: {
@@ -75,20 +75,41 @@ const TestDataValue = {
       rating: 4,
       maxAdults: 1
     }]
+  },
+  REVIEW_DATA: {
+    comment: `Lorem ipsum dolor sit amet, consectetur adipiscing`,
+    rating: 4
   }
 };
 
-it(`OfferCard component structure test`, () => {
-  const tree = renderer
-  .create(
-      <OfferDetails
-        offerCurrent = {TestDataValue.OFFER}
-        onOfferHeadingClick = {() => {}}
-        authorizationStatus = {AuthorizationStatus.NO_AUTH}
-        onErrorClose = {() => {}}
-        onSendReview = {() => {}}
-      />
-  ).toJSON();
+Enzume.configure({
+  adapter: new Adapter()
+});
 
-  expect(tree).toMatchSnapshot();
+it(`ReviewForm component e2e test`, () => {
+  const handleSend = jest.fn();
+  const handleInputChange = jest.fn();
+  const handleToggleActive = jest.fn();
+  const reviewForm = shallow(
+      <ReviewForm
+        offerCurrent = {TestDataValue.OFFER}
+        onInputChange = {handleInputChange}
+        onSendReview = {handleSend}
+        notFilled = {false}
+        reviewData = {TestDataValue.REVIEW_DATA}
+        isActive = {false}
+        onToggleActive = {handleToggleActive}
+      />
+  );
+  const ratingRadioBtns = reviewForm.find(`.form__rating-input`);
+  const reviewTextarea = reviewForm.find(`.reviews__textarea`);
+  const event = {preventDefault: () => {}};
+  ratingRadioBtns.at(0).simulate(`change`);
+  reviewTextarea.simulate(`change`);
+  expect(handleInputChange.mock.calls.length).toBe(2);
+  reviewForm.simulate(`submit`, event);
+  expect(handleSend.mock.calls.length).toBe(1);
+  expect(handleToggleActive.mock.calls.length).toBe(1);
+  expect(handleSend.mock.calls[0][0]).toBe(TestDataValue.OFFER);
+  expect(handleSend.mock.calls[0][1]).toBe(TestDataValue.REVIEW_DATA);
 });

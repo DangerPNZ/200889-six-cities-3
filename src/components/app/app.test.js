@@ -99,6 +99,7 @@ it(`App component structure test`, () => {
           authorizationStatus = {AuthorizationStatus.AUTHORIZED}
           onLogIn = {() => {}}
           handleCloseError = {() => {}}
+          onSendReview = {() => {}}
         />
       </Provider>,
       {

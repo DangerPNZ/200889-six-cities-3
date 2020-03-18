@@ -35,6 +35,11 @@ export const createApi = (onUnauthorized, onError) => {
       onError(ErrorData.BAD_REQUEST);
     } else if (response.status === Error.INTERNAL_SERVER_ERROR) {
       onError(ErrorData.INTERNAL_SERVER_ERROR);
+    } else {
+      onError({
+        heading: `${response.status} ${response.statusText ? response.statusText : response.data.error}`,
+        description: `${response.statusText ? response.statusText : response.data.error}`
+      });
     }
     throw err;
   };

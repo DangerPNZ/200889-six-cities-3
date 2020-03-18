@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {getStyleForRating} from '../../utils/utils.js';
+import {CardRenderMode} from '../../utils/utils.js';
 
-const RenderMode = {
-  TO_MAIN: `toMain`,
-  TO_NEAR: `toNear`
-};
 const ElementType = {
   CONTAINER: `main container`,
   IMAGE_WRAPPER: `image wrapper`
@@ -14,19 +11,19 @@ const getCSSClassToElementByRenderMode = (renderMode, elementType) => {
   let cls = null;
   if (elementType === ElementType.CONTAINER) {
     switch (renderMode) {
-      case RenderMode.TO_MAIN:
+      case CardRenderMode.MAIN:
         cls = `cities__place-card place-card`;
         break;
-      case RenderMode.TO_NEAR:
+      case CardRenderMode.NEAR:
         cls = `near-places__card place-card`;
         break;
     }
   } else if (elementType === ElementType.IMAGE_WRAPPER) {
     switch (renderMode) {
-      case RenderMode.TO_MAIN:
+      case CardRenderMode.MAIN:
         cls = `cities__image-wrapper place-card__image-wrapper`;
         break;
-      case RenderMode.TO_NEAR:
+      case CardRenderMode.NEAR:
         cls = `near-places__image-wrapper place-card__image-wrapper`;
         break;
     }

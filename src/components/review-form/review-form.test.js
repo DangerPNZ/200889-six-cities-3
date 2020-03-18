@@ -1,7 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {OfferDetails} from './offer-details.jsx';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {ReviewForm} from './review-form.jsx';
 
 const TestDataValue = {
   OFFER: {
@@ -78,15 +77,16 @@ const TestDataValue = {
   }
 };
 
-it(`OfferCard component structure test`, () => {
+it(`SignIn component structure test`, () => {
   const tree = renderer
   .create(
-      <OfferDetails
+      <ReviewForm
         offerCurrent = {TestDataValue.OFFER}
-        onOfferHeadingClick = {() => {}}
-        authorizationStatus = {AuthorizationStatus.NO_AUTH}
-        onErrorClose = {() => {}}
+        onInputChange = {() => {}}
+        notFilled = {true}
         onSendReview = {() => {}}
+        isActive = {false}
+        onToggleActive = {() => {}}
       />
   ).toJSON();
 

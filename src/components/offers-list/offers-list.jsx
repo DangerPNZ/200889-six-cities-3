@@ -5,8 +5,8 @@ import {ActionCreator as ContextActionCreator} from "../../reducer/context/conte
 import {OfferCard} from '../offer-card/offer-card.jsx';
 import {Operation as DataOperation} from '../../reducer/fetched-data/fetched-data.js';
 import {getSortedOffers} from '../../reducer/fetched-data/selectors.js';
+import {CardRenderMode} from '../../utils/utils.js';
 
-const RENDER_MODE_TO_MAIN = `toMain`;
 const OffersListComponent = ({sortedOffers, onOfferMouseInteract, onOfferHeadingClick}) => (
   <div className="cities__places-list places__list tabs__content">
     {
@@ -15,7 +15,7 @@ const OffersListComponent = ({sortedOffers, onOfferMouseInteract, onOfferHeading
         onOfferMouseInteract = {onOfferMouseInteract}
         onOfferHeadingClick = {onOfferHeadingClick}
         key = {offerItem.id}
-        renderMode = {RENDER_MODE_TO_MAIN}
+        renderMode = {CardRenderMode.MAIN}
       />)
     }
   </div>

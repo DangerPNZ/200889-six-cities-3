@@ -11,7 +11,7 @@ const changeReviewsDateFormat = (reviews) => {
   return reviews;
 };
 const formatReviews = (rawReviews) => {
-  const sortedReviews = rawReviews.slice().sort(compare(`date`, CompareDirection.ASC));
+  const sortedReviews = rawReviews.slice().sort(compare(`date`, CompareDirection.DESC));
   const sortedAndLimitedReviews = sortedReviews.slice(0, MAX_REVIEWS_AMOUNT);
   return changeReviewsDateFormat(sortedAndLimitedReviews);
 };

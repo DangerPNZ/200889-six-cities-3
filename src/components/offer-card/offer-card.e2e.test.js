@@ -2,6 +2,7 @@ import React from 'react';
 import Enzume, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import {OfferCard} from './offer-card.jsx';
+import {CardRenderMode} from '../../utils/utils.js';
 
 const TestDataValue = {
   OFFER: {
@@ -35,7 +36,6 @@ const TestDataValue = {
     maxAdults: 1
   }
 };
-const RENDER_MODE_TO_MAIN = `toMain`;
 
 Enzume.configure({
   adapter: new Adapter()
@@ -49,7 +49,7 @@ it(`OfferCard component e2e test`, () => {
         offer = {TestDataValue.OFFER}
         onOfferMouseInteract = {handleMouseEnter}
         onOfferHeadingClick = {handleHeadingHandler}
-        renderMode = {RENDER_MODE_TO_MAIN}
+        renderMode = {CardRenderMode.MAIN}
       />
   );
   const cardHeading = card.find(`.place-card__name`);

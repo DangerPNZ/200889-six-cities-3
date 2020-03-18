@@ -16,6 +16,10 @@ export const CompareDirection = {
   ASC: `ASC`,
   DESC: `DESK`
 };
+export const CardRenderMode = {
+  MAIN: `MAIN`,
+  NEAR: `NEAR`
+};
 const MAX_RATING_VALUE = 5;
 export const getStyleForRating = (rating) => {
   const ratingValueInPercents = (rating / MAX_RATING_VALUE) * 100;

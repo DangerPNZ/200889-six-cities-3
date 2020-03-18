@@ -10,21 +10,24 @@ Enzume.configure({
 });
 
 it(`OffersSortOptions component e2e test`, () => {
+  const onCurrentSortTypeValueClick = jest.fn();
   const onSortOptionClick = jest.fn();
   const component = shallow(
       <OffersSortOptions
         offersSortType = {SortOption.BY_PRICE_HIGHT_TO_LOW}
         onSortOptionClick = {onSortOptionClick}
         isVisible = {true}
-        onToggleVisible = {() => {}}
+        onToggleActive = {onCurrentSortTypeValueClick}
       />
   );
+  const currentSortTypeValue = component.find(`.places__sorting-type`);
   const tabs = component.find(`.places__option`);
   const sortTypes = getValuesListFromEnum(SortOption);
-
+  currentSortTypeValue.simulate(`click`);
   sortTypes.forEach((item, index) => {
     tabs.at(index).simulate(`click`);
     expect(onSortOptionClick.mock.calls[index][0]).toBe(item);
   });
+  expect(onCurrentSortTypeValueClick.mock.calls.length).toBe(1);
   expect(onSortOptionClick.mock.calls.length).toBe(sortTypes.length);
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {OfferCard} from './offer-card.jsx';
+import {CardRenderMode} from '../../utils/utils.js';
 
 const TestDataValue = {
   OFFER: {
@@ -34,16 +35,29 @@ const TestDataValue = {
     maxAdults: 1
   }
 };
-const RENDER_MODE_TO_MAIN = `toMain`;
 
-it(`OfferCard component structure test`, () => {
+it(`OfferCard component structure test with MAIN render mode`, () => {
   const tree = renderer
   .create(
       <OfferCard
         offer = {TestDataValue.OFFER}
         onOfferMouseInteract = {() => {}}
         onOfferHeadingClick = {() => {}}
-        renderMode = {RENDER_MODE_TO_MAIN}
+        renderMode = {CardRenderMode.MAIN}
+      />
+  ).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`OfferCard component structure test with NEAR render mode`, () => {
+  const tree = renderer
+  .create(
+      <OfferCard
+        offer = {TestDataValue.OFFER}
+        onOfferMouseInteract = {() => {}}
+        onOfferHeadingClick = {() => {}}
+        renderMode = {CardRenderMode.NEAR}
       />
   ).toJSON();
 

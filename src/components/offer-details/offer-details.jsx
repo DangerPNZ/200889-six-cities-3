@@ -9,7 +9,7 @@ import {ErrorMessage} from '../error-message/error-message.jsx';
 
 const getCitiesOffersForMap = (currentOffer) => [currentOffer, ...currentOffer.nearby];
 
-export const OfferDetails = ({offerCurrent, onOfferHeadingClick, authorizationStatus, userEmail, errorData, onErrorClose}) => (
+export const OfferDetails = ({offerCurrent, onOfferHeadingClick, authorizationStatus, userEmail, errorData, onErrorClose, onSendReview}) => (
   <div className="page">
     {errorData && <ErrorMessage
       errorData = {errorData}
@@ -118,6 +118,7 @@ export const OfferDetails = ({offerCurrent, onOfferHeadingClick, authorizationSt
             <Reviews
               offerCurrent = {offerCurrent}
               authorizationStatus = {authorizationStatus}
+              onSendReview = {onSendReview}
             />
           </div>
         </div>
@@ -231,5 +232,7 @@ OfferDetails.propTypes = {
     description: PropTypes.string.isRequired
   }),
 
-  onErrorClose: PropTypes.func.isRequired
+  onErrorClose: PropTypes.func.isRequired,
+
+  onSendReview: PropTypes.func.isRequired
 };

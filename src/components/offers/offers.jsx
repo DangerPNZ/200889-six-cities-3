@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withVisibilityControl} from '../../hocs/with-visibility-control/with-visibility-control.jsx';
+import {withBooleanToggle} from '../../hocs/with-boolean-toggle/with-boolean-toggle.jsx';
 import {OffersSortOptions} from '../offers-sort-options/offers-sort-options.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import {Map} from '../map/map.jsx';
 
 const OffersComponent = ({sortedOffers, offersSortType, onSortOptionClick, offerInMouseEnterId, selectedCity}) => {
-  const SortOptionsWithVisibilityControl = withVisibilityControl(OffersSortOptions);
+  const SortOptionsWithVisibilityControl = withBooleanToggle(OffersSortOptions);
   return (<div className="cities">
     <div className="cities__places-container container">
       <section className="cities__places places">

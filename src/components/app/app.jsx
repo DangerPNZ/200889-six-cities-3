@@ -31,6 +31,7 @@ export class App extends React.PureComponent {
               userEmail = {this.props.userEmail}
               errorData = {this.props.errorData}
               onErrorClose = {this.props.handleCloseError}
+              onSendReview = {this.props.onSendReview}
             />
           </Route>
           <Route exact path="/dev-auth">
@@ -56,6 +57,7 @@ export class App extends React.PureComponent {
         userEmail = {this.props.userEmail}
         errorData = {this.props.errorData}
         onErrorClose = {this.props.handleCloseError}
+        onSendReview = {this.props.onSendReview}
       />;
     }
     return <Main
@@ -202,7 +204,9 @@ App.propTypes = {
   errorData: PropTypes.exact({
     heading: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired
-  })
+  }),
+
+  onSendReview: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -231,6 +235,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleCloseError() {
     dispatch(ContextActionCreator.setErrorData(null));
+  },
+  onSendReview(offer, reviewData, onFail) {
+    dispatch(DataOperation.sendReview(offer, reviewData, onFail));
   }
 });
 

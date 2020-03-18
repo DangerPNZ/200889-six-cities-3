@@ -28,7 +28,20 @@ const Operation = {
       );
       dispatch(ContextActionCreator.setCurrentOffer(offerWithDetalizeData));
     });
-  }
+  },
+  sendReview: (offer, reviewData, onFail) => (dispatch, getState, api) => api.post(`/comments/${offer.id}`, reviewData)
+  .then((response) => {
+    const offerWithRefreshedReviews = Object.assign({}, offer,
+        {
+          reviews: DataAdapter.formatReviewsInAppFormat(response.data)
+        }
+    );
+    dispatch(ContextActionCreator.setCurrentOffer(offerWithRefreshedReviews));
+    return true;
+  })
+  .catch(() => {
+    onFail();
+  })
 };
 const initialState = {
   offers: []

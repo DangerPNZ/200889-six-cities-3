@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {OfferCard} from '../offer-card/offer-card.jsx';
+import {CardRenderMode} from '../../utils/utils.js';
 
-const RENDER_MODE_TO_NEAR = `toNear`;
 const NearPlacesListComponent = ({offers, onOfferHeadingClick}) => (
   <div className="near-places__list places__list">
     {
@@ -11,7 +11,7 @@ const NearPlacesListComponent = ({offers, onOfferHeadingClick}) => (
         onOfferMouseInteract = {() => {}}
         onOfferHeadingClick = {onOfferHeadingClick}
         key = {offerItem.id}
-        renderMode = {RENDER_MODE_TO_NEAR}
+        renderMode = {CardRenderMode.NEAR}
       />)
     }
   </div>

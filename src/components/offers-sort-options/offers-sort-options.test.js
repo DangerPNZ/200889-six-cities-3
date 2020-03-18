@@ -9,8 +9,8 @@ it(`CitiesTabs component structure test`, () => {
       <OffersSortOptions
         offersSortType = {SortOption.BY_PRICE_HIGHT_TO_LOW}
         onSortOptionClick = {() => {}}
-        isVisible = {true}
-        onToggleVisible = {() => {}}
+        isActive = {true}
+        onToggleActive = {() => {}}
       />
   ).toJSON();
 
