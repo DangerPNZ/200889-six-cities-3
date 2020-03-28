@@ -54,6 +54,7 @@ exports[`NearPlacesList component structure test 1`] = `
         </div>
         <button
           className="place-card__bookmark-button button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -94,10 +95,10 @@ exports[`NearPlacesList component structure test 1`] = `
       </div>
       <h2
         className="place-card__name"
-        onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer/1"
+          onClick={[Function]}
         >
           Amazing room
         </a>
@@ -152,6 +153,7 @@ exports[`NearPlacesList component structure test 1`] = `
         </div>
         <button
           className="place-card__bookmark-button button place-card__bookmark-button--active"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -192,10 +194,10 @@ exports[`NearPlacesList component structure test 1`] = `
       </div>
       <h2
         className="place-card__name"
-        onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer/2"
+          onClick={[Function]}
         >
           Light room
         </a>

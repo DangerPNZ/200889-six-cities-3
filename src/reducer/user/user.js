@@ -1,9 +1,6 @@
 import {extend} from '../../utils/utils.js';
+import {AuthorizationStatus} from '../../utils/constants.js';
 
-const AuthorizationStatus = {
-  NO_AUTH: `NO_AUTH`,
-  AUTHORIZED: `AUTHORIZED`
-};
 const ActionType = {
   SET_AUTHORIZATION_STATUS: `SET_AUTHORIZATION_STATUS`,
   SET_USER_EMAIL: `SET_USER_EMAIL`
@@ -36,18 +33,19 @@ const reducer = (state = initialState, action) => {
   }
   return state;
 };
-
 const Operation = {
-  checkAuth: () => (dispatch, getState, api) => api.get(`/login`)
+  checkAuth: (onAuthorized) => (dispatch, getState, api) => api.get(`/login`)
     .then((response) => {
       dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.AUTHORIZED));
       dispatch(ActionCreator.setUserEmail(response.data.email));
+      onAuthorized();
     })
     .catch(() => dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.NO_AUTH))),
-  logIn: (logInData) => (dispatch, getState, api) => api.post(`/login`, logInData)
+  logIn: (logInData, onAuthorized) => (dispatch, getState, api) => api.post(`/login`, logInData)
   .then((response) => {
     dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.AUTHORIZED));
     dispatch(ActionCreator.setUserEmail(response.data.email));
+    onAuthorized();
   })
 };
 

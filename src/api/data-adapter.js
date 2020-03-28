@@ -1,4 +1,4 @@
-import {CompareDirection} from '../utils/utils.js';
+import {CompareDirection} from '../utils/constants.js';
 import {compare} from '../utils/utils.js';
 
 const MONTHS = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
@@ -20,45 +20,49 @@ const getImages = (rawImages) => {
   return limitedImages;
 };
 
+export const formatOfferItem = (offer) => ({
+  city: {
+    name: offer.city.name,
+    coordinates: [
+      offer.city.location.latitude,
+      offer.city.location.longitude
+    ],
+    mapZoom: offer.city.location.zoom
+  },
+  name: offer.title,
+  description: offer.description,
+  goods: offer.goods,
+  bedrooms: offer.bedrooms,
+  host: {
+    avatarUrl: offer.host.avatar_url,
+    id: offer.host.id,
+    isPro: offer.host.is_pro,
+    name: offer.host.name
+  },
+  images: getImages(offer.images),
+  previewImage: offer.preview_image,
+  location: {
+    coordinates: [
+      offer.location.latitude,
+      offer.location.longitude
+    ],
+    zoom: offer.location.zoom
+  },
+  id: offer.id,
+  price: offer.price,
+  type: offer.type,
+  premium: offer.is_premium,
+  isFavorites: offer.is_favorite,
+  rating: offer.rating,
+  maxAdults: offer.max_adults
+});
 export const DataAdapter = {
+  formatOfferItemInAppFormat(offer) {
+    return formatOfferItem(offer);
+  },
   formatCityOffersInAppFormat(rawOffers) {
     return rawOffers.map((item) => {
-      return {
-        city: {
-          name: item.city.name,
-          coordinates: [
-            item.city.location.latitude,
-            item.city.location.longitude
-          ],
-          mapZoom: item.city.location.zoom
-        },
-        name: item.title,
-        description: item.description,
-        goods: item.goods,
-        bedrooms: item.bedrooms,
-        host: {
-          avatarUrl: item.host.avatar_url,
-          id: item.host.id,
-          isPro: item.host.is_pro,
-          name: item.host.name
-        },
-        images: getImages(item.images),
-        previewImage: item.preview_image,
-        location: {
-          coordinates: [
-            item.location.latitude,
-            item.location.longitude
-          ],
-          zoom: item.location.zoom
-        },
-        id: item.id,
-        price: item.price,
-        type: item.type,
-        premium: item.is_premium,
-        isFavorites: item.is_favorite,
-        rating: item.rating,
-        maxAdults: item.max_adults
-      };
+      return formatOfferItem(item);
     });
   },
   formatReviewsInAppFormat(rawReviews) {

@@ -1,4 +1,4 @@
-import {ReducerName} from '../reducer.js';
+import {ReducerName} from '../../utils/constants.js';
 
 const REDUCER = ReducerName.CONTEXT;
 export const getSelectedCity = (state) => state[REDUCER].selectedCity;

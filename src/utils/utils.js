@@ -1,41 +1,12 @@
-export const City = {
-  PARIS: `Paris`,
-  COLOGNE: `Cologne`,
-  BRUSSELS: `Brussels`,
-  AMSTERDAM: `Amsterdam`,
-  HAMBURG: `Hamburg`,
-  DUSSELDORF: `Dusseldorf`
-};
-export const SortOption = {
-  DEFAULT: `Popular`,
-  BY_PRICE_LOW_TO_HIGHT: `Price: low to high`,
-  BY_PRICE_HIGHT_TO_LOW: `Price: high to low`,
-  BY_RATING_HIGHT_TO_LOW: `Top rated first`,
-};
-export const CompareDirection = {
-  ASC: `ASC`,
-  DESC: `DESK`
-};
-export const CardRenderMode = {
-  MAIN: `MAIN`,
-  NEAR: `NEAR`
-};
-const MAX_RATING_VALUE = 5;
+import {CompareDirection} from './constants.js';
+
+const ONE_STAR_IN_PERCENTS = 20;
 export const getStyleForRating = (rating) => {
-  const ratingValueInPercents = (rating / MAX_RATING_VALUE) * 100;
-  return {width: `${ratingValueInPercents}%`};
+  const ratingValueInPercents = Math.round(rating);
+  return {width: `${ONE_STAR_IN_PERCENTS * ratingValueInPercents}%`};
 };
 export const extend = (a, b = null) => {
   return b !== null ? Object.assign({}, a, b) : Object.assign({}, a);
-};
-export const getValuesListFromEnum = (enumeration) => {
-  const values = [];
-  for (let val in enumeration) {
-    if (typeof enumeration[val] !== `undefined`) {
-      values.push(enumeration[val]);
-    }
-  }
-  return values;
 };
 export const compare = (property, compareDirection = CompareDirection.ASC) => {
   return (a, b) => {

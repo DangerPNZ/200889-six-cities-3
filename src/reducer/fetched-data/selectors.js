@@ -1,15 +1,18 @@
 import {createSelector} from 'reselect';
-import {ReducerName} from '../reducer.js';
-import {compare, CompareDirection, SortOption} from '../../utils/utils.js';
+import {ReducerName, CompareDirection, SortOption} from '../../utils/constants.js';
+import {compare} from '../../utils/utils.js';
 
 const OfferKey = {
   PRICE: `price`,
   RATING: `rating`
 };
 const REDUCER = ReducerName.FETCHED_DATA;
-export const getOffers = (state) => state[REDUCER].offers;
 const getSortType = (state) => state[ReducerName.CONTEXT].offersSortType;
 const getSelectedCity = (state) => state[ReducerName.CONTEXT].selectedCity;
+
+export const getOffers = (state) => state[REDUCER].offers;
+export const getCities = (state) => state[REDUCER].cities;
+export const getFavorites = (state) => state[REDUCER].favorites;
 
 export const getOffersDefaultOrder = (offers, selectedCity) => offers
 .slice()

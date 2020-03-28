@@ -4,45 +4,23 @@ import {CitiesTabs} from '../cities-tabs/cities-tabs.jsx';
 import {Offers} from '../offers/offers.jsx';
 import {OffersEmpty} from '../offers-empty/offers-empty.jsx';
 import {ErrorMessage} from '../error-message/error-message.jsx';
+import {Header} from '../header/header.jsx';
 
-const MainComponent = ({sortedOffers, selectedCity, onCityTabClick, offersSortType, onSortOptionClick, offerInMouseEnterId, userEmail, errorData, onErrorClose}) => (
+const MainComponent = ({sortedOffers, selectedCity, onCityTabClick, offersSortType, onSortOptionClick, offerInMouseEnterId, userEmail, errorData, onErrorClose, cities}) => (
   <div className="page page--gray page--main">
     {errorData && <ErrorMessage
       errorData = {errorData}
       onErrorClose = {onErrorClose}
     />}
-    <header className="header">
-      <div className="container">
-        <div className="header__wrapper">
-          <div className="header__left">
-            <a className="header__logo-link header__logo-link--active">
-              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-            </a>
-          </div>
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <a className="header__nav-link header__nav-link--profile" href="#">
-                  <div className="header__avatar-wrapper user__avatar-wrapper">
-                  </div>
-                  <span className="header__user-name user__name">
-                    {
-                      userEmail ? `${userEmail}` : `Sign in`
-                    }
-                  </span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </header>
-
+    <Header
+      userEmail = {userEmail}
+    />
     <main className={sortedOffers.length ? `page__main page__main--index` : `page__main page__main--index page__main--index-empty`}>
       <h1 className="visually-hidden">Cities</h1>
       <CitiesTabs
         selectedCity = {selectedCity}
         onCityTabClick = {onCityTabClick}
+        cities = {cities}
       />
       {sortedOffers.length !== 0 && <Offers
         sortedOffers = {sortedOffers}
@@ -57,7 +35,6 @@ const MainComponent = ({sortedOffers, selectedCity, onCityTabClick, offersSortTy
     </main>
   </div>
 );
-export const Main = React.memo(MainComponent);
 
 MainComponent.propTypes = {
   selectedCity: PropTypes.string.isRequired,
@@ -108,5 +85,9 @@ MainComponent.propTypes = {
     description: PropTypes.string.isRequired
   }),
 
-  onErrorClose: PropTypes.func.isRequired
+  onErrorClose: PropTypes.func.isRequired,
+
+  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
+
+export const Main = React.memo(MainComponent);

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {Reviews} from './reviews.jsx';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AuthorizationStatus} from '../../utils/constants.js';
 
 const TestDataValue = {
   OFFER: {

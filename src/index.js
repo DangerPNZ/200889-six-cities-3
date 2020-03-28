@@ -19,15 +19,23 @@ const store = createStore(reducer,
         window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
     )
 );
+const onAuthorized = () => store.dispatch(DataOperation.setFavorites());
+const renderApp = () => {
+  ReactDOM.render(
+      <Provider store = {store}>
+        <App
+          onError = {onError}
+          onAuthorized = {onAuthorized}
+        />
+      </Provider>,
+      document.getElementById(`root`)
+  );
+};
 
-store.dispatch(DataOperation.getOffers());
-store.dispatch(UserOperation.checkAuth());
+store.dispatch(DataOperation.getOffers())
+.then(() => {
+  renderApp();
+  store.dispatch(UserOperation.checkAuth(onAuthorized));
+})
+.catch(() => renderApp());
 
-ReactDOM.render(
-    <Provider store = {store}>
-      <App
-        onError = {onError}
-      />
-    </Provider>,
-    document.getElementById(`root`)
-);

@@ -1,10 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import configureStore from "redux-mock-store";
+import {BrowserRouter} from 'react-router-dom';
 import {Offers} from './offers.jsx';
 import {Provider} from 'react-redux';
-import {City, SortOption} from '../../utils/utils.js';
-import {ReducerName} from '../../reducer/reducer.js';
+import {CITIES_FAULT_TOLERANT, SortOption, ReducerName, AuthorizationStatus} from '../../utils/constants.js';
 
 const mockStore = configureStore([]);
 const TestDataValue = {
@@ -69,10 +69,9 @@ const TestDataValue = {
       rating: 4,
       maxAdults: 1
     }
-  ]
+  ],
+  OFFERS_SORT_TYPE: `Price: low to high`
 };
-const OFFERS_SORT_TYPE = `Price: low to high`;
-const SELECTED_CITY = `Cologne`;
 
 it(`Offers component structure test`, () => {
   const store = mockStore({
@@ -80,20 +79,25 @@ it(`Offers component structure test`, () => {
       offers: TestDataValue.OFFERS
     },
     [ReducerName.CONTEXT]: {
-      selectedCity: City.PARIS,
+      selectedCity: CITIES_FAULT_TOLERANT[0],
       offersSortType: SortOption.DEFAULT
+    },
+    [ReducerName.USER]: {
+      authorizationStatus: AuthorizationStatus.AUTHORIZED
     }
   });
   const tree = renderer
   .create(
-      <Provider store = {store}>
-        <Offers
-          sortedOffers = {TestDataValue.OFFERS}
-          offersSortType = {OFFERS_SORT_TYPE}
-          selectedCity = {SELECTED_CITY}
-          onSortOptionClick = {() => {}}
-        />
-      </Provider>,
+      <BrowserRouter>
+        <Provider store = {store}>
+          <Offers
+            sortedOffers = {TestDataValue.OFFERS}
+            offersSortType = {TestDataValue.OFFERS_SORT_TYPE}
+            selectedCity = {CITIES_FAULT_TOLERANT[0]}
+            onSortOptionClick = {() => {}}
+          />
+        </Provider>
+      </BrowserRouter>,
       {
         createNodeMock: () => {
           return {};

@@ -17,8 +17,9 @@ exports[`OfferCard component structure test 1`] = `
           className="header__left"
         >
           <a
-            className="header__logo-link"
-            href="main.html"
+            className="header__logo-link header__logo-link--active"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
@@ -40,7 +41,8 @@ exports[`OfferCard component structure test 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/login"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
@@ -128,9 +130,10 @@ exports[`OfferCard component structure test 1`] = `
             >
               Amazing room
             </h1>
-            <button
+            <a
               className="property__bookmark-button button"
-              type="button"
+              href="/login"
+              onClick={[Function]}
             >
               <svg
                 className="property__bookmark-icon"
@@ -146,7 +149,7 @@ exports[`OfferCard component structure test 1`] = `
               >
                 To bookmarks
               </span>
-            </button>
+            </a>
           </div>
           <div
             className="property__rating rating"
@@ -179,7 +182,7 @@ exports[`OfferCard component structure test 1`] = `
             <li
               className="property__feature property__feature--entire"
             >
-              room
+              Private Room
             </li>
             <li
               className="property__feature property__feature--bedrooms"
@@ -433,9 +436,10 @@ exports[`OfferCard component structure test 1`] = `
                     / night
                   </span>
                 </div>
-                <button
+                <a
                   className="place-card__bookmark-button button place-card__bookmark-button--active"
-                  type="button"
+                  href="/login"
+                  onClick={[Function]}
                 >
                   <svg
                     className="place-card__bookmark-icon"
@@ -451,7 +455,7 @@ exports[`OfferCard component structure test 1`] = `
                   >
                     To bookmarks
                   </span>
-                </button>
+                </a>
               </div>
               <div
                 className="place-card__rating rating"
@@ -475,10 +479,10 @@ exports[`OfferCard component structure test 1`] = `
               </div>
               <h2
                 className="place-card__name"
-                onClick={[Function]}
               >
                 <a
-                  href="#"
+                  href="/offer/2"
+                  onClick={[Function]}
                 >
                   Light room
                 </a>

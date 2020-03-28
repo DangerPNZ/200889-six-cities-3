@@ -1,7 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {OffersList} from './offers-list.jsx';
+import {BrowserRouter} from 'react-router-dom';
+import OffersList from './offers-list.jsx';
+import configureStore from "redux-mock-store";
+import {Provider} from 'react-redux';
+import {AuthorizationStatus, ReducerName, SortOption, CITIES_FAULT_TOLERANT} from '../../utils/constants.js';
 
+const mockStore = configureStore([]);
 const TestDataValue = {
   OFFERS: [
     {
@@ -68,13 +73,31 @@ const TestDataValue = {
 };
 
 it(`OffersList component structure test`, () => {
+  const store = mockStore({
+    [ReducerName.FETCHED_DATA]: {
+      offers: TestDataValue.OFFERS,
+      cities: CITIES_FAULT_TOLERANT
+    },
+    [ReducerName.CONTEXT]: {
+      selectedCity: CITIES_FAULT_TOLERANT[0],
+      offersSortType: SortOption.DEFAULT
+    },
+    [ReducerName.USER]: {
+      authorizationStatus: AuthorizationStatus.AUTHORIZED
+    }
+  });
   const tree = renderer
   .create(
-      <OffersList
-        sortedOffers = {TestDataValue.OFFERS}
-        onOfferHeadingClick = {() => {}}
-        onOfferMouseInteract = {() => {}}
-      />
+      <BrowserRouter>
+        <Provider store = {store}>
+          <OffersList
+            sortedOffers = {TestDataValue.OFFERS}
+            onOfferMouseInteract = {() => {}}
+            onFavoriteStatusToggle = {() => {}}
+            authorizationStatus = {AuthorizationStatus.NO_AUTH}
+          />
+        </Provider>
+      </BrowserRouter>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import validator from 'email-validator';
+import {Redirect} from 'react-router-dom';
 import {ErrorMessage} from '../error-message/error-message.jsx';
+import {Header} from '../header/header.jsx';
+import {PagePath} from '../../utils/constants.js';
 
 const ErrorData = {
   INVALID_EMAIL: {
@@ -22,7 +25,7 @@ const ErrorData = {
   }
 };
 
-export class SignIn extends React.PureComponent {
+class SignIn extends React.PureComponent {
   constructor(props) {
     super(props);
     this.emailRef = React.createRef();
@@ -30,36 +33,16 @@ export class SignIn extends React.PureComponent {
     this.handleLogIn = this.handleLogIn.bind(this);
   }
   render() {
+    if (this.props.userEmail) {
+      return <Redirect to={PagePath.MAIN} />;
+    }
     return (
       <div className="page page--gray page--login">
         {this.props.errorData && <ErrorMessage
           errorData = {this.props.errorData}
           onErrorClose = {this.props.onErrorClose}
         />}
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <a className="header__logo-link" href="main.html">
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-                </a>
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__login">
-                        {this.props.userEmail ? `${this.props.userEmail}` : `Sign in`}
-                      </span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <Header/>
 
         <main className="page__main page__main--login">
           <div className="page__login-container container">
@@ -103,7 +86,7 @@ export class SignIn extends React.PureComponent {
       this.props.onLogIn({
         email: emailFieldValue,
         password: this.passwordRef.current.value
-      });
+      }, this.props.onAuthorized);
     } else {
       this.props.onError(ErrorData.INVALID_EMAIL);
     }
@@ -124,5 +107,9 @@ SignIn.propTypes = {
 
   onErrorClose: PropTypes.func.isRequired,
 
-  onError: PropTypes.func.isRequired
+  onError: PropTypes.func.isRequired,
+
+  onAuthorized: PropTypes.func.isRequired
 };
+
+export {SignIn};

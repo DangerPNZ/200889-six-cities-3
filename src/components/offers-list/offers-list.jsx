@@ -1,26 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {ActionCreator as ContextActionCreator} from "../../reducer/context/context.js";
 import {OfferCard} from '../offer-card/offer-card.jsx';
+import {ActionCreator as ContextActionCreator} from "../../reducer/context/context.js";
 import {Operation as DataOperation} from '../../reducer/fetched-data/fetched-data.js';
 import {getSortedOffers} from '../../reducer/fetched-data/selectors.js';
-import {CardRenderMode} from '../../utils/utils.js';
+import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
+import {CardRenderMode} from '../../utils/constants.js';
 
-const OffersListComponent = ({sortedOffers, onOfferMouseInteract, onOfferHeadingClick}) => (
+const OffersListComponent = ({sortedOffers, onOfferMouseInteract, onFavoriteStatusToggle, authorizationStatus}) => (
   <div className="cities__places-list places__list tabs__content">
     {
       sortedOffers.map((offerItem) => <OfferCard
         offer = {offerItem}
         onOfferMouseInteract = {onOfferMouseInteract}
-        onOfferHeadingClick = {onOfferHeadingClick}
         key = {offerItem.id}
         renderMode = {CardRenderMode.MAIN}
+        onFavoriteStatusToggle = {onFavoriteStatusToggle}
+        authorizationStatus = {authorizationStatus}
       />)
     }
   </div>
 );
-export const OffersList = React.memo(OffersListComponent);
+
+const OffersList = React.memo(OffersListComponent);
 
 OffersListComponent.propTypes = {
   sortedOffers: PropTypes.arrayOf(PropTypes.exact({
@@ -54,20 +57,23 @@ OffersListComponent.propTypes = {
     maxAdults: PropTypes.number.isRequired
   }).isRequired).isRequired,
 
-  onOfferHeadingClick: PropTypes.func.isRequired,
+  onOfferMouseInteract: PropTypes.func.isRequired,
 
-  onOfferMouseInteract: PropTypes.func.isRequired
+  onFavoriteStatusToggle: PropTypes.func.isRequired,
+
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
   sortedOffers: getSortedOffers(state),
+  authorizationStatus: getAuthorizationStatus(state)
 });
 const mapDispatchToProps = (dispatch) => ({
-  onOfferHeadingClick(selectedOffer) {
-    dispatch(DataOperation.getDataByDetalize(selectedOffer));
-  },
   onOfferMouseInteract(id) {
     dispatch(ContextActionCreator.setOfferId(id));
+  },
+  onFavoriteStatusToggle(offer) {
+    dispatch(DataOperation.changeFavoriteState(offer));
   }
 });
 

@@ -1,4 +1,4 @@
-import {ReducerName} from '../reducer.js';
+import {ReducerName} from '../../utils/constants.js';
 
 const REDUCER = ReducerName.USER;
 export const getAuthorizationStatus = (state) => state[REDUCER].authorizationStatus;

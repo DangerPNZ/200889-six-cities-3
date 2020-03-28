@@ -12,7 +12,6 @@ const ErrorMessageComponent = ({errorData, onErrorClose}) => (
     </div>
   </section>
 );
-export const ErrorMessage = React.memo(ErrorMessageComponent);
 
 ErrorMessageComponent.propTypes = {
   errorData: PropTypes.exact({
@@ -22,3 +21,5 @@ ErrorMessageComponent.propTypes = {
 
   onErrorClose: PropTypes.func.isRequired
 };
+
+export const ErrorMessage = React.memo(ErrorMessageComponent);

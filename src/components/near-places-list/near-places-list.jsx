@@ -1,22 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {OfferCard} from '../offer-card/offer-card.jsx';
-import {CardRenderMode} from '../../utils/utils.js';
+import {CardRenderMode} from '../../utils/constants.js';
 
-const NearPlacesListComponent = ({offers, onOfferHeadingClick}) => (
+const NearPlacesListComponent = ({offers, onFavoriteStatusToggle, selectedOfferId, authorizationStatus}) => (
   <div className="near-places__list places__list">
     {
       offers.map((offerItem) => <OfferCard
         offer = {offerItem}
         onOfferMouseInteract = {() => {}}
-        onOfferHeadingClick = {onOfferHeadingClick}
         key = {offerItem.id}
         renderMode = {CardRenderMode.NEAR}
+        onFavoriteStatusToggle = {onFavoriteStatusToggle}
+        selectedOfferId = {selectedOfferId}
+        authorizationStatus = {authorizationStatus}
       />)
     }
   </div>
 );
-export const NearPlacesList = React.memo(NearPlacesListComponent);
 
 NearPlacesListComponent.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.exact({
@@ -49,6 +50,14 @@ NearPlacesListComponent.propTypes = {
     rating: PropTypes.number.isRequired,
     maxAdults: PropTypes.number.isRequired
   }).isRequired).isRequired,
-  onOfferHeadingClick: PropTypes.func.isRequired,
-  onOfferMouseInteract: PropTypes.func
+
+  onOfferMouseInteract: PropTypes.func,
+
+  onFavoriteStatusToggle: PropTypes.func.isRequired,
+
+  selectedOfferId: PropTypes.number.isRequired,
+
+  authorizationStatus: PropTypes.string.isRequired
 };
+
+export const NearPlacesList = React.memo(NearPlacesListComponent);

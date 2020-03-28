@@ -26,7 +26,6 @@ const ReviewItemComponent = ({reviewItem}) => (
     </div>
   </li>
 );
-export const ReviewItem = React.memo(ReviewItemComponent);
 
 ReviewItemComponent.propTypes = {
   reviewItem: PropTypes.exact({
@@ -42,3 +41,5 @@ ReviewItemComponent.propTypes = {
     }).isRequired
   }).isRequired
 };
+
+export const ReviewItem = React.memo(ReviewItemComponent);

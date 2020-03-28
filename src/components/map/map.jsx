@@ -7,7 +7,7 @@ const MapSetting = {
   ZOOM: 12
 };
 
-export class Map extends React.PureComponent {
+class Map extends React.PureComponent {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
@@ -151,3 +151,5 @@ Map.propTypes = {
 
   selectedOfferId: PropTypes.number
 };
+
+export {Map};

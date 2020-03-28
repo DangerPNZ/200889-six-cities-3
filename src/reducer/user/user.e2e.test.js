@@ -1,6 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
-import {AuthorizationStatus, reducer, ActionCreator, ActionType, Operation} from './user.js';
 import {createApi} from '../../api/api.js';
+import {reducer, ActionCreator, ActionType, Operation} from './user.js';
+import {AuthorizationStatus} from '../../utils/constants.js';
 
 const TestDataValue = {
   USER_EMAIL: `user@mail.com`
@@ -40,7 +41,8 @@ describe(`Operation work correctly`, () => {
   it(`Should make a correct API get request to /login`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const authorizationCheckRequest = Operation.checkAuth();
+    const onAuthorized = jest.fn();
+    const authorizationCheckRequest = Operation.checkAuth(onAuthorized);
 
     apiMock
       .onGet(`/login`)
@@ -57,13 +59,15 @@ describe(`Operation work correctly`, () => {
           type: ActionType.SET_USER_EMAIL,
           payload: TestDataValue.USER_EMAIL
         });
+        expect(onAuthorized.mock.calls.length).toBe(1);
       });
   });
 
   it(`Should make a unauthorized API get request to /login`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const authorizationCheckRequest = Operation.checkAuth();
+    const onAuthorized = jest.fn();
+    const authorizationCheckRequest = Operation.checkAuth(onAuthorized);
 
     apiMock
       .onGet(`/login`)
@@ -76,13 +80,15 @@ describe(`Operation work correctly`, () => {
           type: ActionType.SET_AUTHORIZATION_STATUS,
           payload: AuthorizationStatus.NO_AUTH
         });
+        expect(onAuthorized.mock.calls.length).toBe(0);
       });
   });
 
   it(`Should make a correct API post request to /login`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const authorizationCheckRequest = Operation.logIn();
+    const onAuthorized = jest.fn();
+    const authorizationCheckRequest = Operation.logIn({}, onAuthorized);
 
     apiMock
       .onPost(`/login`)
@@ -99,6 +105,7 @@ describe(`Operation work correctly`, () => {
           type: ActionType.SET_USER_EMAIL,
           payload: TestDataValue.USER_EMAIL
         });
+        expect(onAuthorized.mock.calls.length).toBe(1);
       });
   });
 });

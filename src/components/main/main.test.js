@@ -1,11 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import configureStore from "redux-mock-store";
+import {BrowserRouter} from 'react-router-dom';
 import {Main} from './main.jsx';
 import {Provider} from 'react-redux';
-import {City, SortOption} from '../../utils/utils.js';
-import {ReducerName} from '../../reducer/reducer.js';
+import {CITIES_FAULT_TOLERANT, SortOption, ReducerName, AuthorizationStatus} from '../../utils/constants.js';
 
+const HAMBURG_INDEX_IN_FAULT_TOLERANT = 4;
 const mockStore = configureStore([]);
 const TestDataValue = {
   OFFERS: [
@@ -70,7 +71,6 @@ const TestDataValue = {
       maxAdults: 1
     }
   ],
-  SELECTED_CITY: `Cologne`,
   OFFERS_SORT_TYPE: `Price: low to high`,
   ERROR_DATA: {
     heading: `Test error. This heading`,
@@ -82,27 +82,32 @@ const TestDataValue = {
 it(`Main component structure test`, () => {
   const store = mockStore({
     [ReducerName.FETCHED_DATA]: {
-      offers: TestDataValue.OFFERS
+      offers: TestDataValue.OFFERS,
     },
     [ReducerName.CONTEXT]: {
-      selectedCity: City.PARIS,
       offersSortType: SortOption.DEFAULT
+    },
+    [ReducerName.USER]: {
+      authorizationStatus: AuthorizationStatus.AUTHORIZED
     }
   });
   const tree = renderer
   .create(
-      <Provider store = {store}>
-        <Main
-          selectedCity = {TestDataValue.SELECTED_CITY}
-          offersSortType = {TestDataValue.OFFERS_SORT_TYPE}
-          sortedOffers = {TestDataValue.OFFERS}
-          onSortOptionClick = {() => {}}
-          onCityTabClick = {() => {}}
-          userEmail = {TestDataValue.USER_EMAIL}
-          errorData = {TestDataValue.ERROR_DATA}
-          onErrorClose = {() => {}}
-        />
-      </Provider>,
+      <BrowserRouter>
+        <Provider store = {store}>
+          <Main
+            selectedCity = {CITIES_FAULT_TOLERANT[HAMBURG_INDEX_IN_FAULT_TOLERANT]}
+            offersSortType = {TestDataValue.OFFERS_SORT_TYPE}
+            sortedOffers = {TestDataValue.OFFERS}
+            onSortOptionClick = {() => {}}
+            onCityTabClick = {() => {}}
+            userEmail = {TestDataValue.USER_EMAIL}
+            errorData = {TestDataValue.ERROR_DATA}
+            onErrorClose = {() => {}}
+            cities = {CITIES_FAULT_TOLERANT}
+          />
+        </Provider>
+      </BrowserRouter>,
       {
         createNodeMock: () => {
           return {};

@@ -1,8 +1,10 @@
 import MockAdapter from 'axios-mock-adapter';
-import {reducer, ActionType, ActionCreator, Operation} from './fetched-data.js';
+import {reducer, ActionType, ActionCreator, Operation, FavoriteFlag} from './fetched-data.js';
 import {ActionType as ContextActionType} from '../context/context.js';
 import {createApi} from '../../api/api.js';
 import {DataAdapter} from '../../api/data-adapter.js';
+import {extend} from '../../utils/utils.js';
+import {CITIES_FAULT_TOLERANT} from '../../utils/constants.js';
 
 const TestDataValue = {
   RAW_OFFERS: [
@@ -113,6 +115,42 @@ const TestDataValue = {
       maxAdults: 1
     }]
   },
+  RAW_FAVORITES_OFFERS: [
+    {
+      bedrooms: 3,
+      city: {
+        location: {
+          latitude: 52.370216,
+          longitude: 4.895168,
+          zoom: 10
+        },
+        name: `Amsterdam`
+      },
+      description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+      goods: [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
+      host: {
+        [`avatar_url`]: `img/1.png`,
+        id: 3,
+        [`is_pro`]: true,
+        name: `Angelina`
+      },
+      id: 1,
+      images: [`img/1.png`, `img/2.png`],
+      [`is_favorite`]: true,
+      [`is_premium`]: false,
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
+      },
+      [`max_adults`]: 4,
+      [`preview_image`]: `img/1.png`,
+      price: 120,
+      rating: 4.8,
+      title: `Beautiful & luxurious studio at great location`,
+      type: `apartment`
+    }
+  ],
   RAW_REVIEWS: [{
     comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
     date: `2019-05-08T14:13:56.569Z`,
@@ -128,26 +166,65 @@ const TestDataValue = {
   REVIEW_DATA: {
     comment: `To submit review please make sure to set rating and describe your stay with at least 50 characters.`,
     rating: 4
-  }
+  },
+  RAW_COMMENTS: [{
+    comment: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+    date: `2019-05-08T14:13:56.569Z`,
+    id: 1,
+    rating: 4,
+    user: {
+      [`avatar_url`]: `img/1.png`,
+      id: 4,
+      [`is_pro`]: false,
+      name: `Max`
+    }
+  }]
 };
 const api = createApi(() => {}, () => {});
-
+const cities = new Set();
+TestDataValue.RAW_OFFERS.forEach((offer) => cities.add(offer.city.name));
+const citiesList = Array.from(cities);
+const offersInAppFormat = DataAdapter.formatCityOffersInAppFormat(TestDataValue.RAW_OFFERS);
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
-    offers: []
+    offers: [],
+    favorites: []
   });
 });
 
 it(`Reducer should update offers by load offers`, () => {
   expect(reducer({
     offers: [],
-  }, ActionCreator.setOffers(TestDataValue.RAW_OFFERS))).toEqual({
-    offers: TestDataValue.RAW_OFFERS
+    favorites: []
+  }, ActionCreator.setOffers(offersInAppFormat))).toEqual({
+    offers: offersInAppFormat,
+    favorites: []
+  });
+});
+
+it(`Reducer should update favorites by load favorites`, () => {
+  expect(reducer({
+    offers: offersInAppFormat,
+    favorites: []
+  }, ActionCreator.setFavorites(DataAdapter.formatCityOffersInAppFormat(TestDataValue.RAW_FAVORITES_OFFERS)))).toEqual({
+    offers: offersInAppFormat,
+    favorites: DataAdapter.formatCityOffersInAppFormat(TestDataValue.RAW_FAVORITES_OFFERS)
+  });
+});
+
+it(`Reducer should set cities`, () => {
+  expect(reducer({
+    offers: offersInAppFormat,
+    favorites: DataAdapter.formatCityOffersInAppFormat(TestDataValue.RAW_FAVORITES_OFFERS)
+  }, ActionCreator.setCities(CITIES_FAULT_TOLERANT))).toEqual({
+    offers: offersInAppFormat,
+    cities: CITIES_FAULT_TOLERANT,
+    favorites: DataAdapter.formatCityOffersInAppFormat(TestDataValue.RAW_FAVORITES_OFFERS)
   });
 });
 
 describe(`Operation work correctly`, () => {
-  it(`Should make a correct API call to /hotels`, function () {
+  it(`Test getOffers operation success`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const questionLoader = Operation.getOffers();
@@ -158,20 +235,78 @@ describe(`Operation work correctly`, () => {
 
     return questionLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ContextActionType.CHANGE_CITY,
+          payload: citiesList[0]
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.SET_CITIES,
+          payload: citiesList
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
           type: ActionType.SET_OFFERS,
-          payload: DataAdapter.formatCityOffersInAppFormat(TestDataValue.RAW_OFFERS)
+          payload: offersInAppFormat
         });
       });
   });
 
-  it(`Should make a correct API send review to /comments/`, function () {
+  it(`Test getOffers operation fail`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const questionLoader = Operation.getOffers();
+
+    apiMock
+      .onGet(`/hotels`)
+      .reply(500);
+
+    return questionLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ContextActionType.CHANGE_CITY,
+          payload: CITIES_FAULT_TOLERANT[0]
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.SET_CITIES,
+          payload: CITIES_FAULT_TOLERANT
+        });
+      });
+  });
+
+  it(`Test getDataByDetalize operation`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const offer = DataAdapter.formatOfferItemInAppFormat(TestDataValue.RAW_OFFERS[0]);
+    const getDataByDetalize = Operation.getDataByDetalize(offer);
+    apiMock
+      .onGet(`/hotels/${offer.id}/nearby`)
+      .reply(200, TestDataValue.RAW_OFFERS);
+    apiMock
+    .onGet(`/comments/${offer.id}`)
+    .reply(200, TestDataValue.RAW_COMMENTS);
+
+    return getDataByDetalize(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ContextActionType.SET_CURRENT_OFFER,
+          payload: extend(offer,
+              {
+                nearby: offersInAppFormat,
+                reviews: DataAdapter.formatReviewsInAppFormat(TestDataValue.RAW_COMMENTS)
+              }
+          )
+        });
+      });
+  });
+
+  it(`Test sendReview operation`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const onFail = jest.fn();
     const sendReviewOperation = Operation.sendReview(TestDataValue.OFFER, TestDataValue.REVIEW_DATA, onFail);
-    const resultOffer = Object.assign({}, TestDataValue.OFFER, {
+    const resultOffer = extend(TestDataValue.OFFER, {
       reviews: DataAdapter.formatReviewsInAppFormat(TestDataValue.RAW_REVIEWS)
     });
 
@@ -190,7 +325,7 @@ describe(`Operation work correctly`, () => {
       });
   });
 
-  it(`Should make a fail API send review to /comments/`, function () {
+  it(`Test sendReview operation after fail request`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const onFail = jest.fn();
@@ -204,6 +339,70 @@ describe(`Operation work correctly`, () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(0);
         expect(onFail.mock.calls.length).toBe(1);
+      });
+  });
+
+  it(`Test setFavorites operation`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const getState = () => ({
+      FETCHED_DATA: {
+        offers: offersInAppFormat
+      }
+    });
+    const favoritesData = extend(TestDataValue.RAW_OFFERS[0], {
+      [`is_favorite`]: true}
+    );
+    const setFavoritesOperation = Operation.setFavorites();
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(200, [favoritesData]);
+
+    return setFavoritesOperation(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.SET_OFFERS,
+          payload: DataAdapter.formatCityOffersInAppFormat([favoritesData])
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.SET_FAVORITES,
+          payload: DataAdapter.formatCityOffersInAppFormat([favoritesData])
+        });
+      });
+  });
+
+  it(`Test changeFavoriteState operation`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const initOffer = extend(TestDataValue.RAW_OFFERS[0], {
+      [`is_favorite`]: true
+    });
+    const getState = () => ({
+      FETCHED_DATA: {
+        offers: [DataAdapter.formatOfferItemInAppFormat(initOffer)],
+        favorites: [DataAdapter.formatOfferItemInAppFormat(initOffer)]
+      }
+    });
+    const offer = DataAdapter.formatOfferItemInAppFormat(TestDataValue.RAW_OFFERS[0]);
+    const changeFavoriteState = Operation.changeFavoriteState(offer);
+
+    apiMock
+      .onPost(`/favorite/${offer.id}/${offer.isFavorites ? FavoriteFlag.DISABLE : FavoriteFlag.ENABLE}`)
+      .reply(200, TestDataValue.RAW_OFFERS[0]);
+
+    return changeFavoriteState(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.SET_OFFERS,
+          payload: [offer]
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.SET_FAVORITES,
+          payload: []
+        });
       });
   });
 });

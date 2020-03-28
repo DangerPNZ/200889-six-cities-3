@@ -45,6 +45,8 @@ exports[`Main component structure test 1`] = `
         >
           <a
             className="header__logo-link header__logo-link--active"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
@@ -66,7 +68,8 @@ exports[`Main component structure test 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/favorites"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
@@ -117,7 +120,7 @@ exports[`Main component structure test 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item tabs__item--active"
+              className="locations__item-link tabs__item"
               href="#"
               onClick={[Function]}
             >
@@ -156,7 +159,7 @@ exports[`Main component structure test 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className="locations__item-link tabs__item tabs__item--active"
               href="#"
               onClick={[Function]}
             >
@@ -200,7 +203,7 @@ exports[`Main component structure test 1`] = `
           >
             2
              places to stay in 
-            Cologne
+            Hamburg
           </b>
           <form
             action="#"

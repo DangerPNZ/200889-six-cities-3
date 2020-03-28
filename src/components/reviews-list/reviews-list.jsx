@@ -12,7 +12,6 @@ const ReviewsListComponent = ({reviews}) => (
     }
   </ul>
 );
-export const ReviewsList = React.memo(ReviewsListComponent);
 
 ReviewsListComponent.propTypes = {
   reviews: PropTypes.arrayOf(
@@ -30,3 +29,5 @@ ReviewsListComponent.propTypes = {
       })
   ).isRequired
 };
+
+export const ReviewsList = React.memo(ReviewsListComponent);

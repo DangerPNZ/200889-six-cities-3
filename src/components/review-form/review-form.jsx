@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export class ReviewForm extends React.PureComponent {
+class ReviewForm extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -152,3 +152,5 @@ ReviewForm.propTypes = {
 
   onToggleActive: PropTypes.func.isRequired
 };
+
+export {ReviewForm};

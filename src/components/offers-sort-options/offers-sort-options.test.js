@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {OffersSortOptions} from './offers-sort-options.jsx';
-import {SortOption} from '../../utils/utils.js';
+import {SortOption} from '../../utils/constants.js';
 
 it(`CitiesTabs component structure test`, () => {
   const tree = renderer

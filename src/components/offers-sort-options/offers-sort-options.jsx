@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {SortOption} from '../../utils/utils.js';
-import {getValuesListFromEnum} from '../../utils/utils.js';
 import nanoid from 'nanoid';
+import {SortOption} from '../../utils/constants.js';
 
 const OffersSortOptionsComponent = ({offersSortType, onSortOptionClick, isActive, onToggleActive}) => (
   <form className="places__sorting" action="#" method="get">
@@ -15,7 +14,7 @@ const OffersSortOptionsComponent = ({offersSortType, onSortOptionClick, isActive
     </span>
     <ul className={`places__options places__options--custom${isActive ? ` places__options--opened` : ``}`}>
       {
-        getValuesListFromEnum(SortOption).map((sortType) => (
+        Object.values(SortOption).map((sortType) => (
           <li onClick={() => onSortOptionClick(sortType)} className={`places__option${offersSortType === sortType ? ` places__option--active` : ``}`} key={nanoid()} tabIndex="0">{sortType}</li>)
         )
       }
@@ -23,7 +22,6 @@ const OffersSortOptionsComponent = ({offersSortType, onSortOptionClick, isActive
 
   </form>
 );
-export const OffersSortOptions = React.memo(OffersSortOptionsComponent);
 
 OffersSortOptionsComponent.propTypes = {
   offersSortType: PropTypes.string.isRequired,
@@ -34,3 +32,5 @@ OffersSortOptionsComponent.propTypes = {
 
   onToggleActive: PropTypes.func
 };
+
+export const OffersSortOptions = React.memo(OffersSortOptionsComponent);

@@ -2,8 +2,7 @@ import React from 'react';
 import Enzume, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import {OffersSortOptions} from './offers-sort-options.jsx';
-import {SortOption} from '../../utils/utils.js';
-import {getValuesListFromEnum} from '../../utils/utils.js';
+import {SortOption} from '../../utils/constants.js';
 
 Enzume.configure({
   adapter: new Adapter()
@@ -22,7 +21,7 @@ it(`OffersSortOptions component e2e test`, () => {
   );
   const currentSortTypeValue = component.find(`.places__sorting-type`);
   const tabs = component.find(`.places__option`);
-  const sortTypes = getValuesListFromEnum(SortOption);
+  const sortTypes = Object.values(SortOption);
   currentSortTypeValue.simulate(`click`);
   sortTypes.forEach((item, index) => {
     tabs.at(index).simulate(`click`);

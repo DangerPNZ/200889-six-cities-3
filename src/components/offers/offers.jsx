@@ -32,7 +32,6 @@ const OffersComponent = ({sortedOffers, offersSortType, onSortOptionClick, offer
   </div>
   );
 };
-export const Offers = React.memo(OffersComponent);
 
 OffersComponent.propTypes = {
   sortedOffers: PropTypes.arrayOf(PropTypes.exact({
@@ -74,3 +73,5 @@ OffersComponent.propTypes = {
 
   selectedCity: PropTypes.string.isRequired
 };
+
+export const Offers = React.memo(OffersComponent);

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {ReviewsList} from '../reviews-list/reviews-list.jsx';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {ReviewForm} from '../review-form/review-form.jsx';
 import {withFormValidation} from '../../hocs/with-form-validation/with-form-validation.jsx';
 import {withBooleanToggle} from '../../hocs/with-boolean-toggle/with-boolean-toggle.jsx';
+import {AuthorizationStatus} from '../../utils/constants.js';
 
 const ReviewsComponent = ({offerCurrent, authorizationStatus, onSendReview}) => {
   const ReviewFormWithValidation = withFormValidation(ReviewForm);
@@ -23,7 +23,6 @@ const ReviewsComponent = ({offerCurrent, authorizationStatus, onSendReview}) => 
     }
   </section>);
 };
-export const Reviews = React.memo(ReviewsComponent);
 
 ReviewsComponent.propTypes = {
   offerCurrent: PropTypes.exact({
@@ -103,3 +102,5 @@ ReviewsComponent.propTypes = {
 
   onSendReview: PropTypes.func.isRequired
 };
+
+export const Reviews = React.memo(ReviewsComponent);

@@ -1,7 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {BrowserRouter} from 'react-router-dom';
 import {OfferCard} from './offer-card.jsx';
-import {CardRenderMode} from '../../utils/utils.js';
+import {CardRenderMode, AuthorizationStatus} from '../../utils/constants.js';
 
 const TestDataValue = {
   OFFER: {
@@ -39,12 +40,15 @@ const TestDataValue = {
 it(`OfferCard component structure test with MAIN render mode`, () => {
   const tree = renderer
   .create(
-      <OfferCard
-        offer = {TestDataValue.OFFER}
-        onOfferMouseInteract = {() => {}}
-        onOfferHeadingClick = {() => {}}
-        renderMode = {CardRenderMode.MAIN}
-      />
+      <BrowserRouter>
+        <OfferCard
+          offer = {TestDataValue.OFFER}
+          onOfferMouseInteract = {() => {}}
+          renderMode = {CardRenderMode.MAIN}
+          onFavoriteStatusToggle = {() => {}}
+          authorizationStatus = {AuthorizationStatus.NO_AUTH}
+        />
+      </BrowserRouter>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();
@@ -53,12 +57,32 @@ it(`OfferCard component structure test with MAIN render mode`, () => {
 it(`OfferCard component structure test with NEAR render mode`, () => {
   const tree = renderer
   .create(
-      <OfferCard
-        offer = {TestDataValue.OFFER}
-        onOfferMouseInteract = {() => {}}
-        onOfferHeadingClick = {() => {}}
-        renderMode = {CardRenderMode.NEAR}
-      />
+      <BrowserRouter>
+        <OfferCard
+          offer = {TestDataValue.OFFER}
+          onOfferMouseInteract = {() => {}}
+          renderMode = {CardRenderMode.NEAR}
+          onFavoriteStatusToggle = {() => {}}
+          authorizationStatus = {AuthorizationStatus.AUTHORIZED}
+        />
+      </BrowserRouter>
+  ).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`OfferCard component structure test with FAVORITE render mode`, () => {
+  const tree = renderer
+  .create(
+      <BrowserRouter>
+        <OfferCard
+          offer = {TestDataValue.OFFER}
+          onOfferMouseInteract = {() => {}}
+          renderMode = {CardRenderMode.FAVORITE}
+          onFavoriteStatusToggle = {() => {}}
+          authorizationStatus = {AuthorizationStatus.NO_AUTH}
+        />
+      </BrowserRouter>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

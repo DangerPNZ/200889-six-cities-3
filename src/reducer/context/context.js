@@ -1,4 +1,5 @@
-import {extend, City, SortOption} from '../../utils/utils.js';
+import {SortOption} from '../../utils/constants.js';
+import {extend} from '../../utils/utils.js';
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
@@ -31,7 +32,6 @@ const ActionCreator = {
 };
 
 const initialState = {
-  selectedCity: City.PARIS,
   currentOffer: null,
   offersSortType: SortOption.DEFAULT,
   activeOfferId: null,

@@ -20,7 +20,7 @@ exports[`Offers component structure test 1`] = `
       >
         2
          places to stay in 
-        Cologne
+        Paris
       </b>
       <form
         action="#"

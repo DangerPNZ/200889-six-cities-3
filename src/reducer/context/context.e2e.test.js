@@ -1,5 +1,5 @@
 import {reducer, ActionCreator} from './context.js';
-import {City, SortOption} from '../../utils/utils.js';
+import {SortOption, CITIES_FAULT_TOLERANT} from '../../utils/constants.js';
 
 const TestDataValue = {
   OFFER: {
@@ -83,7 +83,6 @@ const TestDataValue = {
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
-    selectedCity: City.PARIS,
     currentOffer: null,
     offersSortType: SortOption.DEFAULT,
     activeOfferId: null,
@@ -94,16 +93,15 @@ it(`Reducer without additional parameters should return initial state`, () => {
 describe(`Reducer actions tests`, () => {
   it(`Reducer change city`, () => {
     expect(reducer({
-      selectedCity: City.PARIS,
       currentOffer: null,
       offersSortType: SortOption.DEFAULT,
       activeOfferId: null,
       errorData: null
     },
-    ActionCreator.changeCity(City.COLOGNE)
+    ActionCreator.changeCity(CITIES_FAULT_TOLERANT[0])
     ))
     .toEqual({
-      selectedCity: City.COLOGNE,
+      selectedCity: CITIES_FAULT_TOLERANT[0],
       currentOffer: null,
       offersSortType: SortOption.DEFAULT,
       activeOfferId: null,
@@ -113,7 +111,7 @@ describe(`Reducer actions tests`, () => {
 
   it(`Reducer select offer`, () => {
     expect(reducer({
-      selectedCity: City.COLOGNE,
+      selectedCity: CITIES_FAULT_TOLERANT[0],
       currentOffer: null,
       offersSortType: SortOption.DEFAULT,
       activeOfferId: null,
@@ -121,7 +119,7 @@ describe(`Reducer actions tests`, () => {
     },
     ActionCreator.setCurrentOffer(TestDataValue.OFFER)
     )).toEqual({
-      selectedCity: City.COLOGNE,
+      selectedCity: CITIES_FAULT_TOLERANT[0],
       currentOffer: TestDataValue.OFFER,
       offersSortType: SortOption.DEFAULT,
       activeOfferId: null,
@@ -131,7 +129,7 @@ describe(`Reducer actions tests`, () => {
 
   it(`Reducer change offersSortType`, () => {
     expect(reducer({
-      selectedCity: City.COLOGNE,
+      selectedCity: CITIES_FAULT_TOLERANT[0],
       currentOffer: TestDataValue.OFFER,
       offersSortType: SortOption.DEFAULT,
       activeOfferId: null,
@@ -139,7 +137,7 @@ describe(`Reducer actions tests`, () => {
     },
     ActionCreator.changeOffersSortType(SortOption.BY_PRICE_LOW_TO_HIGHT)
     )).toEqual({
-      selectedCity: City.COLOGNE,
+      selectedCity: CITIES_FAULT_TOLERANT[0],
       currentOffer: TestDataValue.OFFER,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
       activeOfferId: null,
@@ -149,7 +147,7 @@ describe(`Reducer actions tests`, () => {
 
   it(`Reducer change setOfferId`, () => {
     expect(reducer({
-      selectedCity: City.COLOGNE,
+      selectedCity: CITIES_FAULT_TOLERANT[0],
       currentOffer: TestDataValue.OFFER,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
       activeOfferId: null,
@@ -157,7 +155,7 @@ describe(`Reducer actions tests`, () => {
     },
     ActionCreator.setOfferId(TestDataValue.MOCK_ID)
     )).toEqual({
-      selectedCity: City.COLOGNE,
+      selectedCity: CITIES_FAULT_TOLERANT[0],
       currentOffer: TestDataValue.OFFER,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
       activeOfferId: TestDataValue.MOCK_ID,
@@ -167,7 +165,7 @@ describe(`Reducer actions tests`, () => {
 
   it(`Reducer change setOfferId`, () => {
     expect(reducer({
-      selectedCity: City.COLOGNE,
+      selectedCity: CITIES_FAULT_TOLERANT[0],
       currentOffer: TestDataValue.OFFER,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
       activeOfferId: TestDataValue.MOCK_ID,
@@ -175,7 +173,7 @@ describe(`Reducer actions tests`, () => {
     },
     ActionCreator.setErrorData(TestDataValue.ERROR_DATA)
     )).toEqual({
-      selectedCity: City.COLOGNE,
+      selectedCity: CITIES_FAULT_TOLERANT[0],
       currentOffer: TestDataValue.OFFER,
       offersSortType: SortOption.BY_PRICE_LOW_TO_HIGHT,
       activeOfferId: TestDataValue.MOCK_ID,

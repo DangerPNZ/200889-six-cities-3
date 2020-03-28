@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const OffersEmpty = ({selectedCity}) => (
+const OffersEmpty = ({selectedCity}) => (
   <div className="cities">
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">
@@ -18,3 +18,5 @@ export const OffersEmpty = ({selectedCity}) => (
 OffersEmpty.propTypes = {
   selectedCity: PropTypes.string.isRequired
 };
+
+export {OffersEmpty};

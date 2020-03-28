@@ -2,7 +2,7 @@ import React from 'react';
 import Enzume, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import {OfferCard} from './offer-card.jsx';
-import {CardRenderMode} from '../../utils/utils.js';
+import {CardRenderMode, AuthorizationStatus} from '../../utils/constants.js';
 
 const TestDataValue = {
   OFFER: {
@@ -43,23 +43,24 @@ Enzume.configure({
 
 it(`OfferCard component e2e test`, () => {
   const handleMouseEnter = jest.fn();
-  const handleHeadingHandler = jest.fn();
+  const handleStatusToggle = jest.fn();
   const card = shallow(
       <OfferCard
         offer = {TestDataValue.OFFER}
         onOfferMouseInteract = {handleMouseEnter}
-        onOfferHeadingClick = {handleHeadingHandler}
         renderMode = {CardRenderMode.MAIN}
+        onFavoriteStatusToggle = {handleStatusToggle}
+        authorizationStatus = {AuthorizationStatus.AUTHORIZED}
       />
   );
-  const cardHeading = card.find(`.place-card__name`);
+  const statusToggleBtn = card.find(`.place-card__bookmark-button`);
   card.simulate(`mouseenter`);
   card.simulate(`mouseleave`);
-  cardHeading.simulate(`click`);
+  statusToggleBtn.simulate(`click`);
   expect(handleMouseEnter.mock.calls[0][0]).toBe(TestDataValue.OFFER.id);
   expect(handleMouseEnter.mock.calls[1][0]).toBe(null);
   expect(handleMouseEnter.mock.calls.length).toBe(2);
-  expect(handleHeadingHandler.mock.calls[0][0]).toBe(TestDataValue.OFFER);
-  expect(handleHeadingHandler.mock.calls.length).toBe(1);
+  expect(handleStatusToggle.mock.calls.length).toBe(1);
+  expect(handleStatusToggle.mock.calls[0][0]).toBe(TestDataValue.OFFER);
 });
 

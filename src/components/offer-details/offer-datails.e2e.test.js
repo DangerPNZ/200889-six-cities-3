@@ -1,6 +1,6 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import {BrowserRouter} from 'react-router-dom';
+import Enzume, {shallow} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import {OfferDetails} from './offer-details.jsx';
 import {AuthorizationStatus} from '../../utils/constants.js';
 
@@ -139,25 +139,33 @@ const TestDataValue = {
       maxAdults: 1
     }
   ],
+  USER_EMAIL: `user@mail.ru`,
   OFFER_ID: 5
 };
 
-it(`OfferCard component structure test`, () => {
-  const tree = renderer
-  .create(
-      <BrowserRouter>
-        <OfferDetails
-          offerCurrent = {TestDataValue.OFFER}
-          authorizationStatus = {AuthorizationStatus.NO_AUTH}
-          onErrorClose = {() => {}}
-          onSendReview = {() => {}}
-          onFavoriteStatusToggle = {() => {}}
-          onOfferGetDetalizeInfo = {() => {}}
-          offerId = {TestDataValue.OFFER_ID}
-          allOffers = {TestDataValue.OFFERS}
-        />
-      </BrowserRouter>
-  ).toJSON();
-
-  expect(tree).toMatchSnapshot();
+Enzume.configure({
+  adapter: new Adapter()
 });
+
+it(`OfferCard component e2e test`, () => {
+  const handleStatusToggle = jest.fn();
+  const tree = shallow(
+      <OfferDetails
+        offerCurrent = {TestDataValue.OFFER}
+        authorizationStatus = {AuthorizationStatus.AUTHORIZED}
+        onErrorClose = {() => {}}
+        onSendReview = {() => {}}
+        onFavoriteStatusToggle = {handleStatusToggle}
+        userEmail = {TestDataValue.USER_EMAIL}
+        allOffers = {TestDataValue.OFFERS}
+        onOfferGetDetalizeInfo = {() => {}}
+        offerId = {TestDataValue.OFFER_ID}
+      />
+  );
+  const statusToggleBtn = tree.find(`.property__bookmark-button`);
+  statusToggleBtn.simulate(`click`);
+  expect(handleStatusToggle.mock.calls.length).toBe(1);
+  expect(handleStatusToggle.mock.calls[0][0]).toBe(TestDataValue.OFFER);
+  expect(handleStatusToggle.mock.calls[0][1]).toBe(TestDataValue.OFFER.id);
+});
+

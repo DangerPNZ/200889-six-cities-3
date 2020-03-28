@@ -1,12 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import configureStore from "redux-mock-store";
-import {App} from './app.jsx';
+import App from './app.jsx';
 import {Provider} from 'react-redux';
-import {City, SortOption} from '../../utils/utils.js';
-import {ReducerName} from '../../reducer/reducer.js';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {CITIES_FAULT_TOLERANT, SortOption, ReducerName, AuthorizationStatus} from '../../utils/constants.js';
 
+const HAMBURG_INDEX_IN_FAULT_TOLERANT = 4;
 const mockStore = configureStore([]);
 const TestDataValue = {
   OFFERS: [
@@ -71,35 +70,29 @@ const TestDataValue = {
       maxAdults: 1
     }
   ],
-  USER_EMAIL: `user@mail.ru`
 };
 
 it(`App component structure test`, () => {
   const store = mockStore({
     [ReducerName.FETCHED_DATA]: {
-      offers: TestDataValue.OFFERS
+      offers: TestDataValue.OFFERS,
+      cities: CITIES_FAULT_TOLERANT,
+      favorites: []
     },
     [ReducerName.CONTEXT]: {
-      selectedCity: City.PARIS,
+      selectedCity: CITIES_FAULT_TOLERANT[HAMBURG_INDEX_IN_FAULT_TOLERANT],
       offersSortType: SortOption.DEFAULT
+    },
+    [ReducerName.USER]: {
+      authorizationStatus: AuthorizationStatus.AUTHORIZED
     }
   });
   const tree = renderer
   .create(
       <Provider store = {store}>
         <App
-          selectedCity = {City.PARIS}
-          sortedOffers = {TestDataValue.OFFERS}
-          offersSortType = {SortOption.DEFAULT}
-          onCityTabClick = {() => {}}
-          onSortOptionClick = {() => {}}
-          onOfferHeadingClick = {() => {}}
           onError = {() => {}}
-          userEmail = {TestDataValue.USER_EMAIL}
-          authorizationStatus = {AuthorizationStatus.AUTHORIZED}
-          onLogIn = {() => {}}
-          handleCloseError = {() => {}}
-          onSendReview = {() => {}}
+          onAuthorized = {() => {}}
         />
       </Provider>,
       {
