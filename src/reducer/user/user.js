@@ -1,4 +1,4 @@
-import {extend} from '../../utils/utils.js';
+import {expandObj} from '../../utils/utils.js';
 import {AuthorizationStatus} from '../../utils/constants.js';
 
 const ActionType = {
@@ -23,11 +23,11 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.SET_AUTHORIZATION_STATUS:
-      return extend(state, {
+      return expandObj(state, {
         authorizationStatus: action.payload
       });
     case ActionType.SET_USER_EMAIL:
-      return extend(state, {
+      return expandObj(state, {
         userEmail: action.payload
       });
   }

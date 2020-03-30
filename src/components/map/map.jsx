@@ -26,11 +26,6 @@ class Map extends React.PureComponent {
       this.updatePins();
     }
   }
-  render() {
-    return (
-      <div id="map" style={{height: `100%`}} ref={this.mapRef}></div>
-    );
-  }
   getPinIcon(offer) {
     return leaflet.icon({
       iconUrl: this.props.selectedOfferId && offer.id === this.props.selectedOfferId ? `img/pin-active.svg` : `img/pin.svg`,
@@ -71,6 +66,11 @@ class Map extends React.PureComponent {
       .addTo(this.map);
       this.addPinsToMap();
     }
+  }
+  render() {
+    return (
+      <div id="map" style={{height: `100%`}} ref={this.mapRef}></div>
+    );
   }
 }
 

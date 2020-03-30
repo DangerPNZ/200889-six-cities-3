@@ -13,17 +13,6 @@ export const withFormValidation = (Component) => {
       };
       this.handleInputChange = this.handleInputChange.bind(this);
     }
-    render() {
-      return <Component
-        {...this.props}
-        onInputChange = {this.handleInputChange}
-        notFilled = {this.state.notFilled}
-        reviewData = {{
-          comment: this.state.review,
-          rating: Number(this.state.rating)
-        }}
-      />;
-    }
     handleInputChange(event) {
       const {name, value} = event.target;
       this.setState({[name]: value}, this.checkValues);
@@ -34,6 +23,17 @@ export const withFormValidation = (Component) => {
           this.state.review.length &&
           this.state.review.length >= MIN_REVIEW_LENGTH) ? false : true
       });
+    }
+    render() {
+      return <Component
+        {...this.props}
+        onInputChange = {this.handleInputChange}
+        notFilled = {this.state.notFilled}
+        reviewData = {{
+          comment: this.state.review,
+          rating: Number(this.state.rating)
+        }}
+      />;
     }
   };
 };

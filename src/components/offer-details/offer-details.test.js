@@ -150,7 +150,7 @@ it(`OfferCard component structure test`, () => {
           offerCurrent = {TestDataValue.OFFER}
           authorizationStatus = {AuthorizationStatus.NO_AUTH}
           onErrorClose = {() => {}}
-          onSendReview = {() => {}}
+          onReviewSend = {() => {}}
           onFavoriteStatusToggle = {() => {}}
           onOfferGetDetalizeInfo = {() => {}}
           offerId = {TestDataValue.OFFER_ID}

@@ -23,7 +23,7 @@ rules:
   react/sort-comp: [1, {
   order: [
     'lifecycle',
-    'instance-methods',
+    'everything-else',
     'render',
     'static-methods'
   ]

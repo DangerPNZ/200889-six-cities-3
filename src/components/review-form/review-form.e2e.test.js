@@ -87,18 +87,18 @@ Enzume.configure({
 });
 
 it(`ReviewForm component e2e test`, () => {
-  const handleSend = jest.fn();
-  const handleInputChange = jest.fn();
-  const handleToggleActive = jest.fn();
+  const onSend = jest.fn();
+  const onInputChange = jest.fn();
+  const onToggleActive = jest.fn();
   const reviewForm = shallow(
       <ReviewForm
         offerCurrent = {TestDataValue.OFFER}
-        onInputChange = {handleInputChange}
-        onSendReview = {handleSend}
+        onInputChange = {onInputChange}
+        onReviewSend = {onSend}
         notFilled = {false}
         reviewData = {TestDataValue.REVIEW_DATA}
         isActive = {false}
-        onToggleActive = {handleToggleActive}
+        onActiveToggle = {onToggleActive}
       />
   );
   const ratingRadioBtns = reviewForm.find(`.form__rating-input`);
@@ -106,10 +106,10 @@ it(`ReviewForm component e2e test`, () => {
   const event = {preventDefault: () => {}};
   ratingRadioBtns.at(0).simulate(`change`);
   reviewTextarea.simulate(`change`);
-  expect(handleInputChange.mock.calls.length).toBe(2);
+  expect(onInputChange.mock.calls.length).toBe(2);
   reviewForm.simulate(`submit`, event);
-  expect(handleSend.mock.calls.length).toBe(1);
-  expect(handleToggleActive.mock.calls.length).toBe(1);
-  expect(handleSend.mock.calls[0][0]).toBe(TestDataValue.OFFER);
-  expect(handleSend.mock.calls[0][1]).toBe(TestDataValue.REVIEW_DATA);
+  expect(onSend.mock.calls.length).toBe(1);
+  expect(onToggleActive.mock.calls.length).toBe(1);
+  expect(onSend.mock.calls[0][0]).toBe(TestDataValue.OFFER);
+  expect(onSend.mock.calls[0][1]).toBe(TestDataValue.REVIEW_DATA);
 });

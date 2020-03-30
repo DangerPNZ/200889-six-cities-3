@@ -5,7 +5,7 @@ export const getStyleForRating = (rating) => {
   const ratingValueInPercents = Math.round(rating);
   return {width: `${ONE_STAR_IN_PERCENTS * ratingValueInPercents}%`};
 };
-export const extend = (a, b = null) => {
+export const expandObj = (a, b = null) => {
   return b !== null ? Object.assign({}, a, b) : Object.assign({}, a);
 };
 export const compare = (property, compareDirection = CompareDirection.ASC) => {

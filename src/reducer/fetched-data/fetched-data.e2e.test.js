@@ -3,8 +3,8 @@ import {reducer, ActionType, ActionCreator, Operation, FavoriteFlag} from './fet
 import {ActionType as ContextActionType} from '../context/context.js';
 import {createApi} from '../../api/api.js';
 import {DataAdapter} from '../../api/data-adapter.js';
-import {extend} from '../../utils/utils.js';
-import {CITIES_FAULT_TOLERANT} from '../../utils/constants.js';
+import {expandObj} from '../../utils/utils.js';
+import {CITIES_FAULT_TOLERANT, ReducerName} from '../../utils/constants.js';
 
 const TestDataValue = {
   RAW_OFFERS: [
@@ -291,7 +291,7 @@ describe(`Operation work correctly`, () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ContextActionType.SET_CURRENT_OFFER,
-          payload: extend(offer,
+          payload: expandObj(offer,
               {
                 nearby: offersInAppFormat,
                 reviews: DataAdapter.formatReviewsInAppFormat(TestDataValue.RAW_COMMENTS)
@@ -306,7 +306,7 @@ describe(`Operation work correctly`, () => {
     const dispatch = jest.fn();
     const onFail = jest.fn();
     const sendReviewOperation = Operation.sendReview(TestDataValue.OFFER, TestDataValue.REVIEW_DATA, onFail);
-    const resultOffer = extend(TestDataValue.OFFER, {
+    const resultOffer = expandObj(TestDataValue.OFFER, {
       reviews: DataAdapter.formatReviewsInAppFormat(TestDataValue.RAW_REVIEWS)
     });
 
@@ -346,11 +346,11 @@ describe(`Operation work correctly`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const getState = () => ({
-      FETCHED_DATA: {
+      [`${ReducerName.FETCHED_DATA}`]: {
         offers: offersInAppFormat
       }
     });
-    const favoritesData = extend(TestDataValue.RAW_OFFERS[0], {
+    const favoritesData = expandObj(TestDataValue.RAW_OFFERS[0], {
       [`is_favorite`]: true}
     );
     const setFavoritesOperation = Operation.setFavorites();
@@ -376,11 +376,11 @@ describe(`Operation work correctly`, () => {
   it(`Test changeFavoriteState operation`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const initOffer = extend(TestDataValue.RAW_OFFERS[0], {
+    const initOffer = expandObj(TestDataValue.RAW_OFFERS[0], {
       [`is_favorite`]: true
     });
     const getState = () => ({
-      FETCHED_DATA: {
+      [`${ReducerName.FETCHED_DATA}`]: {
         offers: [DataAdapter.formatOfferItemInAppFormat(initOffer)],
         favorites: [DataAdapter.formatOfferItemInAppFormat(initOffer)]
       }

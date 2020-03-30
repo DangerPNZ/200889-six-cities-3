@@ -84,7 +84,7 @@ it(`ReviewItem component structure test`, () => {
       <Reviews
         offerCurrent = {TestDataValue.OFFER}
         authorizationStatus = {AuthorizationStatus.AUTHORIZED}
-        onSendReview = {() => {}}
+        onReviewSend = {() => {}}
       />
   ).toJSON();
 

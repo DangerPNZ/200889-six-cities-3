@@ -6,6 +6,11 @@ class ReviewForm extends React.PureComponent {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.onActiveToggle();
+    this.props.onReviewSend(this.props.offerCurrent, this.props.reviewData, this.props.onActiveToggle);
+  }
   render() {
     return (
       <form className="reviews__form form" action="#" method="post" onSubmit={this.handleSubmit}>
@@ -55,11 +60,6 @@ class ReviewForm extends React.PureComponent {
         </div>
       </form>
     );
-  }
-  handleSubmit(event) {
-    event.preventDefault();
-    this.props.onToggleActive();
-    this.props.onSendReview(this.props.offerCurrent, this.props.reviewData, this.props.onToggleActive);
   }
 }
 
@@ -146,11 +146,11 @@ ReviewForm.propTypes = {
     rating: PropTypes.number
   }),
 
-  onSendReview: PropTypes.func.isRequired,
+  onReviewSend: PropTypes.func.isRequired,
 
   isActive: PropTypes.bool.isRequired,
 
-  onToggleActive: PropTypes.func.isRequired
+  onActiveToggle: PropTypes.func.isRequired
 };
 
 export {ReviewForm};

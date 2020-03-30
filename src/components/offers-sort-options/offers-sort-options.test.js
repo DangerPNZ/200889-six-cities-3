@@ -10,7 +10,7 @@ it(`CitiesTabs component structure test`, () => {
         offersSortType = {SortOption.BY_PRICE_HIGHT_TO_LOW}
         onSortOptionClick = {() => {}}
         isActive = {true}
-        onToggleActive = {() => {}}
+        onActiveToggle = {() => {}}
       />
   ).toJSON();
 

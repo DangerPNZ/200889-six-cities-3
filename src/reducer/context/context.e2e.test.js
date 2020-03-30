@@ -163,7 +163,7 @@ describe(`Reducer actions tests`, () => {
     });
   });
 
-  it(`Reducer change setOfferId`, () => {
+  it(`Reducer change after setErrorData`, () => {
     expect(reducer({
       selectedCity: CITIES_FAULT_TOLERANT[0],
       currentOffer: TestDataValue.OFFER,

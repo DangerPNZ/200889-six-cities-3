@@ -1,5 +1,5 @@
 import {SortOption} from '../../utils/constants.js';
-import {extend} from '../../utils/utils.js';
+import {expandObj} from '../../utils/utils.js';
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
@@ -40,23 +40,23 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
-      return extend(state, {
+      return expandObj(state, {
         selectedCity: action.payload
       });
     case ActionType.SET_CURRENT_OFFER:
-      return extend(state, {
+      return expandObj(state, {
         currentOffer: action.payload
       });
     case ActionType.CHANGE_OFFERS_SORT_TYPE:
-      return extend(state, {
+      return expandObj(state, {
         offersSortType: action.payload
       });
     case ActionType.SET_OFFER_ID:
-      return extend(state, {
+      return expandObj(state, {
         activeOfferId: action.payload
       });
     case ActionType.SET_ERROR_DATA:
-      return extend(state, {
+      return expandObj(state, {
         errorData: action.payload
       });
   }

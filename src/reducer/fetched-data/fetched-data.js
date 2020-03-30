@@ -1,7 +1,7 @@
 import {DataAdapter} from '../../api/data-adapter.js';
 import {ActionCreator as ContextActionCreator} from '../context/context.js';
-import {extend} from '../../utils/utils.js';
-import {CITIES_FAULT_TOLERANT} from '../../utils/constants.js';
+import {expandObj} from '../../utils/utils.js';
+import {CITIES_FAULT_TOLERANT, ReducerName} from '../../utils/constants.js';
 
 const FavoriteFlag = {
   ENABLE: 1,
@@ -30,7 +30,7 @@ const MAX_NEARBY_AMOUNT = 3;
 const getDataByDetalize = (offer, api, dispatch) => {
   return Promise.all([api.get(`/hotels/${offer.id}/nearby`), api.get(`/comments/${offer.id}`)])
   .then((response) => {
-    const offerWithDetalizeData = extend(offer, {
+    const offerWithDetalizeData = expandObj(offer, {
       nearby: DataAdapter.formatCityOffersInAppFormat(response[0].data).slice(0, MAX_NEARBY_AMOUNT),
       reviews: DataAdapter.formatReviewsInAppFormat(response[1].data)
     });
@@ -57,7 +57,7 @@ const Operation = {
   },
   sendReview: (offer, reviewData, onFail) => (dispatch, getState, api) => api.post(`/comments/${offer.id}`, reviewData)
   .then((response) => {
-    const offerWithRefreshedReviews = extend(offer,
+    const offerWithRefreshedReviews = expandObj(offer,
         {
           reviews: DataAdapter.formatReviewsInAppFormat(response.data)
         }
@@ -72,10 +72,10 @@ const Operation = {
   .then((response) => {
     if (response.data.length) {
       const favorites = DataAdapter.formatCityOffersInAppFormat(response.data);
-      const offers = getState().FETCHED_DATA.offers.slice();
+      const offers = getState()[`${ReducerName.FETCHED_DATA}`].offers.slice();
       favorites.forEach((favoriteItem) => {
         const offerIndex = offers.findIndex((offer) => offer.id === favoriteItem.id);
-        offers[offerIndex] = extend(offers[offerIndex], favoriteItem);
+        offers[offerIndex] = expandObj(offers[offerIndex], favoriteItem);
       });
       dispatch(ActionCreator.setOffers(offers));
       dispatch(ActionCreator.setFavorites(favorites));
@@ -84,10 +84,10 @@ const Operation = {
   changeFavoriteState: (offer, currentOfferId) => (dispatch, getState, api) => api.post(`/favorite/${offer.id}/${offer.isFavorites ? FavoriteFlag.DISABLE : FavoriteFlag.ENABLE}`)
   .then((response) => {
     const offerWithChangedFavoriteState = DataAdapter.formatOfferItemInAppFormat(response.data);
-    const offers = getState().FETCHED_DATA.offers.slice();
-    const favorites = getState().FETCHED_DATA.favorites.slice();
+    const offers = getState()[`${ReducerName.FETCHED_DATA}`].offers.slice();
+    const favorites = getState()[`${ReducerName.FETCHED_DATA}`].favorites.slice();
     const offerIndex = offers.findIndex((item) => item.id === offerWithChangedFavoriteState.id);
-    offers[offerIndex] = extend(offers[offerIndex], offerWithChangedFavoriteState);
+    offers[offerIndex] = expandObj(offers[offerIndex], offerWithChangedFavoriteState);
     if (offerWithChangedFavoriteState.isFavorites) {
       favorites.push(offerWithChangedFavoriteState);
     } else {
@@ -97,7 +97,7 @@ const Operation = {
     dispatch(ActionCreator.setOffers(offers));
     dispatch(ActionCreator.setFavorites(favorites));
     if (currentOfferId) {
-      const currentOffer = getState().FETCHED_DATA.offers.find((item) => item.id === currentOfferId);
+      const currentOffer = getState()[`${ReducerName.FETCHED_DATA}`].offers.find((item) => item.id === currentOfferId);
       getDataByDetalize(currentOffer, api, dispatch);
     }
   })
@@ -109,15 +109,15 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.SET_OFFERS:
-      return extend(state, {
+      return expandObj(state, {
         offers: action.payload
       });
     case ActionType.SET_FAVORITES:
-      return extend(state, {
+      return expandObj(state, {
         favorites: action.payload
       });
     case ActionType.SET_CITIES:
-      return extend(state, {
+      return expandObj(state, {
         cities: action.payload
       });
   }

@@ -16,7 +16,7 @@ it(`OffersSortOptions component e2e test`, () => {
         offersSortType = {SortOption.BY_PRICE_HIGHT_TO_LOW}
         onSortOptionClick = {onSortOptionClick}
         isVisible = {true}
-        onToggleActive = {onCurrentSortTypeValueClick}
+        onActiveToggle = {onCurrentSortTypeValueClick}
       />
   );
   const currentSortTypeValue = component.find(`.places__sorting-type`);

@@ -6,7 +6,7 @@ import {withFormValidation} from '../../hocs/with-form-validation/with-form-vali
 import {withBooleanToggle} from '../../hocs/with-boolean-toggle/with-boolean-toggle.jsx';
 import {AuthorizationStatus} from '../../utils/constants.js';
 
-const ReviewsComponent = ({offerCurrent, authorizationStatus, onSendReview}) => {
+const ReviewsComponent = ({offerCurrent, authorizationStatus, onReviewSend}) => {
   const ReviewFormWithValidation = withFormValidation(ReviewForm);
   const ReviewFormWithStateControl = withBooleanToggle(ReviewFormWithValidation);
   return (<section className="property__reviews reviews">
@@ -18,7 +18,7 @@ const ReviewsComponent = ({offerCurrent, authorizationStatus, onSendReview}) => 
       authorizationStatus === AuthorizationStatus.AUTHORIZED &&
       <ReviewFormWithStateControl
         offerCurrent = {offerCurrent}
-        onSendReview = {onSendReview}
+        onReviewSend = {onReviewSend}
       />
     }
   </section>);
@@ -100,7 +100,7 @@ ReviewsComponent.propTypes = {
 
   authorizationStatus: PropTypes.string.isRequired,
 
-  onSendReview: PropTypes.func.isRequired
+  onReviewSend: PropTypes.func.isRequired
 };
 
 export const Reviews = React.memo(ReviewsComponent);

@@ -84,9 +84,9 @@ it(`SignIn component structure test`, () => {
         offerCurrent = {TestDataValue.OFFER}
         onInputChange = {() => {}}
         notFilled = {true}
-        onSendReview = {() => {}}
+        onReviewSend = {() => {}}
         isActive = {false}
-        onToggleActive = {() => {}}
+        onActiveToggle = {() => {}}
       />
   ).toJSON();
 

@@ -12,10 +12,11 @@ import {Operation as UserOperation} from '../../reducer/user/user.js';
 import {getOffers, getSortedOffers, getFavorites, getCities} from '../../reducer/fetched-data/selectors.js';
 import {getSelectedCity, getCurrentOffer, getOffersSortType, getActiveOfferId, getErrorData} from '../../reducer/context/selectors.js';
 import {getUserEmail, getAuthorizationStatus} from '../../reducer/user/selectors.js';
-import {PagePath} from '../../utils/constants.js';
+import {PagePath, AuthorizationStatus} from '../../utils/constants.js';
+import {PrivateRoute} from '../private-route/private-route.jsx';
 
 const AppComponent = ({
-  onSendReview,
+  onReviewSend,
   sortedOffers,
   selectedCity,
   onCityTabClick,
@@ -24,7 +25,7 @@ const AppComponent = ({
   offerInMouseEnterId,
   userEmail,
   errorData,
-  handleCloseError,
+  onErrorClose,
   onFavoriteStatusToggle,
   selectedOffer,
   onOfferGetDetalizeInfo,
@@ -48,7 +49,7 @@ const AppComponent = ({
           offerInMouseEnterId = {offerInMouseEnterId}
           userEmail = {userEmail}
           errorData = {errorData}
-          onErrorClose = {handleCloseError}
+          onErrorClose = {onErrorClose}
           onFavoriteStatusToggle = {onFavoriteStatusToggle}
           cities = {cities}
         />
@@ -60,35 +61,41 @@ const AppComponent = ({
           authorizationStatus = {authorizationStatus}
           userEmail = {userEmail}
           errorData = {errorData}
-          onErrorClose = {handleCloseError}
-          onSendReview = {onSendReview}
+          onErrorClose = {onErrorClose}
+          onReviewSend = {onReviewSend}
           onFavoriteStatusToggle = {onFavoriteStatusToggle}
           offerId = {Number(props.match.params.id)}
           allOffers = {allOffers}
         />
       )}/>
-      <Route exact path={PagePath.LOGIN} render={() => (
-        <SignIn
+      <PrivateRoute
+        component = {<SignIn
           selectedCity = {selectedCity}
           userEmail = {userEmail}
           onLogIn = {onLogIn}
           onAuthorized = {onAuthorized}
           errorData = {errorData}
-          onErrorClose = {handleCloseError}
+          onErrorClose = {onErrorClose}
           onError = {onError}
-        />
-      )}/>
-      <Route exact path={PagePath.FAVORITES} render={() => (
-        <Favorites
+        />}
+        path = {PagePath.LOGIN}
+        redirectPath = {PagePath.MAIN}
+        isPass = {(authorizationStatus === AuthorizationStatus.NO_AUTH)}
+      />
+      <PrivateRoute
+        component = {<Favorites
           offers = {favorites}
           userEmail = {userEmail}
           errorData = {errorData}
-          onErrorClose = {handleCloseError}
+          onErrorClose = {onErrorClose}
           onFavoriteStatusToggle = {onFavoriteStatusToggle}
           authorizationStatus = {authorizationStatus}
           cities = {cities}
-        />
-      )}/>
+        />}
+        path = {PagePath.FAVORITES}
+        redirectPath = {PagePath.LOGIN}
+        isPass = {(authorizationStatus === AuthorizationStatus.AUTHORIZED)}
+      />
     </Switch>
   </BrowserRouter>
 );
@@ -280,7 +287,7 @@ AppComponent.propTypes = {
 
   onLogIn: PropTypes.func.isRequired,
 
-  handleCloseError: PropTypes.func.isRequired,
+  onErrorClose: PropTypes.func.isRequired,
 
   onError: PropTypes.func.isRequired,
 
@@ -289,7 +296,7 @@ AppComponent.propTypes = {
     description: PropTypes.string.isRequired
   }),
 
-  onSendReview: PropTypes.func.isRequired,
+  onReviewSend: PropTypes.func.isRequired,
 
   onAuthorized: PropTypes.func.isRequired,
 
@@ -327,10 +334,10 @@ const mapDispatchToProps = (dispatch) => ({
   onLogIn(logInData, onAuthorized) {
     dispatch(UserOperation.logIn(logInData, onAuthorized));
   },
-  handleCloseError() {
+  onErrorClose() {
     dispatch(ContextActionCreator.setErrorData(null));
   },
-  onSendReview(offer, reviewData, onFail) {
+  onReviewSend(offer, reviewData, onFail) {
     dispatch(DataOperation.sendReview(offer, reviewData, onFail));
   },
   onFavoriteStatusToggle(offer, selectedOfferId = null) {

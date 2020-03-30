@@ -42,14 +42,14 @@ Enzume.configure({
 });
 
 it(`OfferCard component e2e test`, () => {
-  const handleMouseEnter = jest.fn();
-  const handleStatusToggle = jest.fn();
+  const onMouseEnter = jest.fn();
+  const onStatusToggle = jest.fn();
   const card = shallow(
       <OfferCard
         offer = {TestDataValue.OFFER}
-        onOfferMouseInteract = {handleMouseEnter}
+        onOfferMouseInteract = {onMouseEnter}
         renderMode = {CardRenderMode.MAIN}
-        onFavoriteStatusToggle = {handleStatusToggle}
+        onFavoriteStatusToggle = {onStatusToggle}
         authorizationStatus = {AuthorizationStatus.AUTHORIZED}
       />
   );
@@ -57,10 +57,10 @@ it(`OfferCard component e2e test`, () => {
   card.simulate(`mouseenter`);
   card.simulate(`mouseleave`);
   statusToggleBtn.simulate(`click`);
-  expect(handleMouseEnter.mock.calls[0][0]).toBe(TestDataValue.OFFER.id);
-  expect(handleMouseEnter.mock.calls[1][0]).toBe(null);
-  expect(handleMouseEnter.mock.calls.length).toBe(2);
-  expect(handleStatusToggle.mock.calls.length).toBe(1);
-  expect(handleStatusToggle.mock.calls[0][0]).toBe(TestDataValue.OFFER);
+  expect(onMouseEnter.mock.calls[0][0]).toBe(TestDataValue.OFFER.id);
+  expect(onMouseEnter.mock.calls[1][0]).toBe(null);
+  expect(onMouseEnter.mock.calls.length).toBe(2);
+  expect(onStatusToggle.mock.calls.length).toBe(1);
+  expect(onStatusToggle.mock.calls[0][0]).toBe(TestDataValue.OFFER);
 });
 

@@ -28,6 +28,12 @@ class OfferDetails extends React.PureComponent {
       this.updateSelectedOfferData();
     }
   }
+  updateSelectedOfferData() {
+    const offer = this.props.allOffers.find((item) => item.id === this.props.offerId);
+    if (offer) {
+      this.props.onOfferGetDetalizeInfo(offer);
+    }
+  }
   render() {
     return (
       this.props.offerCurrent !== null && <div className="page">
@@ -126,7 +132,7 @@ class OfferDetails extends React.PureComponent {
                 <Reviews
                   offerCurrent = {this.props.offerCurrent}
                   authorizationStatus = {this.props.authorizationStatus}
-                  onSendReview = {this.props.onSendReview}
+                  onReviewSend = {this.props.onReviewSend}
                 />
               </div>
             </div>
@@ -145,22 +151,11 @@ class OfferDetails extends React.PureComponent {
                 onFavoriteStatusToggle = {this.props.onFavoriteStatusToggle}
                 selectedOfferId = {this.props.offerCurrent.id}
                 authorizationStatus = {this.props.authorizationStatus}
-                /* нужна ли нам тут функция подсветки пина предложения на карте?
-                  Из ТЗ: При наведении курсора на карточку предложения, маркер,
-                  соответствующий объявлению, становится оранжевым
-                  НО активный пункт уже есть
-                */
               />
             </section>
           </div>
         </main>
       </div>);
-  }
-  updateSelectedOfferData() {
-    const offer = this.props.allOffers.find((item) => item.id === this.props.offerId);
-    if (offer) {
-      this.props.onOfferGetDetalizeInfo(offer);
-    }
   }
 }
 
@@ -251,7 +246,7 @@ OfferDetails.propTypes = {
 
   onErrorClose: PropTypes.func.isRequired,
 
-  onSendReview: PropTypes.func.isRequired,
+  onReviewSend: PropTypes.func.isRequired,
 
   onFavoriteStatusToggle: PropTypes.func.isRequired,
 

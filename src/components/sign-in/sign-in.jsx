@@ -32,6 +32,25 @@ class SignIn extends React.PureComponent {
     this.passwordRef = React.createRef();
     this.handleLogIn = this.handleLogIn.bind(this);
   }
+  handleLogIn(event) {
+    event.preventDefault();
+    const emailFieldValue = this.emailRef.current.value;
+    const passwordFieldValue = this.passwordRef.current.value;
+    if (!emailFieldValue && !passwordFieldValue) {
+      this.props.onError(ErrorData.NO_LOGIN_DATA);
+    } else if (!passwordFieldValue) {
+      this.props.onError(ErrorData.NO_PASSWORD);
+    } else if (!emailFieldValue) {
+      this.props.onError(ErrorData.NO_EMAIL);
+    } else if (validator.validate(emailFieldValue)) {
+      this.props.onLogIn({
+        email: emailFieldValue,
+        password: this.passwordRef.current.value
+      }, this.props.onAuthorized);
+    } else {
+      this.props.onError(ErrorData.INVALID_EMAIL);
+    }
+  }
   render() {
     if (this.props.userEmail) {
       return <Redirect to={PagePath.MAIN} />;
@@ -71,25 +90,6 @@ class SignIn extends React.PureComponent {
         </main>
       </div>
     );
-  }
-  handleLogIn(event) {
-    event.preventDefault();
-    const emailFieldValue = this.emailRef.current.value;
-    const passwordFieldValue = this.passwordRef.current.value;
-    if (!emailFieldValue && !passwordFieldValue) {
-      this.props.onError(ErrorData.NO_LOGIN_DATA);
-    } else if (!passwordFieldValue) {
-      this.props.onError(ErrorData.NO_PASSWORD);
-    } else if (!emailFieldValue) {
-      this.props.onError(ErrorData.NO_EMAIL);
-    } else if (validator.validate(emailFieldValue)) {
-      this.props.onLogIn({
-        email: emailFieldValue,
-        password: this.passwordRef.current.value
-      }, this.props.onAuthorized);
-    } else {
-      this.props.onError(ErrorData.INVALID_EMAIL);
-    }
   }
 }
 

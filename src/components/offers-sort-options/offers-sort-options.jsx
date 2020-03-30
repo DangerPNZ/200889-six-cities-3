@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import nanoid from 'nanoid';
 import {SortOption} from '../../utils/constants.js';
 
-const OffersSortOptionsComponent = ({offersSortType, onSortOptionClick, isActive, onToggleActive}) => (
+const OffersSortOptionsComponent = ({offersSortType, onSortOptionClick, isActive, onActiveToggle}) => (
   <form className="places__sorting" action="#" method="get">
     <span className="places__sorting-caption">Sort by</span>
-    <span className="places__sorting-type" tabIndex="0" onClick={onToggleActive}>
+    <span className="places__sorting-type" tabIndex="0" onClick={onActiveToggle}>
       {offersSortType}
       <svg className="places__sorting-arrow" width="7" height="4">
         <use xlinkHref="#icon-arrow-select"></use>
@@ -30,7 +30,7 @@ OffersSortOptionsComponent.propTypes = {
 
   isActive: PropTypes.bool,
 
-  onToggleActive: PropTypes.func
+  onActiveToggle: PropTypes.func
 };
 
 export const OffersSortOptions = React.memo(OffersSortOptionsComponent);

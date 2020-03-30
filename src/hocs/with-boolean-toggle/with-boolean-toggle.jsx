@@ -9,15 +9,15 @@ export const withBooleanToggle = (Component) => {
       };
       this.handleToggle = this.handleToggle.bind(this);
     }
+    handleToggle() {
+      this.setState((prevState) => ({isActive: !prevState.isActive}));
+    }
     render() {
       return <Component
         {...this.props}
         isActive = {this.state.isActive}
-        onToggleActive = {this.handleToggle}
+        onActiveToggle = {this.handleToggle}
       />;
-    }
-    handleToggle() {
-      this.setState((prevState) => ({isActive: !prevState.isActive}));
     }
   };
 };

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test component, returned by HOC withFormValidation 1`] = `
+<div>
+  <div>
+    notFilled prop value equal to true
+  </div>
+  <div>
+    reviewData.comment is empty string
+  </div>
+  <div>
+    reviewData.rating equal 0
+  </div>
+  <textarea
+    onChange={[Function]}
+  />
+</div>
+`;
