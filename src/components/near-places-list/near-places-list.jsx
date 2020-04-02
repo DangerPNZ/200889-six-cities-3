@@ -8,7 +8,6 @@ const NearPlacesListComponent = ({offers, onFavoriteStatusToggle, selectedOfferI
     {
       offers.map((offerItem) => <OfferCard
         offer = {offerItem}
-        onOfferMouseInteract = {() => {}}
         key = {offerItem.id}
         renderMode = {CardRenderMode.NEAR}
         onFavoriteStatusToggle = {onFavoriteStatusToggle}
@@ -50,8 +49,6 @@ NearPlacesListComponent.propTypes = {
     rating: PropTypes.number.isRequired,
     maxAdults: PropTypes.number.isRequired
   }).isRequired).isRequired,
-
-  onOfferMouseInteract: PropTypes.func,
 
   onFavoriteStatusToggle: PropTypes.func.isRequired,
 

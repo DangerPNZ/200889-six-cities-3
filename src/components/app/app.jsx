@@ -239,7 +239,7 @@ AppComponent.propTypes = {
         name: PropTypes.string.isRequired
       }).isRequired
     })).isRequired,
-    nearby: PropTypes.arrayOf(PropTypes.exact({
+    nearbyOffers: PropTypes.arrayOf(PropTypes.exact({
       city: PropTypes.exact({
         name: PropTypes.string.isRequired,
         coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,

@@ -74,7 +74,6 @@ const FavoritesComponent = ({offers, userEmail, errorData, onErrorClose, onFavor
                       {
                         item.offers.map((offerItem) => <OfferCard
                           offer = {offerItem}
-                          onOfferMouseInteract = {() => {}}
                           key = {offerItem.id}
                           renderMode = {CardRenderMode.FAVORITE}
                           onFavoriteStatusToggle = {onFavoriteStatusToggle}

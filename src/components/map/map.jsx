@@ -6,6 +6,11 @@ const MapSetting = {
   CITY: [52.38333, 4.9],
   ZOOM: 12
 };
+const IconParameter = {
+  SIZE: [30, 30],
+  URL_FOR_DEFAULT: `img/pin.svg`,
+  URL_FOR_ACTIVE: `img/pin-active.svg`
+};
 
 class Map extends React.PureComponent {
   constructor(props) {
@@ -28,8 +33,8 @@ class Map extends React.PureComponent {
   }
   getPinIcon(offer) {
     return leaflet.icon({
-      iconUrl: this.props.selectedOfferId && offer.id === this.props.selectedOfferId ? `img/pin-active.svg` : `img/pin.svg`,
-      iconSize: [30, 30]
+      iconUrl: this.props.selectedOfferId && offer.id === this.props.selectedOfferId ? IconParameter.URL_FOR_ACTIVE : IconParameter.URL_FOR_DEFAULT,
+      iconSize: IconParameter.SIZE
     });
   }
   updatePins() {
@@ -117,7 +122,7 @@ Map.propTypes = {
         name: PropTypes.string.isRequired
       }).isRequired
     })),
-    nearby: PropTypes.arrayOf(PropTypes.exact({
+    nearbyOffers: PropTypes.arrayOf(PropTypes.exact({
       city: PropTypes.exact({
         name: PropTypes.string.isRequired,
         coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,

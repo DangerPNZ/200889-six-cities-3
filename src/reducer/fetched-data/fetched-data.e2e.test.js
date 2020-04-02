@@ -84,7 +84,7 @@ const TestDataValue = {
         name: `Mike`
       }
     }],
-    nearby: [{
+    nearbyOffers: [{
       city: {
         name: `Hamburg`,
         coordinates: [0],
@@ -293,7 +293,7 @@ describe(`Operation work correctly`, () => {
           type: ContextActionType.SET_CURRENT_OFFER,
           payload: expandObj(offer,
               {
-                nearby: offersInAppFormat,
+                nearbyOffers: offersInAppFormat,
                 reviews: DataAdapter.formatReviewsInAppFormat(TestDataValue.RAW_COMMENTS)
               }
           )

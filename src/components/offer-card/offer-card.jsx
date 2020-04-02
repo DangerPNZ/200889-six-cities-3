@@ -53,12 +53,16 @@ const OfferCardComponent = ({renderMode, offer, onOfferMouseInteract, onFavorite
       className={getCSSClassToElementByRenderMode(renderMode, ElementType.CONTAINER)}
       onMouseEnter={
         () => {
-          onOfferMouseInteract(offer.id);
+          if (onOfferMouseInteract) {
+            onOfferMouseInteract(offer.id);
+          }
         }
       }
       onMouseLeave={
         () => {
-          onOfferMouseInteract(null);
+          if (onOfferMouseInteract) {
+            onOfferMouseInteract(null);
+          }
         }
       }
     >
@@ -86,7 +90,11 @@ const OfferCardComponent = ({renderMode, offer, onOfferMouseInteract, onFavorite
             </button>
           }
           {
-            authorizationStatus === AuthorizationStatus.NO_AUTH && <Link to={PagePath.LOGIN} className={`place-card__bookmark-button button${offer.isFavorites ? ` place-card__bookmark-button--active` : ``}`}>
+            authorizationStatus === AuthorizationStatus.NO_AUTH && <Link onClick={() => {
+              if (onOfferMouseInteract) {
+                onOfferMouseInteract(null);
+              }
+            }} to={PagePath.LOGIN} className={`place-card__bookmark-button button${offer.isFavorites ? ` place-card__bookmark-button--active` : ``}`}>
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
@@ -101,7 +109,11 @@ const OfferCardComponent = ({renderMode, offer, onOfferMouseInteract, onFavorite
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${PagePath.OFFER}${offer.id}`}>{offer.name}</Link>
+          <Link onClick={() => {
+            if (onOfferMouseInteract) {
+              onOfferMouseInteract(null);
+            }
+          }} to={`${PagePath.OFFER}${offer.id}`}>{offer.name}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

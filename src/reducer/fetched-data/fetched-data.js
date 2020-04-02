@@ -31,7 +31,7 @@ const getDataByDetalize = (offer, api, dispatch) => {
   return Promise.all([api.get(`/hotels/${offer.id}/nearby`), api.get(`/comments/${offer.id}`)])
   .then((response) => {
     const offerWithDetalizeData = expandObj(offer, {
-      nearby: DataAdapter.formatCityOffersInAppFormat(response[0].data).slice(0, MAX_NEARBY_AMOUNT),
+      nearbyOffers: DataAdapter.formatCityOffersInAppFormat(response[0].data).slice(0, MAX_NEARBY_AMOUNT),
       reviews: DataAdapter.formatReviewsInAppFormat(response[1].data)
     });
     dispatch(ContextActionCreator.setCurrentOffer(offerWithDetalizeData));

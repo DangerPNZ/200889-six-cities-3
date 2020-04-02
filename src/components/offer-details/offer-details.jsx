@@ -11,7 +11,7 @@ import {getStyleForRating} from '../../utils/utils.js';
 import {AuthorizationStatus, PagePath} from '../../utils/constants.js';
 
 const TYPE_ROOM = `room`;
-const getCitiesOffersForMap = (currentOffer) => [currentOffer, ...currentOffer.nearby];
+const getCitiesOffersForMap = (currentOffer) => [currentOffer, ...currentOffer.nearbyOffers];
 const formatCurrentOfferType = (offerType) => {
   return offerType === TYPE_ROOM ? `Private ${offerType[0].toUpperCase() + offerType.slice(1)}` : offerType[0].toUpperCase() + offerType.slice(1);
 };
@@ -147,7 +147,7 @@ class OfferDetails extends React.PureComponent {
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <NearPlacesList
-                offers = {this.props.offerCurrent.nearby}
+                offers = {this.props.offerCurrent.nearbyOffers}
                 onFavoriteStatusToggle = {this.props.onFavoriteStatusToggle}
                 selectedOfferId = {this.props.offerCurrent.id}
                 authorizationStatus = {this.props.authorizationStatus}
@@ -201,7 +201,7 @@ OfferDetails.propTypes = {
         name: PropTypes.string.isRequired
       }).isRequired
     })).isRequired,
-    nearby: PropTypes.arrayOf(PropTypes.exact({
+    nearbyOffers: PropTypes.arrayOf(PropTypes.exact({
       city: PropTypes.exact({
         name: PropTypes.string.isRequired,
         coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,

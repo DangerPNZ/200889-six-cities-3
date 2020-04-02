@@ -44,7 +44,7 @@ const TestDataValue = {
         name: `Mike`
       }
     }],
-    nearby: [{
+    nearbyOffers: [{
       city: {
         name: `Hamburg`,
         coordinates: [0],
