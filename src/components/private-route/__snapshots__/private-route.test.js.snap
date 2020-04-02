@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrivateRoute component structure test with pass access 1`] = `null`;
+
+exports[`PrivateRoute component structure test with pass denied 1`] = `null`;

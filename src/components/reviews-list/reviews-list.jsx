@@ -1,21 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import nanoid from 'nanoid';
 import {ReviewItem} from '../review-item/review-item.jsx';
 
-export const ReviewsList = ({reviews}) => (
+const ReviewsListComponent = ({reviews}) => (
   <ul className="reviews__list">
     {
       reviews.map((review) => (<ReviewItem
-        review = {review}
-        key = {nanoid()}
+        reviewItem = {review}
+        key = {review.commentId}
       />))
     }
   </ul>
 );
 
-ReviewsList.propTypes = {
+ReviewsListComponent.propTypes = {
   reviews: PropTypes.arrayOf(
-      PropTypes.object.isRequired
+      PropTypes.exact({
+        review: PropTypes.string.isRequired,
+        userRating: PropTypes.number.isRequired,
+        date: PropTypes.string.isRequired,
+        commentId: PropTypes.number.isRequired,
+        author: PropTypes.exact({
+          avatarUrl: PropTypes.string.isRequired,
+          id: PropTypes.number.isRequired,
+          isPro: PropTypes.bool.isRequired,
+          name: PropTypes.string.isRequired
+        }).isRequired
+      })
   ).isRequired
 };
+
+export const ReviewsList = React.memo(ReviewsListComponent);

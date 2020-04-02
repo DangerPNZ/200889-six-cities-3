@@ -14,14 +14,14 @@ exports[`ReviewItem component structure test 1`] = `
         alt="Reviews avatar"
         className="reviews__avatar user__avatar"
         height="54"
-        src="img/avatar-max.jpg"
+        src="./user.jpg"
         width="54"
       />
     </div>
     <span
       className="reviews__user-name"
     >
-      Max
+      Mike
     </span>
   </div>
   <div
@@ -36,7 +36,7 @@ exports[`ReviewItem component structure test 1`] = `
         <span
           style={
             Object {
-              "width": "80%",
+              "width": "100%",
             }
           }
         />
@@ -50,13 +50,13 @@ exports[`ReviewItem component structure test 1`] = `
     <p
       className="reviews__text"
     >
-      A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+      Good!
     </p>
     <time
       className="reviews__time"
       dateTime="2019-04-24"
     >
-      April 2019
+      May 2019
     </time>
   </div>
 </li>

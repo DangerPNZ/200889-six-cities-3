@@ -17,8 +17,9 @@ exports[`OfferCard component structure test 1`] = `
           className="header__left"
         >
           <a
-            className="header__logo-link"
-            href="main.html"
+            className="header__logo-link header__logo-link--active"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
@@ -40,7 +41,8 @@ exports[`OfferCard component structure test 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/login"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
@@ -48,7 +50,7 @@ exports[`OfferCard component structure test 1`] = `
                 <span
                   className="header__user-name user__name"
                 >
-                  Oliver.conner@gmail.com
+                  Sign in
                 </span>
               </a>
             </li>
@@ -75,7 +77,7 @@ exports[`OfferCard component structure test 1`] = `
             <img
               alt="Photo studio"
               className="property__image"
-              src="img/room.jpg"
+              src="./photo.jpg"
             />
           </div>
           <div
@@ -84,7 +86,7 @@ exports[`OfferCard component structure test 1`] = `
             <img
               alt="Photo studio"
               className="property__image"
-              src="img/apartment-01.jpg"
+              src="./photo_1.jpg"
             />
           </div>
           <div
@@ -93,7 +95,7 @@ exports[`OfferCard component structure test 1`] = `
             <img
               alt="Photo studio"
               className="property__image"
-              src="img/apartment-02.jpg"
+              src="./photo_2.jpg"
             />
           </div>
           <div
@@ -102,25 +104,7 @@ exports[`OfferCard component structure test 1`] = `
             <img
               alt="Photo studio"
               className="property__image"
-              src="img/apartment-03.jpg"
-            />
-          </div>
-          <div
-            className="property__image-wrapper"
-          >
-            <img
-              alt="Photo studio"
-              className="property__image"
-              src="img/studio-01.jpg"
-            />
-          </div>
-          <div
-            className="property__image-wrapper"
-          >
-            <img
-              alt="Photo studio"
-              className="property__image"
-              src="img/apartment-01.jpg"
+              src="./photo_3.jpg"
             />
           </div>
         </div>
@@ -144,11 +128,12 @@ exports[`OfferCard component structure test 1`] = `
             <h1
               className="property__name"
             >
-              Party apartment
+              Amazing room
             </h1>
-            <button
+            <a
               className="property__bookmark-button button"
-              type="button"
+              href="/login"
+              onClick={[Function]}
             >
               <svg
                 className="property__bookmark-icon"
@@ -164,7 +149,7 @@ exports[`OfferCard component structure test 1`] = `
               >
                 To bookmarks
               </span>
-            </button>
+            </a>
           </div>
           <div
             className="property__rating rating"
@@ -188,7 +173,7 @@ exports[`OfferCard component structure test 1`] = `
             <span
               className="property__rating-value rating__value"
             >
-              4.8
+              4
             </span>
           </div>
           <ul
@@ -197,17 +182,20 @@ exports[`OfferCard component structure test 1`] = `
             <li
               className="property__feature property__feature--entire"
             >
-              Apartment
+              Private Room
             </li>
             <li
               className="property__feature property__feature--bedrooms"
             >
-              3 Bedrooms
+              3
+               Bedrooms
             </li>
             <li
               className="property__feature property__feature--adults"
             >
-              Max 4 adults
+              Max 
+              1
+               adults
             </li>
           </ul>
           <div
@@ -216,7 +204,8 @@ exports[`OfferCard component structure test 1`] = `
             <b
               className="property__price-value"
             >
-              €120
+              €
+              100
             </b>
             <span
               className="property__price-text"
@@ -238,52 +227,27 @@ exports[`OfferCard component structure test 1`] = `
               <li
                 className="property__inside-item"
               >
-                Wi-Fi
+                Lorem
               </li>
               <li
                 className="property__inside-item"
               >
-                Washing machine
+                ipsum
               </li>
               <li
                 className="property__inside-item"
               >
-                Towels
+                dolor
               </li>
               <li
                 className="property__inside-item"
               >
-                Heating
+                sit amet
               </li>
               <li
                 className="property__inside-item"
               >
-                Coffee machine
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Baby seat
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Kitchen
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Dishwasher
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Cabel TV
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Fridge
+                consectetur
               </li>
             </ul>
           </div>
@@ -299,20 +263,20 @@ exports[`OfferCard component structure test 1`] = `
               className="property__host-user user"
             >
               <div
-                className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper"
+                className="property__avatar-wrapper user__avatar-wrapper property__avatar-wrapper--pro"
               >
                 <img
                   alt="Host avatar"
                   className="property__avatar user__avatar"
                   height="74"
-                  src="img/avatar-angelina.jpg"
+                  src="./img.jpg"
                   width="74"
                 />
               </div>
               <span
                 className="property__user-name"
               >
-                Angelina
+                Samantha
               </span>
             </div>
             <div
@@ -321,12 +285,7 @@ exports[`OfferCard component structure test 1`] = `
               <p
                 className="property__text"
               >
-                A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-              </p>
-              <p
-                className="property__text"
-              >
-                An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
             </div>
           </div>
@@ -340,7 +299,7 @@ exports[`OfferCard component structure test 1`] = `
               <span
                 className="reviews__amount"
               >
-                3
+                1
               </span>
             </h2>
             <ul
@@ -359,14 +318,14 @@ exports[`OfferCard component structure test 1`] = `
                       alt="Reviews avatar"
                       className="reviews__avatar user__avatar"
                       height="54"
-                      src="img/avatar-max.jpg"
+                      src="./user.jpg"
                       width="54"
                     />
                   </div>
                   <span
                     className="reviews__user-name"
                   >
-                    Max
+                    Mike
                   </span>
                 </div>
                 <div
@@ -381,7 +340,7 @@ exports[`OfferCard component structure test 1`] = `
                       <span
                         style={
                           Object {
-                            "width": "80%",
+                            "width": "100%",
                           }
                         }
                       />
@@ -395,295 +354,17 @@ exports[`OfferCard component structure test 1`] = `
                   <p
                     className="reviews__text"
                   >
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                    Good!
                   </p>
                   <time
                     className="reviews__time"
                     dateTime="2019-04-24"
                   >
-                    April 2019
-                  </time>
-                </div>
-              </li>
-              <li
-                className="reviews__item"
-              >
-                <div
-                  className="reviews__user user"
-                >
-                  <div
-                    className="reviews__avatar-wrapper user__avatar-wrapper"
-                  >
-                    <img
-                      alt="Reviews avatar"
-                      className="reviews__avatar user__avatar"
-                      height="54"
-                      src="img/avatar-max.jpg"
-                      width="54"
-                    />
-                  </div>
-                  <span
-                    className="reviews__user-name"
-                  >
-                    Max
-                  </span>
-                </div>
-                <div
-                  className="reviews__info"
-                >
-                  <div
-                    className="reviews__rating rating"
-                  >
-                    <div
-                      className="reviews__stars rating__stars"
-                    >
-                      <span
-                        style={
-                          Object {
-                            "width": "80%",
-                          }
-                        }
-                      />
-                      <span
-                        className="visually-hidden"
-                      >
-                        Rating
-                      </span>
-                    </div>
-                  </div>
-                  <p
-                    className="reviews__text"
-                  >
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <time
-                    className="reviews__time"
-                    dateTime="2019-04-24"
-                  >
-                    April 2019
-                  </time>
-                </div>
-              </li>
-              <li
-                className="reviews__item"
-              >
-                <div
-                  className="reviews__user user"
-                >
-                  <div
-                    className="reviews__avatar-wrapper user__avatar-wrapper"
-                  >
-                    <img
-                      alt="Reviews avatar"
-                      className="reviews__avatar user__avatar"
-                      height="54"
-                      src="img/avatar-max.jpg"
-                      width="54"
-                    />
-                  </div>
-                  <span
-                    className="reviews__user-name"
-                  >
-                    Max
-                  </span>
-                </div>
-                <div
-                  className="reviews__info"
-                >
-                  <div
-                    className="reviews__rating rating"
-                  >
-                    <div
-                      className="reviews__stars rating__stars"
-                    >
-                      <span
-                        style={
-                          Object {
-                            "width": "80%",
-                          }
-                        }
-                      />
-                      <span
-                        className="visually-hidden"
-                      >
-                        Rating
-                      </span>
-                    </div>
-                  </div>
-                  <p
-                    className="reviews__text"
-                  >
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <time
-                    className="reviews__time"
-                    dateTime="2019-04-24"
-                  >
-                    April 2019
+                    May 2019
                   </time>
                 </div>
               </li>
             </ul>
-            <form
-              action="#"
-              className="reviews__form form"
-              method="post"
-            >
-              <label
-                className="reviews__label form__label"
-                htmlFor="review"
-              >
-                Your review
-              </label>
-              <div
-                className="reviews__rating-form form__rating"
-              >
-                <input
-                  className="form__rating-input visually-hidden"
-                  id="5-stars"
-                  name="rating"
-                  type="radio"
-                  value="5"
-                />
-                <label
-                  className="reviews__rating-label form__rating-label"
-                  htmlFor="5-stars"
-                  title="perfect"
-                >
-                  <svg
-                    className="form__star-image"
-                    height="33"
-                    width="37"
-                  >
-                    <use
-                      xlinkHref="#icon-star"
-                    />
-                  </svg>
-                </label>
-                <input
-                  className="form__rating-input visually-hidden"
-                  id="4-stars"
-                  name="rating"
-                  type="radio"
-                  value="4"
-                />
-                <label
-                  className="reviews__rating-label form__rating-label"
-                  htmlFor="4-stars"
-                  title="good"
-                >
-                  <svg
-                    className="form__star-image"
-                    height="33"
-                    width="37"
-                  >
-                    <use
-                      xlinkHref="#icon-star"
-                    />
-                  </svg>
-                </label>
-                <input
-                  className="form__rating-input visually-hidden"
-                  id="3-stars"
-                  name="rating"
-                  type="radio"
-                  value="3"
-                />
-                <label
-                  className="reviews__rating-label form__rating-label"
-                  htmlFor="3-stars"
-                  title="not bad"
-                >
-                  <svg
-                    className="form__star-image"
-                    height="33"
-                    width="37"
-                  >
-                    <use
-                      xlinkHref="#icon-star"
-                    />
-                  </svg>
-                </label>
-                <input
-                  className="form__rating-input visually-hidden"
-                  id="2-stars"
-                  name="rating"
-                  type="radio"
-                  value="2"
-                />
-                <label
-                  className="reviews__rating-label form__rating-label"
-                  htmlFor="2-stars"
-                  title="badly"
-                >
-                  <svg
-                    className="form__star-image"
-                    height="33"
-                    width="37"
-                  >
-                    <use
-                      xlinkHref="#icon-star"
-                    />
-                  </svg>
-                </label>
-                <input
-                  className="form__rating-input visually-hidden"
-                  id="1-star"
-                  name="rating"
-                  type="radio"
-                  value="1"
-                />
-                <label
-                  className="reviews__rating-label form__rating-label"
-                  htmlFor="1-star"
-                  title="terribly"
-                >
-                  <svg
-                    className="form__star-image"
-                    height="33"
-                    width="37"
-                  >
-                    <use
-                      xlinkHref="#icon-star"
-                    />
-                  </svg>
-                </label>
-              </div>
-              <textarea
-                className="reviews__textarea form__textarea"
-                id="review"
-                name="review"
-                placeholder="Tell how was your stay, what you like and what can be improved"
-              />
-              <div
-                className="reviews__button-wrapper"
-              >
-                <p
-                  className="reviews__help"
-                >
-                  To submit review please make sure to set 
-                  <span
-                    className="reviews__star"
-                  >
-                    rating
-                  </span>
-                   and describe your stay with at least 
-                  <b
-                    className="reviews__text-amount"
-                  >
-                    50 characters
-                  </b>
-                  .
-                </p>
-                <button
-                  className="reviews__submit form__submit button"
-                  disabled=""
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
           </section>
         </div>
       </div>
@@ -716,6 +397,8 @@ exports[`OfferCard component structure test 1`] = `
         >
           <article
             className="near-places__card place-card"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
           >
             <div
               className="near-places__image-wrapper place-card__image-wrapper"
@@ -727,7 +410,7 @@ exports[`OfferCard component structure test 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/room.jpg"
+                  src="./preview.jpg"
                   width="260"
                 />
               </a>
@@ -744,7 +427,8 @@ exports[`OfferCard component structure test 1`] = `
                   <b
                     className="place-card__price-value"
                   >
-                    €80
+                    €
+                    150
                   </b>
                   <span
                     className="place-card__price-text"
@@ -752,103 +436,10 @@ exports[`OfferCard component structure test 1`] = `
                     / night
                   </span>
                 </div>
-                <button
-                  className="place-card__bookmark-button place-card__bookmark-button--active button"
-                  type="button"
-                >
-                  <svg
-                    className="place-card__bookmark-icon"
-                    height="19"
-                    width="18"
-                  >
-                    <use
-                      xlinkHref="#icon-bookmark"
-                    />
-                  </svg>
-                  <span
-                    className="visually-hidden"
-                  >
-                    In bookmarks
-                  </span>
-                </button>
-              </div>
-              <div
-                className="place-card__rating rating"
-              >
-                <div
-                  className="place-card__stars rating__stars"
-                >
-                  <span
-                    style={
-                      Object {
-                        "width": "80%",
-                      }
-                    }
-                  />
-                  <span
-                    className="visually-hidden"
-                  >
-                    Rating
-                  </span>
-                </div>
-              </div>
-              <h2
-                className="place-card__name"
-              >
                 <a
-                  href="#"
-                >
-                  Wood and stone place
-                </a>
-              </h2>
-              <p
-                className="place-card__type"
-              >
-                Private room
-              </p>
-            </div>
-          </article>
-          <article
-            className="near-places__card place-card"
-          >
-            <div
-              className="near-places__image-wrapper place-card__image-wrapper"
-            >
-              <a
-                href="#"
-              >
-                <img
-                  alt="Place image"
-                  className="place-card__image"
-                  height="200"
-                  src="img/apartment-02.jpg"
-                  width="260"
-                />
-              </a>
-            </div>
-            <div
-              className="place-card__info"
-            >
-              <div
-                className="place-card__price-wrapper"
-              >
-                <div
-                  className="place-card__price"
-                >
-                  <b
-                    className="place-card__price-value"
-                  >
-                    €132
-                  </b>
-                  <span
-                    className="place-card__price-text"
-                  >
-                    / night
-                  </span>
-                </div>
-                <button
-                  className="place-card__bookmark-button button"
-                  type="button"
+                  className="place-card__bookmark-button button place-card__bookmark-button--active"
+                  href="/login"
+                  onClick={[Function]}
                 >
                   <svg
                     className="place-card__bookmark-icon"
@@ -864,7 +455,7 @@ exports[`OfferCard component structure test 1`] = `
                   >
                     To bookmarks
                   </span>
-                </button>
+                </a>
               </div>
               <div
                 className="place-card__rating rating"
@@ -890,109 +481,16 @@ exports[`OfferCard component structure test 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="#"
+                  href="/offer/2"
+                  onClick={[Function]}
                 >
-                  Canal View Prinsengracht
+                  Light room
                 </a>
               </h2>
               <p
                 className="place-card__type"
               >
-                Apartment
-              </p>
-            </div>
-          </article>
-          <article
-            className="near-places__card place-card"
-          >
-            <div
-              className="near-places__image-wrapper place-card__image-wrapper"
-            >
-              <a
-                href="#"
-              >
-                <img
-                  alt="Place image"
-                  className="place-card__image"
-                  height="200"
-                  src="img/apartment-03.jpg"
-                  width="260"
-                />
-              </a>
-            </div>
-            <div
-              className="place-card__info"
-            >
-              <div
-                className="place-card__price-wrapper"
-              >
-                <div
-                  className="place-card__price"
-                >
-                  <b
-                    className="place-card__price-value"
-                  >
-                    €180
-                  </b>
-                  <span
-                    className="place-card__price-text"
-                  >
-                    / night
-                  </span>
-                </div>
-                <button
-                  className="place-card__bookmark-button button"
-                  type="button"
-                >
-                  <svg
-                    className="place-card__bookmark-icon"
-                    height="19"
-                    width="18"
-                  >
-                    <use
-                      xlinkHref="#icon-bookmark"
-                    />
-                  </svg>
-                  <span
-                    className="visually-hidden"
-                  >
-                    To bookmarks
-                  </span>
-                </button>
-              </div>
-              <div
-                className="place-card__rating rating"
-              >
-                <div
-                  className="place-card__stars rating__stars"
-                >
-                  <span
-                    style={
-                      Object {
-                        "width": "80%",
-                      }
-                    }
-                  />
-                  <span
-                    className="visually-hidden"
-                  >
-                    Rating
-                  </span>
-                </div>
-              </div>
-              <h2
-                className="place-card__name"
-              >
-                <a
-                  href="#"
-                >
-                  Nice, cozy, warm big bed apartment
-                </a>
-              </h2>
-              <p
-                className="place-card__type"
-              >
-                Apartment
+                room
               </p>
             </div>
           </article>

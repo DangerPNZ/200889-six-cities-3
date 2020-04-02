@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorMessage component structure test 1`] = `
+<section
+  className="error-message"
+>
+  <div
+    className="error-message__header"
+  >
+    <div
+      className="error-message__header-text"
+    >
+      Error: 
+      Test error. This heading
+    </div>
+    <div
+      className="error-message__close-btn"
+      onClick={[Function]}
+    />
+  </div>
+  <div
+    className="error-message__inner-container"
+  >
+    <div
+      className="error-message__error-text"
+    >
+      Test error. This discription.
+    </div>
+  </div>
+</section>
+`;
