@@ -47,81 +47,81 @@ const getCSSClassToElementByRenderMode = (renderMode, elementType) => {
   }
   return cls;
 };
-const OfferCardComponent = ({renderMode, offer, onOfferMouseInteract, onFavoriteStatusToggle, selectedOfferId, authorizationStatus}) => {
-  return (
-    <article
-      className={getCSSClassToElementByRenderMode(renderMode, ElementType.CONTAINER)}
-      onMouseEnter={
-        () => {
-          if (onOfferMouseInteract) {
-            onOfferMouseInteract(offer.id);
-          }
-        }
-      }
-      onMouseLeave={
-        () => {
-          if (onOfferMouseInteract) {
-            onOfferMouseInteract(null);
-          }
-        }
-      }
-    >
-      {offer.premium && <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
-      }
-      <div className={getCSSClassToElementByRenderMode(renderMode, ElementType.IMAGE_WRAPPER)}>
-        <a href="#">
-          <img className="place-card__image" src={offer.previewImage} width={renderMode === CardRenderMode.FAVORITE ? `150` : `260`} height={renderMode === CardRenderMode.FAVORITE ? `110` : `200`} alt="Place image"/>
-        </a>
-      </div>
-      <div className={getCSSClassToElementByRenderMode(renderMode, ElementType.INFO)}>
-        <div className="place-card__price-wrapper">
-          <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{offer.price}</b>
-            <span className="place-card__price-text">&#47;&nbsp;night</span>
-          </div>
-          {
-            authorizationStatus === AuthorizationStatus.AUTHORIZED && <button className={`place-card__bookmark-button button${offer.isFavorites ? ` place-card__bookmark-button--active` : ``}`} onClick={() => onFavoriteStatusToggle(offer, selectedOfferId)} type="button">
-              <svg className="place-card__bookmark-icon" width="18" height="19">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
-          }
-          {
-            authorizationStatus === AuthorizationStatus.NO_AUTH && <Link onClick={() => {
-              if (onOfferMouseInteract) {
-                onOfferMouseInteract(null);
-              }
-            }} to={PagePath.LOGIN} className={`place-card__bookmark-button button${offer.isFavorites ? ` place-card__bookmark-button--active` : ``}`}>
-              <svg className="place-card__bookmark-icon" width="18" height="19">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </Link>
-          }
-        </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={getStyleForRating(offer.rating)}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
-        <h2 className="place-card__name">
-          <Link onClick={() => {
-            if (onOfferMouseInteract) {
-              onOfferMouseInteract(null);
-            }
-          }} to={`${PagePath.OFFER}${offer.id}`}>{offer.name}</Link>
-        </h2>
-        <p className="place-card__type">{offer.type}</p>
-      </div>
-    </article>
-  );
-};
 
-OfferCardComponent.propTypes = {
+class OfferCard extends React.PureComponent {
+  componentWillUnmount() {
+    if (this.props.onOfferMouseInteract) {
+      this.props.onOfferMouseInteract(null);
+    }
+  }
+  render() {
+    return (
+      <article
+        className={getCSSClassToElementByRenderMode(this.props.renderMode, ElementType.CONTAINER)}
+        onMouseEnter={
+          () => {
+            if (this.props.onOfferMouseInteract) {
+              this.props.onOfferMouseInteract(this.props.offer.id);
+            }
+          }
+        }
+        onMouseLeave={
+          () => {
+            if (this.props.onOfferMouseInteract) {
+              this.props.onOfferMouseInteract(null);
+            }
+          }
+        }
+      >
+        {this.props.offer.premium && <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+        }
+        <div className={getCSSClassToElementByRenderMode(this.props.renderMode, ElementType.IMAGE_WRAPPER)}>
+          <a href="#">
+            <img className="place-card__image" src={this.props.offer.previewImage} width={this.props.renderMode === CardRenderMode.FAVORITE ? `150` : `260`} height={this.props.renderMode === CardRenderMode.FAVORITE ? `110` : `200`} alt="Place image"/>
+          </a>
+        </div>
+        <div className={getCSSClassToElementByRenderMode(this.props.renderMode, ElementType.INFO)}>
+          <div className="place-card__price-wrapper">
+            <div className="place-card__price">
+              <b className="place-card__price-value">&euro;{this.props.offer.price}</b>
+              <span className="place-card__price-text">&#47;&nbsp;night</span>
+            </div>
+            {
+              this.props.authorizationStatus === AuthorizationStatus.AUTHORIZED && <button className={`place-card__bookmark-button button${this.props.offer.isFavorites ? ` place-card__bookmark-button--active` : ``}`} onClick={() => this.props.onFavoriteStatusToggle(this.props.offer, this.props.selectedOfferId)} type="button">
+                <svg className="place-card__bookmark-icon" width="18" height="19">
+                  <use xlinkHref="#icon-bookmark"></use>
+                </svg>
+                <span className="visually-hidden">To bookmarks</span>
+              </button>
+            }
+            {
+              this.props.authorizationStatus === AuthorizationStatus.NO_AUTH && <Link to={PagePath.LOGIN} className={`place-card__bookmark-button button${this.props.offer.isFavorites ? ` place-card__bookmark-button--active` : ``}`}>
+                <svg className="place-card__bookmark-icon" width="18" height="19">
+                  <use xlinkHref="#icon-bookmark"></use>
+                </svg>
+                <span className="visually-hidden">To bookmarks</span>
+              </Link>
+            }
+          </div>
+          <div className="place-card__rating rating">
+            <div className="place-card__stars rating__stars">
+              <span style={getStyleForRating(this.props.offer.rating)}></span>
+              <span className="visually-hidden">Rating</span>
+            </div>
+          </div>
+          <h2 className="place-card__name">
+            <Link to={`${PagePath.OFFER}${this.props.offer.id}`}>{this.props.offer.name}</Link>
+          </h2>
+          <p className="place-card__type">{this.props.offer.type}</p>
+        </div>
+      </article>
+    );
+  }
+}
+
+OfferCard.propTypes = {
   offer: PropTypes.exact({
     city: PropTypes.exact({
       name: PropTypes.string.isRequired,
@@ -164,4 +164,4 @@ OfferCardComponent.propTypes = {
   authorizationStatus: PropTypes.string.isRequired
 };
 
-export const OfferCard = React.memo(OfferCardComponent);
+export {OfferCard};
